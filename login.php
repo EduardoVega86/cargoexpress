@@ -144,7 +144,8 @@ foreach ($login->messages as $message) {
                         </form> 
                     </div>
                     <div class="signup-image">
-                        <figure><img src="images/signup-image.png" alt="sing up image"></figure>
+                    
+                        <figure><img src="images/cargo.jpg" alt="sing up image"></figure>
                         <a href="register" class="signup-image-link">Registrarme</a>
                     </div>
                 </div>
