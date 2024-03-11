@@ -1,15 +1,13 @@
 <?php
 /*-------------------------
-Autor: Delmar Lopez
-Web: softwys.com
-Mail: softwysop@gmail.com
+Autor: Eduardo Vega
 ---------------------------*/
 session_start();
 if (!isset($_SESSION['user_login_status']) and $_SESSION['user_login_status'] != 1) {
     header("location: ../../login.php");
     exit;
 }
-
+ 
 /* Connect To Database*/
 require_once "../db.php"; //Contiene las variables de configuracion para conectar a la base de datos
 require_once "../php_conexion.php"; //Contiene funcion que conecta a la base de datos
@@ -21,6 +19,7 @@ $modulo = "Configuracion";
 permisos($modulo, $cadena_permisos);
 $query_empresa = mysqli_query($conexion, "select * from perfil where id_perfil=1");
 $row           = mysqli_fetch_array($query_empresa);
+
 ?>
 <?php require 'includes/header_start.php';?>
 
@@ -58,7 +57,7 @@ $row           = mysqli_fetch_array($query_empresa);
 						<div id="bg-primary" class="panel-collapse collapse show">
 							<div class="portlet-body">
 
-							<form class="form-horizontal" role="form" id="perfil">
+							<form class="form-horizontal" role="form" id="perfil" enctype="multipart/form-data">
 								<div class="row">
 									<div class="col-md-3">
 										<div align="center">
@@ -101,6 +100,25 @@ $row           = mysqli_fetch_array($query_empresa);
 													<label for="inputEmail3" class="col-sm-3 col-form-label">Email:</label>
 													<div class="col-sm-9">
 														<input type="email" class="form-control" name="email" value="<?php echo $row['email'] ?>" autocomplete="off" >
+													</div>
+												</div>
+                                                                                    <div class="form-group row">
+													<label for="inputEmail3" class="col-sm-3 col-form-label">País:</label>
+													<div class="col-sm-9">
+														<select name="pais"  class="form-control UpperCase">
+															<?php if($row["pais"] === '1'){
+																	?>
+																	<option value="1" selected>ECUADOR</option>
+																	<option value="2">PERÚ</option>
+																	<?php
+																}else{
+																	?>
+																	<option value="1">ECUADOR</option>
+																	<option value="2" selected>PERÚ</option>
+																	<?php
+																}
+															?>
+														</select>
 													</div>
 												</div>
 												<div class="form-group row">
@@ -162,7 +180,224 @@ $sql   = "select name, symbol from  currencies group by symbol order by name ";
 														<input type="text" class="form-control UpperCase" name="codigo_postal" value="<?php echo $row["codigo_postal"]; ?>" autocomplete="off">
 													</div>
 												</div>
-
+												<div class="form-group row">
+													<label for="ambiente" class="col-sm-3 col-form-label">Ambiente:</label>
+													<div class="col-sm-9">
+														<select name="ambiente" id="ambiente" class="form-control UpperCase">
+															<?php if($row["ambiente"] === '1'){
+																	?>
+																	<option value="1" selected>PRUEBAS</option>
+																	<option value="2">PRODUCCI&Oacute;N</option>
+																	<?php
+																}else{
+																	?>
+																	<option value="1">PRUEBAS</option>
+																	<option value="2" selected>PRODUCCI&Oacute;N</option>
+																	<?php
+																}
+															?>
+														</select>
+													</div>
+												</div>
+												<div class="form-group row">
+													<label for="tipoEmision" class="col-sm-3 col-form-label">Tipo de Emisi&oacute;n:</label>
+													<div class="col-sm-9">
+														<select name="tipoEmision"  class="form-control UpperCase">
+															<?php if($row["ambiente"] === '1'){
+																	?>
+																	<option value="1" selected>NORMAL</option>
+																	<option value="2">Indisponibilidad SRI</option>
+																	<?php
+																}else{
+																	?>
+																	<option value="1">NORMAL</option>
+																	<option value="2" selected>Indisponibilidad SRI</option>
+																	<?php
+																}
+															?>
+														</select>
+													</div>
+												</div>
+												<div class="form-group row">
+													<label for="codigo_establecimiento" class="col-sm-3 col-form-label">Codigo Establecimiento:</label>
+													<div class="col-sm-9">
+														<input type="text" class="form-control UpperCase" name="codigo_establecimiento" value="<?php echo $row["codigo_establecimiento"]; ?>" autocomplete="off">
+													</div>
+												</div>
+												<div class="form-group row">
+													<label for="codigo_punto_emision" class="col-sm-3 col-form-label">Codigo Punto de Emisi&oacute;n:</label>
+													<div class="col-sm-9">
+														<input type="text" class="form-control UpperCase" name="codigo_punto_emision" value="<?php echo $row["codigo_punto_emision"]; ?>" autocomplete="off">
+													</div>
+												</div>
+												<div class="form-group row">
+													<label for="ruc" class="col-sm-3 col-form-label">RUC:</label>
+													<div class="col-sm-9">
+														<input type="text" class="form-control UpperCase" name="ruc" value="<?php echo $row["ruc"]; ?>" autocomplete="off">
+													</div>
+												</div>
+												<div class="form-group row">
+													<label for="firma" class="col-sm-3 col-form-label">Firma:</label>
+													<div class="col-sm-9">
+														<input type="file" class="form-control UpperCase" name="firma" value="<?php echo $row["firma"]; ?>" autocomplete="off">
+													</div>
+												</div>
+												<div class="form-group row">
+													<label for="passFirna" class="col-sm-3 col-form-label">Contrase&ntilde;a:</label>
+													<div class="col-sm-9">
+														<input type="password" class="form-control UpperCase" name="passFirna" value="<?php echo $row["passFirma"]; ?>" autocomplete="off">
+													</div>
+												</div>
+												<div class="form-group row">
+													<label for="secuencialfactura" class="col-sm-3 col-form-label">Secuencial Factura:</label>
+													<div class="col-sm-9">
+														<input type="text" class="form-control UpperCase" name="secuencialfactura" value="<?php echo $row["secuencialfactura"]; ?>" autocomplete="off">
+													</div>
+												</div>
+												<div class="form-group row">
+													<label for="secuencialliquidacion" class="col-sm-3 col-form-label">Secuencial Liquidaci&oacute;n Compra:</label>
+													<div class="col-sm-9">
+														<input type="text" class="form-control UpperCase" name="secuencialliquidacion" value="<?php echo $row["secuencialliquidacion"]; ?>" autocomplete="off">
+													</div>
+												</div>
+												<div class="form-group row">
+													<label for="secuencialcredito" class="col-sm-3 col-form-label">Secuencial Nota Cr&eacute;dito:</label>
+													<div class="col-sm-9">
+														<input type="text" class="form-control UpperCase" name="secuencialcredito" value="<?php echo $row["secuencialcredito"]; ?>" autocomplete="off">
+													</div>
+												</div>
+												<div class="form-group row">
+													<label for="secuencialdebito" class="col-sm-3 col-form-label">Secuencial Nota D&eacute;bito:</label>
+													<div class="col-sm-9">
+														<input type="text" class="form-control UpperCase" name="secuencialdebito" value="<?php echo $row["secuencialdebito"]; ?>" autocomplete="off">
+													</div>
+												</div>
+												<div class="form-group row">
+													<label for="secuencialguia" class="col-sm-3 col-form-label">Secuencial Gu&iacute;a:</label>
+													<div class="col-sm-9">
+														<input type="text" class="form-control UpperCase" name="secuencialguia" value="<?php echo $row["secuencialguia"]; ?>" autocomplete="off">
+													</div>
+												</div>
+												<div class="form-group row">
+													<label for="secuencialretencion" class="col-sm-3 col-form-label">Secuencial Retenci&oacute;n:</label>
+													<div class="col-sm-9">
+														<input type="text" class="form-control UpperCase" name="secuencialretencion" value="<?php echo $row["secuencialretencion"]; ?>" autocomplete="off">
+													</div>
+												</div>
+												<div class="form-group row">
+													<label for="autofactura" class="col-sm-3 col-form-label">Envio Automatico SRI Factura:</label>
+													<div class="col-sm-9">
+														<select name="autofactura"  class="form-control UpperCase">
+															<?php if($row["autofactura"] === '1'){
+																	?>
+																	<option value="1" selected>SI</option>
+																	<option value="0">NO</option>
+																	<?php
+																}else{
+																	?>
+																	<option value="1">SI</option>
+																	<option value="0" selected>NO</option>
+																	<?php
+																}
+															?>
+														</select>
+													</div>
+												</div>		
+												<div class="form-group row">
+													<label for="autoliquidacion" class="col-sm-3 col-form-label">Envio Automatico SRI Liquidaci&oacute;n Compra:</label>
+													<div class="col-sm-9">
+														<select name="autoliquidacion"  class="form-control UpperCase">
+															<?php if($row["autoliquidacion"] === '1'){
+																	?>
+																	<option value="1" selected>SI</option>
+																	<option value="0">NO</option>
+																	<?php
+																}else{
+																	?>
+																	<option value="1">SI</option>
+																	<option value="0" selected>NO</option>
+																	<?php
+																}
+															?>
+														</select>
+													</div>
+												</div>
+												<div class="form-group row">
+													<label for="autocredito" class="col-sm-3 col-form-label">Envio Automatico SRI Nota Cr&eacute;dito:</label>
+													<div class="col-sm-9">
+														<select name="autocredito"  class="form-control UpperCase">
+															<?php if($row["autocredito"] === '1'){
+																	?>
+																	<option value="1" selected>SI</option>
+																	<option value="0">NO</option>
+																	<?php
+																}else{
+																	?>
+																	<option value="1">SI</option>
+																	<option value="0" selected>NO</option>
+																	<?php
+																}
+															?>
+														</select>
+													</div>
+												</div>		
+												<div class="form-group row">
+													<label for="autodebito" class="col-sm-3 col-form-label">Envio Automatico SRI Nota D&eacute;bito:</label>
+													<div class="col-sm-9">
+														<select name="autodebito"  class="form-control UpperCase">
+															<?php if($row["autodebito"] === '1'){
+																	?>
+																	<option value="1" selected>SI</option>
+																	<option value="0">NO</option>
+																	<?php
+																}else{
+																	?>
+																	<option value="1">SI</option>
+																	<option value="0" selected>NO</option>
+																	<?php
+																}
+															?>
+														</select>
+													</div>
+												</div>		
+												<div class="form-group row">
+													<label for="autoguia" class="col-sm-3 col-form-label">Envio Automatico SRI Guia:</label>
+													<div class="col-sm-9">
+														<select name="autoguia"  class="form-control UpperCase">
+															<?php if($row["autoguia"] === '1'){
+																	?>
+																	<option value="1" selected>SI</option>
+																	<option value="0">NO</option>
+																	<?php
+																}else{
+																	?>
+																	<option value="1">SI</option>
+																	<option value="0" selected>NO</option>
+																	<?php
+																}
+															?>
+														</select>
+													</div>
+												</div>		
+												<div class="form-group row">
+													<label for="autoretencion" class="col-sm-3 col-form-label">Envio Automatico SRI Retenci&oacute;n:</label>
+													<div class="col-sm-9">
+														<select name="autoretencion"  class="form-control UpperCase">
+															<?php if($row["autoretencion"] === '1'){
+																	?>
+																	<option value="1" selected>SI</option>
+																	<option value="0">NO</option>
+																	<?php
+																}else{
+																	?>
+																	<option value="1">SI</option>
+																	<option value="0" selected>NO</option>
+																	<?php
+																}
+															?>
+														</select>
+													</div>
+												</div>
 												<div class='col-md-12' id="resultados_ajax"></div><!-- Carga los datos ajax -->
 
 
@@ -229,12 +464,27 @@ $sql   = "select name, symbol from  currencies group by symbol order by name ";
 <script>
   $( "#perfil" ).submit(function( event ) {
     $('.guardar_datos').attr("disabled", true);
+	
+	var data = new FormData();
+	var form_data = $(this).serializeArray();
+	var file_data = $('input[name="firma"]')[0].files;
+	for (var i = 0; i < file_data.length; i++) {
+    	form_data.push({name: 'firma', value: file_data[i]});
+	}
 
-    var parametros = $(this).serialize();
+	$.each(form_data, function (key, input) {
+    	data.append(input.name, input.value);
+	});
+
+    var parametros = data;
+	//alert(parametros)
+	//console.log(parametros);
     $.ajax({
       type: "POST",
       url: "../ajax/editar_perfil.php",
       data: parametros,
+      contentType: false, 
+      processData: false,
       beforeSend: function(objeto){
         $("#resultados_ajax").html('<img src="../../img/ajax-loader.gif"> Cargando...');
       },
@@ -247,7 +497,10 @@ $sql   = "select name, symbol from  currencies group by symbol order by name ";
                   $(this).remove();
                 });
               }); // /.alert
-
+		
+        setTimeout(function(){
+			location.reload();
+		}, 2000);
       }
     });
     event.preventDefault();
@@ -269,7 +522,7 @@ $sql   = "select name, symbol from  currencies group by symbol order by name ";
       data.append('imagefile',file);
 
 
-      $.ajax({
+      	$.ajax({
             url: "../ajax/imagen_ajax.php",        // Url to which the request is send
             type: "POST",             // Type of request to be send, called as method
             data: data,         // Data sent to server, a set of key/value pairs (i.e. form fields and values)
@@ -279,9 +532,9 @@ $sql   = "select name, symbol from  currencies group by symbol order by name ";
             success: function(data)   // A function to be called if request succeeds
             {
               $("#load_img").html(data);
-
+                    
             }
-          });
+        });
     }
 
 

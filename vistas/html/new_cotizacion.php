@@ -18,6 +18,7 @@ permisos($modulo, $cadena_permisos);
 //Finaliza Control de Permisos
 $title          = "Ventas";
 $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
+$pais= get_row('perfil', 'pais', 'id_perfil', 1);
 ?>
 
 <?php require 'includes/header_start.php';?>
@@ -41,7 +42,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 						<div class="portlet">
 							<div class="portlet-heading bg-primary">
 								<h3 class="portlet-title">
-									Nueva Cotización
+									Nuevo Pedido
 								</h3>
 								<div class="portlet-widgets">
 									<a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
@@ -60,115 +61,52 @@ include "../modal/buscar_productos_ventas.php";
     include "../modal/registro_producto.php";
     ?>
 									<div class="row">
-										<div class="col-lg-8">
-											<div class="card-box">
-
+                                                                            <?php
+                                                                            $sql_productos="SELECT *
+                                                                                FROM users where cargo_users=7;";
+    
+//echo $sql_productos;
+     
+    
+    $sql_producto_tienda=mysqli_query($conexion,$sql_productos);
+    
+    if ($sql_producto_tienda) {
+        
+    while ($row_tienda = mysqli_fetch_assoc($sql_producto_tienda)) {
+        
+    $empresa        = $row_tienda["apellido_users"];
+    $user        = $row_tienda["id_users"];
+   
+      // echo $tienda;
+   
+                                                                            ?>
+										<div class="col-lg-2">
+											<div style="background-color: #222854; color: white; font-size: 20px" class="card-box">
+                                                                                            <a style="color: white" id="" href="nuevo_pedido.php?id=<?php echo $user;?>" >
 												<div class="widget-chart">
-													<div id="resultados_ajaxf" class='col-md-12' style="margin-top:10px"></div><!-- Carga los datos ajax -->
-													<form class="form-horizontal" role="form" id="barcode_form">
-														<div class="form-group row">
-															<label for="barcode_qty" class="col-md-1 control-label">Cant:</label>
-															<div class="col-md-2">
-																<input type="text" class="form-control" id="barcode_qty" value="1" autocomplete="off">
-															</div>
-
-															<label for="condiciones" class="control-label">Codigo:</label>
-															<div class="col-md-5" align="left">
-																<div class="input-group">
-																	<input type="text" class="form-control" id="barcode" autocomplete="off"  tabindex="1" autofocus="true" >
-																	<span class="input-group-btn">
-																		<button type="submit" class="btn btn-default"><span class="fa fa-barcode"></span></button>
-																	</span>
-																</div>
-															</div>
-															<div class="col-md-2">
-																<button type="button" accesskey="a" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#buscar">
-																	<span class="fa fa-search"></span> Buscar
-																</button>
-															</div>
-														</div>
-													</form>
-
-													<div id="resultados" class='col-md-12' style="margin-top:10px"></div><!-- Carga los datos ajax -->
+												
+                                                                                                    <!--img width="100px" src="../../img_sistema/logo_tienda.png" alt=""/-->
+													
+<?php 
+                                                                           
+                                                                               
+                                                                          echo $empresa?>
+													
 
 												</div>
+                                                                                                </a>
 											</div>
 
 										</div>
+                                                                          
+                                                                             <?php 
+                                                                           
+                                                                               
+                                                                           }}?>
+                                                                            
+                                                                          
 
-										<div class="col-lg-4">
-											<div class="card-box">
-												<div class="widget-chart">
-													<form role="form" id="datos_factura">
-														<div class="form-group row">
-															<label class="col-2 col-form-label"></label>
-															<div class="col-12">
-																<div class="input-group">
-																	<input type="text" id="nombre_cliente" class="form-control" placeholder="Buscar Cliente" required  tabindex="2">
-																	<span class="input-group-btn">
-																		<button type="button" class="btn waves-effect waves-light btn-success" data-toggle="modal" data-target="#nuevoCliente"><li class="fa fa-plus"></li></button>
-																	</span>
-																	<input id="id_cliente" name="id_cliente" type='hidden'>
-																</div>
-															</div>
-														</div>
-														<div class="row">
-															<div class="col-md-12">
-																<div class="form-group">
-																	<label for="email">Email</label>
-																	<input type="text" class="form-control" autocomplete="off" id="em" disabled="true">
-																</div>
-															</div>
-														</div>
-														<div class="row">
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label for="fiscal">RNC/Cedula</label>
-																	<input type="text" class="form-control" autocomplete="off" id="tel1" disabled="true">
-																</div>
-															</div>
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label for="fiscal">No. Cotizacón</label>
-																	<div id="f_resultado"></div><!-- Carga los datos ajax del incremento de la fatura -->
-																</div>
-															</div>
-														</div>
-
-														<div class="row">
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label for="condiciones">Pago</label>
-																	<select class="form-control input-sm condiciones" id="condiciones" name="condiciones" onchange="showDiv(this)">
-																		<option value="1">Contado</option>
-																		<option value="4">Crédito</option>
-																	</select>
-																</div>
-															</div>
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label for="validez">Validez</label>
-																	<select class="form-control" id="validez" name="validez">
-																		<option value="1">5 días</option>
-																		<option value="2">10 días</option>
-																		<option value="3">15 días</option>
-																		<option value="4">30 días</option>
-																		<option value="5">60 días</option>
-
-																	</select>
-																</div>
-															</div>
-														</div>
-
-														<div class="col-md-12" align="center">
-															<button type="submit" id="guardar_factura" class="btn btn-danger btn-block btn-lg waves-effect waves-light" aria-haspopup="true" aria-expanded="false"><span class="fa fa-save"></span> Guardar</button>
-														</div>
-													</form>
-
-												</div>
-											</div>
-
-										</div>
+										
 
 									</div>
 									<!-- end row -->
@@ -289,6 +227,8 @@ function printFactura(id_factura) {
 			$("#resultados3").load("../ajax/carga_resibido.php");
 		}
 	}
+        
+       
 </script>
 
 <?php require 'includes/footer_end.php'

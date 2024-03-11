@@ -13,7 +13,7 @@
 	<!-- librerias para la busqueda de de autocomplete -->
 	<link type="text/css" href="../../js/jquery-ui.css" rel="stylesheet"  />
 
-	<title>Facturacón V.3</title>
+	<title>Cargo Express</title>
 
 	<!-- Sweet Alert css -->
 	<link href="../../assets/plugins/switchery/switchery.min.css" rel="stylesheet" />

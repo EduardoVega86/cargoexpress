@@ -19,13 +19,14 @@ $title          = "Clientes";
 $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 if (isset($_GET['numero_factura'])) {
     $numero_factura = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['numero_factura'], ENT_QUOTES)));
-    $sql_abono      = mysqli_query($conexion, "select * from creditos_abonos, clientes where creditos_abonos.numero_factura='$numero_factura' and creditos_abonos.id_cliente=clientes.id_cliente");
+    echo "select * from creditos_abonos where creditos_abonos.numero_factura='$numero_factura' ";
+    $sql_abono      = mysqli_query($conexion, "select * from creditos_abonos where creditos_abonos.numero_factura='$numero_factura' ");
     $count          = mysqli_num_rows($sql_abono);
     if ($count > 0) {
         $rw                         = mysqli_fetch_array($sql_abono);
         $_SESSION['numero_factura'] = $numero_factura;
     } else {
-        header("location: ../html/cxc.php");
+        //header("location: ../html/cxc.php");
         exit;
     }
 } else {
@@ -80,7 +81,7 @@ include "../modal/agregar_abono.php";
 														<i class="ti-user text-purple"></i>
 													</div>
 													<div class="text-right">
-													<h5 class="text-dark"><b class="counter"><?php echo $rw['nombre_cliente']; ?></b></h5>
+                                                                                                            <h5 class="text-dark"><b class="counter"><?php echo get_row('users', 'apellido_users', 'id_users', $rw['id_cliente']); ?></b></h5>
 														<a class='btn btn-primary waves-effect waves-light btn-sm m-b-5' href="cxc.php" title="Regresar a los Créditos"><i class="fa fa-reply"></i> Regresar
 														</a>
 													</div>
