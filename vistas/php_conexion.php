@@ -7,9 +7,9 @@ if (!$conexion) {
 if (@mysqli_connect_errno()) {
     die("Conexión falló: " . mysqli_connect_errno() . " : " . mysqli_connect_error());
 }
-date_default_timezone_set('America/Guayaquil');
-mysqli_query($conexion, 'SET NAMES utf8');
-//mysqli_query($conexion, 'SET CHARACTER_SET utf');
+date_default_timezone_set("America/Guayaquil");
+mysqli_query($conexion, "SET NAMES utf8");
+mysqli_query($conexion, "SET CHARACTER_SET utf");
 
 function limpiar($tags)
 {

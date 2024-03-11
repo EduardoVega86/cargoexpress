@@ -15,13 +15,13 @@ if (isset($conexion)) {
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="firstname" class="control-label">Nombres:</label>
+									<label for="firstname" class="control-label">Nombres Empresa:</label>
 									<input type="text" class="form-control UpperCase" id="firstname" name="firstname" required>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="lastname" class="control-label">Apellidos:</label>
+									<label for="lastname" class="control-label">Razon Social:</label>
 									<input type="text" class="form-control UpperCase" id="lastname" name="lastname" required>
 								</div>
 							</div>
@@ -36,47 +36,13 @@ if (isset($conexion)) {
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="user_group_id" class="control-label">Grupo de permisos</label>
-									<select class="form-control" name="user_group_id" id="user_group_id">
-										<?php
-$sql_grupos   = "select * from user_group";
-    $query_grupos = mysqli_query($conexion, $sql_grupos);
-    while ($rw_grupos = mysqli_fetch_array($query_grupos)) {
-        ?>
-											<option value="<?php echo $rw_grupos['user_group_id']; ?>"><?php echo $rw_grupos['name']; ?></option>
-											<?php
-}
-    ?>
-									</select>
-								</div>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
 									<label for="user_email" class="control-label">Email:</label>
 									<input type="email" class="form-control" id="user_email" name="user_email">
 								</div>
 							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="sucursal" class="control-label">Sucursal:</label>
-									<select class="form-control" name="sucursal" id="sucursal">
-									<option value="">-- Selecciona --</option>
-										<?php
-$sql_sucursal   = "select * from sucursales";
-    $query_sucursal = mysqli_query($conexion, $sql_sucursal);
-    while ($rw_sucursal = mysqli_fetch_array($query_sucursal)) {
-        ?>
-											<option value="<?php echo $rw_sucursal['id_sucursal']; ?>"><?php echo $rw_sucursal['nombre_sucursal']; ?></option>
-											<?php
-}
-    ?>
-									</select>
-								</div>
-							</div>
 						</div>
+
+						
 
 						<div class="row">
 							<div class="col-md-6">
