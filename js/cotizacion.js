@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $("#resultados").load("../ajax/agregar_tmp_cot.php");
+    $("#resultados").load("../ajax/agregar_tmp_modalcot.php");
     $("#f_resultado").load("../ajax/incrementa_fact_cot.php");
     $("#datos_factura").load();
     $("#barcode").focus();
@@ -21,33 +21,7 @@ function load(page) {
     })
 }
 
-function agregar(id) {
-    var precio_venta = document.getElementById('precio_venta_' + id).value;
-    var cantidad = document.getElementById('cantidad_' + id).value;
-    //Inicia validacion
-    if (isNaN(cantidad)) {
-        $.Notification.notify('error', 'bottom center', 'NOTIFICACIÓN', 'LA CANTIDAD NO ES UN NUMERO, INTENTAR DE NUEVO')
-        document.getElementById('cantidad_' + id).focus();
-        return false;
-    }
-    if (isNaN(precio_venta)) {
-        $.Notification.notify('error', 'bottom center', 'NOTIFICACIÓN', 'EL PRECIO NO ES UN NUMERO, INTENTAR DE NUEVO')
-        document.getElementById('precio_venta_' + id).focus();
-        return false;
-    }
-    //Fin validacion
-    $.ajax({
-        type: "POST",
-        url: "../ajax/agregar_tmp_modalcot.php",
-        data: "id=" + id + "&precio_venta=" + precio_venta + "&cantidad=" + cantidad + "&operacion=" + 2,
-        beforeSend: function(objeto) {
-            $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
-        },
-        success: function(datos) {
-            $("#resultados").html(datos);
-        }
-    });
-}
+
 //CONTROLA EL FORMULARIO DEL CODIGO DE BARRA
 $("#barcode_form").submit(function(event) {
     var id = $("#barcode").val();
@@ -87,13 +61,20 @@ $("#barcode_form").submit(function(event) {
 function eliminar(id) {
     $.ajax({
         type: "GET",
-        url: "../ajax/agregar_tmp_cot.php",
+        url: "../ajax/agregar_tmp_modalcot.php",
         data: "id=" + id,
         beforeSend: function(objeto) {
             $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
         },
         success: function(datos) {
             $("#resultados").html(datos);
+             Swal.fire({
+                    title: "Item eliminado!",
+                    icon: "error",
+                    confirmButtonText: "¡Aceptar!",
+                  }).then(() => {
+                    window.location.reload();
+                  });
         }
     });
 }
