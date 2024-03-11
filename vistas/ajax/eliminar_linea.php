@@ -1,7 +1,6 @@
 <?php
 /*-----------------------
-Autor: Delmar Lopez
-http://www.softwys.com
+Autor: Eduardo Vega
 ----------------------------*/
 include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 /* Connect To Database*/

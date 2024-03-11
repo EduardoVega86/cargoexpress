@@ -1,8 +1,6 @@
 <?php
 /*-------------------------
-Autor: Delmar Lopez
-Web: www.softwys.com
-Mail: softwysop@gmail.com
+Autor: Eduardo Vega
 ---------------------------*/
 include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 $session_id = session_id();
@@ -11,27 +9,56 @@ require_once "../db.php";
 require_once "../php_conexion.php";
 //Archivo de funciones PHP
 require_once "../funciones.php";
-if (isset($_POST['id'])) {$id = $_POST['id'];}
-if (isset($_POST['cantidad'])) {$cantidad = $_POST['cantidad'];}
-if (isset($_POST['precio_venta'])) {$precio_venta = $_POST['precio_venta'];}
+if (isset($_POST['id'])) {$id_empresa = $_POST['id'];}
 
-if (!empty($id) and !empty($cantidad) and !empty($precio_venta)) {
+if (isset($_POST['valor'])) {$precio_venta = $_POST['valor'];}
+if (isset($_POST['origen'])) {$origen = $_POST['origen'];}
+if (isset($_POST['destino'])) {$destino = $_POST['destino'];}
+if (isset($_POST['estibadores'])) {$estibadores = $_POST['estibadores'];}
+if (isset($_POST['tonelaje'])) {$tonelaje = $_POST['tonelaje'];}
+
+if (!empty($id_empresa)  and !empty($precio_venta)) {
     // consulta para comparar el stock con la cantidad resibida
-    $query = mysqli_query($conexion, "select stock_producto, inv_producto from productos where id_producto = '$id'");
-    $rw    = mysqli_fetch_array($query);
-    $stock = $rw['stock_producto'];
-    $inv   = $rw['inv_producto'];
+   
+  $origen_lat= get_row('bodega', 'latitud', 'id', $origen);
+  $origen_lon= get_row('bodega', 'longitud', 'id', $origen);
+  $localidad_origen= get_row('bodega', 'localidad', 'id', $origen);
+  
+  $destino_lat= get_row('bodega', 'latitud', 'id', $destino);
+  $destino_lon= get_row('bodega', 'longitud', 'id', $destino);
+  $localidad_destino= get_row('bodega', 'localidad', 'id', $destino);
 
     //Comprobamos si agregamos un producto a la tabla tmp_compra
-    $comprobar = mysqli_query($conexion, "select * from tmp_cotizacion, productos where productos.id_producto = tmp_cotizacion.id_producto and tmp_cotizacion.id_producto='" . $id . "' and tmp_cotizacion.session_id='" . $session_id . "'");
+    $comprobar = mysqli_query($conexion, "select * from tmp_cotizacion where session_id ='$session_id'");
     if ($row = mysqli_fetch_array($comprobar)) {
-        $cant = $row['cantidad_tmp'] + $cantidad;
+        //$cant = $row['cantidad_tmp'] + $cantidad;
 // condicion si el stock e menor que la cantidad requerida
-        $sql          = "UPDATE tmp_cotizacion SET cantidad_tmp='" . $cant . "', precio_tmp='" . $precio_venta . "' WHERE id_producto='" . $id . "' and session_id='" . $session_id . "'";
+        $sql          = "delete from tmp_cotizacion  WHERE  session_id='" . $session_id . "'";
         $query_update = mysqli_query($conexion, $sql);
+        
+         $sql_flete="INSERT INTO tmp_cotizacion (`tipo`, `id_bodega_origen`, `id_bodega_destino`, `origen_localidad`, `origen_lat`, `origen_lon`, `destino_lat`, `destino_lon`, `destino_localidad`, `precio_tmp`, `desc_tmp`, `session_id`, `tonelaje`) "
+                . "VALUES (1, '$origen','$destino','$localidad_origen','$origen_lat','$origen_lon','$destino_lat','$destino_lon','$localidad_destino','$precio_venta','0','$session_id','$tonelaje')";
+       //echo $sql_flete;
+        $insert_tmp = mysqli_query($conexion, $sql_flete);
+        if($estibadores!=""){
+           $sql_flete="INSERT INTO tmp_cotizacion (`tipo`, `id_bodega_origen`, `id_bodega_destino`, `origen_localidad`, `origen_lat`, `origen_lon`, `destino_lat`, `destino_lon`, `destino_localidad`, `precio_tmp`, `desc_tmp`, `session_id`, `tonelaje`) "
+                . "VALUES (2, '','','','','','','','','$estibadores','0','$session_id','$tonelaje')";
+       //echo $sql_flete;
+        $insert_tmp = mysqli_query($conexion, $sql_flete); 
+        }
+        
         echo "<script> $.Notification.notify('success','bottom center','NOTIFICACIÓN', 'PRODUCTO AGREGADO A LA FACTURA CORRECTAMENTE')</script>";
     } else {
-        $insert_tmp = mysqli_query($conexion, "INSERT INTO tmp_cotizacion (id_producto,cantidad_tmp,precio_tmp,desc_tmp,session_id) VALUES ('$id','$cantidad','$precio_venta','0','$session_id')");
+        $sql_flete="INSERT INTO tmp_cotizacion (`tipo`, `id_bodega_origen`, `id_bodega_destino`, `origen_localidad`, `origen_lat`, `origen_lon`, `destino_lat`, `destino_lon`, `destino_localidad`, `precio_tmp`, `desc_tmp`, `session_id`, `tonelaje`) "
+                . "VALUES (1, '$origen','$destino','$localidad_origen','$origen_lat','$origen_lon','$destino_lat','$destino_lon','$localidad_destino','$precio_venta','0','$session_id','$tonelaje')";
+       //echo $sql_flete;
+        $insert_tmp = mysqli_query($conexion, $sql_flete);
+        if($estibadores!=""){
+           $sql_flete="INSERT INTO tmp_cotizacion (`tipo`, `id_bodega_origen`, `id_bodega_destino`, `origen_localidad`, `origen_lat`, `origen_lon`, `destino_lat`, `destino_lon`, `destino_localidad`, `precio_tmp`, `desc_tmp`, `session_id`, `tonelaje`) "
+                . "VALUES (2, '','','','','','','','','$estibadores','0','$session_id','$tonelaje')";
+       //echo $sql_flete;
+        $insert_tmp = mysqli_query($conexion, $sql_flete); 
+        }
 
         echo "<script> $.Notification.notify('success','bottom center','NOTIFICACIÓN', 'PRODUCTO AGREGADO A LA FACTURA CORRECTAMENTE')</script>";
     }
@@ -49,7 +76,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
         <thead class="thead-default">
             <tr>
                 <th class='text-center'>COD</th>
-                <th class='text-center'>CANT.</th>
+               
                 <th class='text-center'>DESCRIP.</th>
                 <th class='text-center'>PRECIO <?php echo $simbolo_moneda; ?></th>
                 <th class='text-center'>DESC %</th>
@@ -65,26 +92,39 @@ $sumador_total  = 0;
 $total_iva      = 0;
 $total_impuesto = 0;
 $subtotal       = 0;
-$sql            = mysqli_query($conexion, "select * from productos, tmp_cotizacion where productos.id_producto=tmp_cotizacion.id_producto and tmp_cotizacion.session_id='" . $session_id . "'");
+//echo "select * from  tmp_cotizacion where  tmp_cotizacion.session_id='" . $session_id . "'";
+$sql            = mysqli_query($conexion, "select * from  tmp_cotizacion where  tmp_cotizacion.session_id='" . $session_id . "' order by id_tmp");
+$numero=0;
 while ($row = mysqli_fetch_array($sql)) {
     $id_tmp          = $row["id_tmp"];
-    $codigo_producto = $row['codigo_producto'];
-    $id_producto     = $row['id_producto'];
-    $cantidad        = $row['cantidad_tmp'];
-    $desc_tmp        = $row['desc_tmp'];
-    $nombre_producto = $row['nombre_producto'];
+    $origen_localidad   = $row["origen_localidad"];
+    $destino_localidad   = $row["destino_localidad"];
+   // $codigo_producto = $row['codigo_producto'];
+    //$id_producto     = $row['id_producto'];
+    //$cantidad        = $row['cantidad_tmp'];
+    //$desc_tmp        = $row['desc_tmp'];
+    $tipo = $row['tipo'];
+    if($tipo==1){
+        $descripcion='TRANSPORTE: '.get_row('localidad', 'parroquia', 'codigo_parroquia', $origen_localidad).'-'.get_row('localidad', 'parroquia', 'codigo_parroquia', $destino_localidad);
+    }else{
+       $descripcion='ESTIBADORES'; 
+    }
+   // if($tipo)
+    //$nombre_producto = $row['nombre_producto'];
 
-    $precio_venta   = $row['precio_tmp'];
-    $precio_venta_f = $precio_venta; //Formateo variables
+    $precio_tmp   = $row['precio_tmp'];
+    $desc_tmp   = $row['desc_tmp'];
+    
+    $precio_venta_f = $precio_tmp; //Formateo variables
     $precio_venta_r = str_replace(",", "", $precio_venta_f); //Reemplazo las comas
-    $precio_total   = $precio_venta_r * $cantidad;
+    $precio_total   = $precio_venta_r;
     $final_items    = rebajas($precio_total, $desc_tmp); //Aplicando el descuento
     /*--------------------------------------------------------------------------------*/
     
     
    /*--------------------------------------------------------------------------------*/
      $impuesto=get_row('perfil','impuesto', 'id_perfil', 1);
-        $valor= ($impuesto/100)+1;
+        $valor= (0/100)+1;
 	$precio_venta=$final_items;
 	$precio_venta_f=$precio_venta;//Formateo variable
 	$precio_venta_r1=str_replace(",","",$precio_venta_f);//Reemplazo las comas  
@@ -109,24 +149,12 @@ while ($row = mysqli_fetch_array($sql)) {
     /*------------------------*/
     ?>
     <tr>
-        <td class='text-center'><?php echo $codigo_producto; ?></td>
-        <td class='text-center'><?php echo $cantidad; ?></td>
-        <td><?php echo $nombre_producto; ?></td>
+        <td class='text-center'><?php echo $numero; ?></td>
+        <td class='text-center'><?php echo $descripcion; ?></td>
+        
         <td class='text-center'>
             <div class="input-group">
-                <select id="<?php echo $id_tmp; ?>" class="form-control employee_id">
-                    <?php
-$sql1 = mysqli_query($conexion, "select * from productos where id_producto='" . $id_producto . "'");
-    while ($rw1 = mysqli_fetch_array($sql1)) {
-        ?>
-                        <option selected disabled value="<?php echo $precio_venta ?>"><?php echo number_format($precio_venta, 2); ?></option>
-                        <option value="<?php echo $rw1['valor1_producto'] ?>">PV <?php echo number_format($rw1['valor1_producto'], 2); ?></option>
-                        <option value="<?php echo $rw1['valor2_producto'] ?>">PM <?php echo number_format($rw1['valor2_producto'], 2); ?></option>
-                        <option value="<?php echo $rw1['valor3_producto'] ?>">PE <?php echo number_format($rw1['valor3_producto'], 2); ?></option>
-                        <?php
-}
-    ?>
-                </select>
+                <input type="text" class="form-control" style="text-align:center" value="<?php echo number_format($precio_tmp,2); ?>" id="<?php echo $id_tmp; ?>">   
             </div>
         </td>
         <td align="right" width="15%">
@@ -139,6 +167,7 @@ $sql1 = mysqli_query($conexion, "select * from productos where id_producto='" . 
         </td>
     </tr>
     <?php
+    $numero++;
 }
 $total_factura = $subtotal + $total_impuesto;
 ?>

@@ -21,9 +21,9 @@ $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUES
 if ($action == 'ajax') {
     // escaping, additionally removing everything that could be (html/javascript-) code
     $q      = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
-    $sTable = "creditos, clientes, users";
+    $sTable = "creditos,  users";
     $sWhere = "";
-    $sWhere .= " WHERE creditos.id_cliente=clientes.id_cliente and creditos.id_vendedor=users.id_users";
+    $sWhere .= " WHERE  creditos.id_vendedor=users.id_users";
     if ($_GET['q'] != "") {
         $sWhere .= " and  (clientes.nombre_cliente like '%$q%' or creditos.numero_factura like '%$q%')";
 
@@ -66,9 +66,9 @@ while ($row = mysqli_fetch_array($query)) {
             $id_credito       = $row['id_credito'];
             $numero_factura   = $row['numero_factura'];
             $fecha            = date("d/m/Y", strtotime($row['fecha_credito']));
-            $nombre_cliente   = $row['nombre_cliente'];
-            $telefono_cliente = $row['telefono_cliente'];
-            $email_cliente    = $row['email_cliente'];
+            $nombre_cliente   = get_row('users', 'apellido_users', 'id_users', $row['id_cliente']);
+            //$telefono_cliente = $row['telefono_cliente'];
+            //$email_cliente    = $row['email_cliente'];
             $nombre_vendedor  = $row['nombre_users'] . " " . $row['apellido_users'];
             $estado_factura   = $row['estado_credito'];
             if ($estado_factura == 2) {
