@@ -131,8 +131,8 @@ File: Main Css
 .nav-user {
   padding: 0 12px !important; }
   .nav-user img {
-    height: 36px;
-    width: 36px; }
+    //height: 36px;
+    width: 200px; }
 
 .navbar-nav {
   margin: 0; }
@@ -754,7 +754,7 @@ code, pre {
   background: transparent !important; }
 
 .bg-primary {
-  background-color: #039cfd !important; }
+  background-color: #9e0124 !important; }
 
 .bg-success {
   background-color: #52bb56 !important; }
