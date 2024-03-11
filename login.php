@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php
 // checking for minimum PHP version
 if (version_compare(PHP_VERSION, '5.3.7', '<')) {
@@ -20,6 +21,7 @@ $login = new Login();
 
 // ... ask if we are logged in here:
 if ($login->isUserLoggedIn() == true) {
+ //   echo 'asd';
     // the user is logged in. you can do whatever you want here.
     // for demonstration purposes, we simply show the "you are logged in" view.
     if ($_SESSION['cargo_users']==1){
@@ -32,61 +34,52 @@ if ($login->isUserLoggedIn() == true) {
         
 
 } else {
+    // echo 'asd';
     // the user is not logged in. you can do whatever you want here.
     // for demonstration purposes, we simply show the "you are not logged in" view.
     ?>
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1">
-        <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
-        <meta name="author" content="Coderthemes">
+<html lang="es">
 
-        <link rel="shortcut icon" href="assets/images/favicon.png">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cargo Express</title>
+    <link href="assets/css/fonts/material-icon/css/material-design-iconic-font.min.css" rel="stylesheet" type="text/css"/>
+    
+    <link href="assets/css/style_1.css" rel="stylesheet" type="text/css"/>
+    
+    <meta name="robots" content="noindex, follow">
 
-        <title>Facturación v.3</title>
-
-        <link href="../plugins/switchery/switchery.min.css" rel="stylesheet" />
-
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-        <link href="assets/css/icons.css" rel="stylesheet" type="text/css">
-        <link href="assets/css/style.css" rel="stylesheet" type="text/css">
-
-        <script src="assets/js/modernizr.min.js"></script>
-
-    </head>
-    <style>
-        html{
-            background: transparent !important;
-        }
-       body {
-  background: url(img/login/login.png);
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 100% !important;
+  <style>
+    .main {
+  background-image: url('images/fondo.jpg'); /* Reemplaza 'ruta/a/la/imagen.jpg' con la ubicación de tu imagen de fondo */
+  background-size: cover; /* Ajusta el tamaño de la imagen para que cubra todo el fondo */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  background-attachment: fixed; /* Mantiene la imagen fija en su lugar mientras se desplaza la página */
 }
+.invalid-feedback{
+    color:red;
+}
+.container {
+  opacity: 0.9;
+}
+  </style> 
+</head>
 
-    </style>
-    <body style="">
-        
-        <div class="wrapper-page">
-        <?php
-            include("vistas/db.php");
-	include("vistas/php_conexion.php");
-                include 'vistas/funciones.php';
-                $url= get_row('perfil','logo_url', 'id_perfil', 1);
-                $resultado = str_replace("../../", "", $url);
-                //echo $resultado;
-               // $nombre_empresa= get_row('perfil','nombre_empresa', 'id_perfil', 1);
-               // echo $url;
-            ?>
-            <div align="center">
-                <img src="<?php echo $resultado; ?>" class="img-responsive" alt="profile-image"  height="100px">
-            </div><br>
+<body>
 
-            <form method="post" accept-charset="utf-8" action="login.php" name="loginform" class="form-signin">
-                <?php
+
+    <div class="main">
+
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="signup-form">
+                        <h2 class="form-title">Ingreso al sistema</h2>
+                        
+                        <form method="post" accept-charset="utf-8" action="login.php" name="loginform" class="form-signin">
+                           <?php
 // show potential errors / feedback (from login object)
     if (isset($login)) {
         if ($login->errors) {
@@ -116,58 +109,56 @@ foreach ($login->messages as $message) {
 }
     }
     ?>
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="usuario_users" class="form-control" 
+                                      
+                                value="" placeholder="Usuario" autofocus>
+                        
 
-                <div class="form-group row">
-                    <div class="col-12">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="mdi mdi-account"></i></span>
-                            <input class="form-control" type="text" name="usuario_users" required="" placeholder="Usuario" autocomplete="off" autofocus="">
-                        </div>
+                            </div>
+                           
+                            <span class="invalid-feedback" role="alert">
+                                <strong></strong>
+                            </span>
+                     
+                            <div class="form-group">
+                                <label for="apellido"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="password" name="con_users" class="form-control"
+                                placeholder="Password">
+                        
+
+                            </div>
+                           
+                          
+                        
+                            <div class="form-group">
+                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                                <label for="agree-term" class="label-agree-term"><span><span></span></span>Recordar</a></label>
+                            </div>
+                            <div class="form-group form-button">
+                                <button type="submit" name="login" id="submit"  class="form-submit btn btn-block {{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}""
+                                    value="Register" > INGRESAR </button>
+                                
+                            </div>
+                        </form> 
+                    </div>
+                    <div class="signup-image">
+                        <figure><img src="images/signup-image.png" alt="sing up image"></figure>
+                        <a href="register" class="signup-image-link">Registrarme</a>
                     </div>
                 </div>
-
-                <div class="form-group row">
-                    <div class="col-12">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="mdi mdi-radar"></i></span>
-                            <input class="form-control" type="password" name="con_users" required="" placeholder="Contraseña" autocomplete="off">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group text-right m-t-20">
-                    <div class="col-xs-12">
-                        <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" name="login" id="submit"><i class='fa fa-unlock'></i> Iniciar Sesión
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
+            </div>
+        </section>
 
 
-        <script>
-            var resizefunc = [];
-        </script>
+    </div>
+    <script src="js/jquery/jquery.min.js" type="text/javascript"></script>
+    <script src="js/jquery/main.js" type="text/javascript"></script>
+    
 
-        <!-- Plugins  -->
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/js/tether.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
-        <script src="assets/js/detect.js"></script>
-        <script src="assets/js/fastclick.js"></script>
-        <script src="assets/js/jquery.slimscroll.js"></script>
-        <script src="assets/js/jquery.blockUI.js"></script>
-        <script src="assets/js/waves.js"></script>
-        <script src="assets/js/wow.min.js"></script>
-        <script src="assets/js/jquery.nicescroll.js"></script>
-        <script src="assets/js/jquery.scrollTo.min.js"></script>
-        <script src="../plugins/switchery/switchery.min.js"></script>
+</body>
 
-        <!-- Custom main Js -->
-        <script src="assets/js/jquery.core.js"></script>
-        <script src="assets/js/jquery.app.js"></script>
-
-    </body>
-    </html>
+</html>
     <?php
 }
