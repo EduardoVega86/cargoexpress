@@ -72,6 +72,10 @@
 					</li>
                                         <li>
 					<a href="usuarios_empresa.php" class="waves-effect waves-primary"><i
+						class="ti-user"></i><span> Usuarios Clientes </span></a>
+					</li>
+                                        <li>
+					<a href="clientes.php" class="waves-effect waves-primary"><i
 						class="ti-user"></i><span> Clientes </span></a>
 					</li>
                                          
@@ -150,6 +154,10 @@
 <?php
                                          }else{
                                            if($_SESSION['cargo_users']==7){?>
+                                                <li>
+						<a href="../html/clientes.php" class="waves-effect waves-primary"><i
+							class="ti-user"></i><span> Clientes </span></a>
+						</li> 
                                              <li>
 						<a href="../html/bodegas_empresa.php" class="waves-effect waves-primary"><i
 							class="ti-map"></i><span> Bodegas </span></a>
