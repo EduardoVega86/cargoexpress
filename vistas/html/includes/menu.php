@@ -70,52 +70,26 @@
 					<a href="principal.php" class="waves-effect waves-primary"><i
 						class="ti-home"></i><span> Inicio </span></a>
 					</li>
-                                        <li>
-					<a href="usuarios_empresa.php" class="waves-effect waves-primary"><i
-						class="ti-user"></i><span> Usuarios Clientes </span></a>
-					</li>
-                                        <li>
-					<a href="clientes.php" class="waves-effect waves-primary"><i
-						class="ti-user"></i><span> Clientes </span></a>
-					</li>
-                                         
-                                                
-                                                 
-                                          
                                          <li class="has_sub">
-					<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-map"></i><span> Direcciones
+					<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-user"></i><span> Usuarios
 						</span> <span class="menu-arrow"></span></a>
 
 					<ul class="list-unstyled">
 						<!--li><a href="../html/new_cotizacion.php">Agregar Pedido</a></li-->
-						<li><a href="#">Nuevo Directorio</a></li>
-                                                <li><a href="#">Mis  Directorios</a></li>
-	
-
-						
-
-
-
-					</ul>
+						<li><a href="html/usuarios.php">Usuario Admin</a></li>
+                        <li><a href="#">Usuario Cliente</a></li>
+                        <li><a href="#">Usuario Mensajero</a></li>
+                        
+                        					</ul>
                                                     
-				</li>       
-                                           <li class="has_sub">
-					<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-receipt"></i><span> Recolecciones
-						</span> <span class="menu-arrow"></span></a>
+				</li> 
+                                                 
 
-					<ul class="list-unstyled">
-						<!--li><a href="../html/new_cotizacion.php">Agregar Pedido</a></li-->
-						<li><a href="#">Recolecciones</a></li>
-                                                
-
-						
-
-
-
-					</ul>
-                                                    
-				</li>     
-                                                
+                                <li>
+					<a href="#" class="waves-effect waves-primary"><i
+						class="ti-receipt"></i><span> Recolecciones </span></a>
+					</li>
+  
                                                 <li class="has_sub">
 					<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-receipt"></i><span> Ordenes
 						</span> <span class="menu-arrow"></span></a>
@@ -126,7 +100,7 @@
                                                 <li><a href="#">Nuevo Retiro</a></li>
                                                 <li><a href="#">Ingreso Manual</a></li>
                                                 <li><a href="#">Órdenes</a></li>
-                                                <li><a href="#">Historial de Notificacione</a></li>
+                                                <li><a href="#">Notificaciones</a></li>
                                                 <li><a href="#">Validación de Órdenes</a></li>
                                                 <li><a href="#">Directorio</a></li>
 	
@@ -138,6 +112,22 @@
 					</ul>
                                                     
 				</li>
+                               <li>
+					<a href="#" class="waves-effect waves-primary"><i
+						class="ti-map"></i><span> Tracking </span></a>
+					</li>
+                               <li>
+					<a href="#" class="waves-effect waves-primary"><i
+						class="ti-receipt"></i><span> Guías Automáticas </span></a>
+					</li>
+                               <li>
+					<a href="#" class="waves-effect waves-primary"><i
+						class="ti-receipt"></i><span> Movimientos </span></a>
+					</li>
+                               <li>
+					<a href="#" class="waves-effect waves-primary"><i
+						class="ti-receipt"></i><span> Masivos </span></a>
+					</li>
 					
 					<?php
                                          }
@@ -154,10 +144,6 @@
 <?php
                                          }else{
                                            if($_SESSION['cargo_users']==7){?>
-                                                <li>
-						<a href="../html/clientes.php" class="waves-effect waves-primary"><i
-							class="ti-user"></i><span> Clientes </span></a>
-						</li> 
                                              <li>
 						<a href="../html/bodegas_empresa.php" class="waves-effect waves-primary"><i
 							class="ti-map"></i><span> Bodegas </span></a>
@@ -196,19 +182,7 @@
 										class="ti-truck"></i><span> Traslados </span></a>
 									</li>-->
 
-									
-									
-										
 
-											<li class="has_sub">
-												<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-files"></i><span> Reportes </span> <span class="menu-arrow"></span></a>
-												<ul class="list-unstyled">
-													<!--<li><a href="../html/rep_producto.php">Reporte Productos</a></li>-->
-													<!--li><a href="../html/rep_ventas.php">Reporte de Visitas </a></li-->
-													
-													
-												</ul>
-											</li>
 
 											<li class="has_sub">
 												<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-settings"></i><span> Configuración </span> <span class="menu-arrow"></span></a>
