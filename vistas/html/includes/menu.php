@@ -76,9 +76,9 @@
 
 					<ul class="list-unstyled">
 						<!--li><a href="../html/new_cotizacion.php">Agregar Pedido</a></li-->
-						<li><a href="html/usuarios.php">Usuario Admin</a></li>
-                        <li><a href="#">Usuario Cliente</a></li>
-                        <li><a href="#">Usuario Mensajero</a></li>
+						<li><a href="../html/usuarios.php">Usuario Admin</a></li>
+                        			<li><a href="#">Usuario Cliente</a></li>
+                        			<li><a href="#">Usuario Mensajero</a></li>
                         
                         					</ul>
                                                     
