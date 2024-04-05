@@ -173,7 +173,8 @@ input[type=radio] {
 
 img {
   max-width: 100%;
-  height: auto; }
+  height: auto;
+  border-radius: 0% 5% 5% 0%;}
 
 figure {
   margin: 0; }
@@ -272,8 +273,13 @@ body {
 .form-title {
   margin-bottom: 33px; }
 
+@media (max-width: 600px) {
 .signup-image {
-  margin-top: 45px; }
+  margin-top: 45px !important; }
+}
+
+.signup-image {
+  margin-top: 5px; }
 
 figure {
   margin-bottom: 50px;
@@ -281,7 +287,7 @@ figure {
 
 .form-submit {
   display: inline-block;
-  background: #6dabe4;
+  background: #9f0122;
   color: #fff;
   border-bottom: none;
   width: auto;
@@ -294,7 +300,7 @@ figure {
   margin-top: 25px;
   cursor: pointer; }
   .form-submit:hover {
-    background: #4292dc; }
+    background: black; }
 
 #signin {
   margin-top: 16px; }
