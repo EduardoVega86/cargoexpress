@@ -84,6 +84,27 @@
                                                     
 				</li> 
                                                  
+                                            <li>
+						<a href="../html/bodegas_empresa.php" class="waves-effect waves-primary"><i
+							class="ti-map"></i><span> Bodegas </span></a>
+						</li>
+<li>
+						<a href="../html/documentos_socio.php" class="waves-effect waves-primary"><i
+							class="ti-user"></i><span> Informacion </span></a>
+						</li>
+                                                <li>
+						<a href="../html/documentacion_socio.php" class="waves-effect waves-primary"><i
+							class="ti-files"></i><span> Documentacion </span></a>
+						</li>
+                                                <li>
+						<a href="../html/camiones_socio.php" class="waves-effect waves-primary"><i
+							class="ti-car"></i><span> Camiones </span></a>
+						</li>
+                                                 <li>
+						<a href="../html/choferes_socio.php" class="waves-effect waves-primary"><i
+							class="ti-user"></i><span> Choferes </span></a>
+						</li>
+
 
                                 <li>
 					<a href="#" class="waves-effect waves-primary"><i
