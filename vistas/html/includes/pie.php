@@ -1,3 +1,3 @@
 <footer class="footer text-right">
-			2019 © 360°. Business Group
+		2024 © Cargo Xpress. Derechos Reservados
 		</footer>
