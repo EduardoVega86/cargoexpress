@@ -10,6 +10,7 @@ require_once "../php_conexion.php"; //Contiene funcion que conecta a la base de 
 //Inicia Control de Permisos
 include "../permisos.php";
 $user_id = $_SESSION['id_users'];
+$rol= $_SESSION['cargo_users'];
 //$user_id = $_SESSION['id_users'];
 get_cadena($user_id);
 $modulo = "Bodegas Empresa";
@@ -35,7 +36,7 @@ permisos($modulo, $cadena_permisos);
 		<div class="content">
 			<div class="container">
                             <h3 class="portlet-title">
-							Agregar	Bodega
+							Agregar	Dirección
                                                         <button class="btn btn-danger" onclick="colocarMarcadorUbicacionActual()">Usar ubicación actual</button>
 
 							</h3>
@@ -47,11 +48,15 @@ permisos($modulo, $cadena_permisos);
        
 				<div class="form-group row">
 										<div class="col-md-12">
+                                                                                    <?php if ($rol == 1) {
+                                                                                        
+                                                                                    
+    ?>
                                                                                     <select  class='form-control' name='empresa' id='empresa' required>
-												<option value="">-- Selecciona empresa--</option>
+												<option value="">-- Selecciona cliente--</option>
 												<?php
 
-    $query_categoria = mysqli_query($conexion, "select * from users where cargo_users=7 order by apellido_users;");
+    $query_categoria = mysqli_query($conexion, "select * from users where cargo_users=4 order by apellido_users;");
     while ($rw = mysqli_fetch_array($query_categoria)) {
         ?>
 													<option value="<?php echo $rw['id_users']; ?>"><?php echo $rw['apellido_users']; ?></option>
@@ -59,9 +64,17 @@ permisos($modulo, $cadena_permisos);
 }
     ?>
 											</select>
-                                                                                  
+                                                                                                                                   <?php
+                                                                                        
+                                                                                    }else{
+    ?>
+                                                                                    <input id="empresa" name="empresa" class="form-control " type="hidden" value="<?php echo $user_id; ?>">
+                                 <?php
+                                                                                        
+                                                                                    }
+    ?>
 											<br>
-                                                                                        <input id="nombre" name="nombre" class="form-control " type="text" placeholder="Nombre de la bodega" required>
+                                                                                        <input id="nombre" name="nombre" class="form-control " type="text" placeholder="Nombre de la destinatario" required>
                                                                                             <br>
                                                                                              <input id="direccion" name="direccion" class="form-control " type="text" placeholder="Ingresa una dirección">
                                                                                             <br>
@@ -340,7 +353,7 @@ $('#localidad, #direccion_completa, #latitud, #longitud, #referencia, #numero_ca
       });
     }
   </script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGulcdBtz_Mydtmu432GtzJz82J_yb-rs&libraries=places&callback=initMap"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAj-OWe4vKRnRiHQEx2ANZqxIGBT8z6Fo0&libraries=places&callback=initMap"></script>
 	<script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
 	<script type="text/javascript" src="../../js/bodegas.js"></script>
 <script>
