@@ -11,7 +11,7 @@ if (empty($_POST['latitud'])) {
     require_once "../php_conexion.php";
     //Archivo de funciones PHP
     require_once "../funciones.php";
-     $users          = intval($_SESSION['id_users']);
+     $users          = $_POST['empresa'];
     // escaping, additionally removing everything that could be (html/javascript-) code
     $nombre      = mysqli_real_escape_string($conexion, (strip_tags($_POST["nombre"], ENT_QUOTES)));
     $direccion      = mysqli_real_escape_string($conexion, (strip_tags($_POST["direccion_completa"], ENT_QUOTES)));
