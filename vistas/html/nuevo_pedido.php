@@ -143,26 +143,11 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                 <span class="help-block">Tonelaje </span>
                                                                 <select class="form-control" id="tonelaje" name="tonelaje">
                                                                     <option value="">Seleccione tonlaje</option>
-                                                                    <?php
-                                                                    $sql2 = "select * from weight";
-                                                                    $query2 = mysqli_query($conexion, $sql2);
-
-                                                                    while ($row2 = mysqli_fetch_array($query2)) {
-                                                                        $id = $row2['id'];
-                                                                        $name = $row2['name'];
-                                                                       // $localidad = $row2['localidad'];
-                                                                        //$nombre_localidad = get_row('localidad', 'parroquia', 'codigo_parroquia', $localidad);
-
-                                                                        // Obtener el valor almacenado en la tabla orgien_laar
-                                                                        //$valor_seleccionado = $provinciadestino;
-
-                                                                        // Verificar si el valor actual coincide con el almacenado en la tabla
-                                                                        //$selected = ($valor_seleccionado == $cod_provincia) ? 'selected' : '';
-                                                                        // Imprimir la opción con la marca de "selected" si es el valor almacenado
-                                                                        //echo '<option value="' . $id . '" ' . $selected . '>' . $nombre . '</option>';
-                                                                        echo "<option value='$id' > $name</option>";
-                                                                    }
-                                                                    ?>
+                                                                     <option value="1">ENVÍO EXPRESS</option>
+                                                                      <option value="">ENVÍO ILIMITADO</option>
+                                                                       <option value="">ENVÍO BÁSICO</option>
+                                                                        <option value="">ENVÍO </option>
+                                                                    
                                                                 </select>
 
                                                             </div>
@@ -197,7 +182,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                             </div>
                                                             <div class="col-md-2">
 
-                                                                <button style="height: 100%; width: 100%" onclick="agregar_pedido()" class="btn btn-primary">Agregar</button>
+                                                                <button style="height: 100%; width: 100%" onclick="agregar_pedido(); calcular_distancia(); " class="btn btn-primary">Agregar</button>
 
                                                             </div>
                                                         </div>
@@ -289,6 +274,15 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 <!-- ============================================================== -->
 <!-- Codigos Para el Auto complete de Clientes -->
 <script>
+     function calcular_distancia() {
+    var origen = (-0.1763603, -78.47949419999999) 
+var destino = (-78.503773, -0.1329112) 
+resultado = gmaps.distance_matrix(origen, destino, mode='driving')
+
+
+distancia = resultado['rows'][0]['elements'][0]['distance']['text']
+alert(distancia)
+  }
      function agregar_pedido() {
     var valor = document.getElementById('valor').value;
     var estibadores = document.getElementById('estibadores').value;
