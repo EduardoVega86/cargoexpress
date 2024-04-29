@@ -27,7 +27,7 @@
 			<div class="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview">
 
 				<!-- item-->
-				<a href="javascript:void(0);" class="dropdown-item notify-item">
+				<a href="../html/documentos_socio.php" class="dropdown-item notify-item">
 					<i class="mdi mdi-account-star-variant"></i> <span>Perfil</span>
 				</a>
 
@@ -76,34 +76,41 @@
 
 					<ul class="list-unstyled">
 						<!--li><a href="../html/new_cotizacion.php">Agregar Pedido</a></li-->
-						<li><a href="../html/usuarios.php">Usuario Admin</a></li>
-                        			<li><a href="#">Usuario Cliente</a></li>
-                        			<li><a href="#">Usuario Mensajero</a></li>
+						<li><a href="../html/usuarios.php">Administrar</a></li>
+                        			<li><a href="../html/usuarios_clientes.php">Clientes</a></li>
+                        			<li><a href="../html/usuarios_mensajero.php">Mensajeros</a></li>
                         
                         					</ul>
                                                     
 				</li> 
+                                <li class="has_sub">
+					<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-map"></i><span> Direcciones
+						</span> <span class="menu-arrow"></span></a>
+
+					<ul class="list-unstyled">
+						<!--li><a href="../html/new_cotizacion.php">Agregar Pedido</a></li-->
+						
+                        			<li><a href="../html/agregar_bodega.php">Nueva Direccion</a></li>
+                        			<li><a href="../html/bodegas_empresa.php">Lista de Direcciones</a></li>
+                        
+                        					</ul>
+                                                    
+				</li>
                                                  
-                                            <li>
-						<a href="../html/bodegas_empresa.php" class="waves-effect waves-primary"><i
-							class="ti-map"></i><span> Bodegas </span></a>
-						</li>
-<li>
-						<a href="../html/documentos_socio.php" class="waves-effect waves-primary"><i
-							class="ti-user"></i><span> Informacion </span></a>
-						</li>
-                                                <li>
-						<a href="../html/documentacion_socio.php" class="waves-effect waves-primary"><i
-							class="ti-files"></i><span> Documentacion </span></a>
-						</li>
-                                                <li>
+                                            
+
+                                                <!--li>
+						<a href="../html/documentacion_requerida.php" class="waves-effect waves-primary"><i
+							class="ti-archive"></i><span> Documentación </span></a>
+						</li-->
+                                                <!--li>
 						<a href="../html/camiones_socio.php" class="waves-effect waves-primary"><i
 							class="ti-car"></i><span> Camiones </span></a>
-						</li>
-                                                 <li>
+						</li-->
+                                                 <!--li>
 						<a href="../html/choferes_socio.php" class="waves-effect waves-primary"><i
 							class="ti-user"></i><span> Choferes </span></a>
-						</li>
+						</li-->
 
 
                                 <li>
@@ -117,7 +124,7 @@
 
 					<ul class="list-unstyled">
 						<!--li><a href="../html/new_cotizacion.php">Agregar Pedido</a></li-->
-						<li><a href="#">Nuevo Envío</a></li>
+						<li><a href="../html/new_cotizacion.php">Nuevo Envío</a></li>
                                                 <li><a href="#">Nuevo Retiro</a></li>
                                                 <li><a href="#">Ingreso Manual</a></li>
                                                 <li><a href="#">Órdenes</a></li>
@@ -149,22 +156,83 @@
 					<a href="#" class="waves-effect waves-primary"><i
 						class="ti-receipt"></i><span> Masivos </span></a>
 					</li>
+                                        <li class="has_sub">
+												<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-settings"></i><span> Configuración </span> <span class="menu-arrow"></span></a>
+												<ul class="list-unstyled">
+													<li><a href="../html/empresa.php">Empresa</a></li>
+													
+													<li><a href="../html/usuarios.php">Usuario</a></li>
+													<li><a href="../html/grupos.php">Grupos de Usuarios</a></li>
+												</ul>
+											</li>
 					
 					<?php
                                          }
                                          ?>	
 						 <?php
+                                                 //rol clientes
                                          if($_SESSION['cargo_users']==4){
-                                         ?>	
-<li>
-						<a href="../html/solicitudes.php" class="waves-effect waves-primary"><i
-							class="ti-user"></i><span> Solicitudes </span></a>
+                                         ?>
+                                        
+                                        
+					
+
+					<li>
+						<a href="../html/principal.php" class="waves-effect waves-primary"><i
+							class="ti-dashboard"></i><span> Inicio </span></a>
 						</li>
+						<!--li><a href="../html/new_cotizacion.php">Agregar Pedido</a></li-->
+                                                <li>
+						<a href="#" class="waves-effect waves-primary"><i
+							class="ti-arrow-right"></i><span> Nuevo Envío </span></a>
+						</li>
+                                                <li>
+						<a href="#" class="waves-effect waves-primary"><i
+							class="ti-arrow-left"></i><span> Nuevo Retiro </span></a>
+						</li>
+                                                <li>
+						<a href="#" class="waves-effect waves-primary"><i
+							class="ti-pencil"></i><span> Ingreso Manual</span></a>
+						</li>
+                                                <li>
+						<a href="#" class="waves-effect waves-primary"><i
+							class="ti-receipt"></i><span> Órdenes </span></a>
+						</li>
+                                                <li>
+						<a href="#" class="waves-effect waves-primary"><i
+							class="ti-bell"></i><span> Notificaciones </span></a>
+						</li>
+                                                <li>
+						<a href="#" class="waves-effect waves-primary"><i
+							class="ti-check"></i><span> Validación </span></a>
+						</li>
+                                                <li>
+						<a href="../html/agregar_bodega.php" class="waves-effect waves-primary"><i
+							class="ti-map"></i><span>Ingresar dirección  </span></a>
+						</li>
+                                                <li>
+						<a href="../html/bodegas_empresa.php" class="waves-effect waves-primary"><i
+							class="ti-map-alt"></i><span> Direcciones </span></a>
+						</li>
+						
+                                    
+	
+
+						
+
+
+
+					
+                                                    
+				
+                                      
+                              
+
                                                 
 							
 <?php
                                          }else{
-                                           if($_SESSION['cargo_users']==7){?>
+                                           if($_SESSION['cargo_users']==6){?>
                                              <li>
 						<a href="../html/bodegas_empresa.php" class="waves-effect waves-primary"><i
 							class="ti-map"></i><span> Bodegas </span></a>
@@ -205,15 +273,7 @@
 
 
 
-											<li class="has_sub">
-												<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-settings"></i><span> Configuración </span> <span class="menu-arrow"></span></a>
-												<ul class="list-unstyled">
-													<li><a href="../html/empresa.php">Empresa</a></li>
-													
-													<li><a href="../html/usuarios.php">Usuario</a></li>
-													<li><a href="../html/grupos.php">Grupos de Usuarios</a></li>
-												</ul>
-											</li>
+											
 
 										</ul>
 
