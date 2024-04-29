@@ -63,7 +63,7 @@ include "../modal/buscar_productos_ventas.php";
 									<div class="row">
                                                                             <?php
                                                                             $sql_productos="SELECT *
-                                                                                FROM users where cargo_users=7;";
+                                                                                FROM users where cargo_users=4;";
     
 //echo $sql_productos;
      

@@ -77,12 +77,12 @@ if ($permisos_editar == 1) {
 													<div class="resultados_ajax3"></div>
 													<span id="loader"></span>
 												</div>
-												<div class="col-md-3">
+												<!--div class="col-md-3">
 													<div class="btn-group pull-right">
 														<button type="button" class="btn btn-success waves-effect waves-light" data-toggle="modal" data-target="#nuevoUsers"><i class="fa fa-plus"></i> Nuevo</button>
 													</div>
 
-												</div>
+												</div-->
 
 											</div>
 										</form>
@@ -127,7 +127,7 @@ if ($permisos_editar == 1) {
 	<!-- ============================================================== -->
 	<!-- Todo el codigo js aqui
 	<!-- ============================================================== -->
-	<script type="text/javascript" src="../../js/empresas.js"></script>
+	<script type="text/javascript" src="../../js/mensajero.js"></script>
 	<script>
 		function editar_pw(user_id) {
 			$(".outer_div3").load("../modal/password.php?user_id=" + user_id);

@@ -77,12 +77,7 @@ if ($permisos_editar == 1) {
 													<div class="resultados_ajax3"></div>
 													<span id="loader"></span>
 												</div>
-												<div class="col-md-3">
-													<div class="btn-group pull-right">
-														<button type="button" class="btn btn-success waves-effect waves-light" data-toggle="modal" data-target="#nuevoUsers"><i class="fa fa-plus"></i> Nuevo</button>
-													</div>
-
-												</div>
+												
 
 											</div>
 										</form>

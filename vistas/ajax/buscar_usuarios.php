@@ -23,9 +23,9 @@ if ($action == 'ajax') {
     $q        = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
     $aColumns = array('nombre_users', 'apellido_users'); //Columnas de busqueda
     $sTable   = "users";
-    $sWhere   = "";
+    $sWhere   = "WHERE cargo_users=1 ";
     if ($_GET['q'] != "") {
-        $sWhere = "WHERE (";
+        $sWhere = " and (";
         for ($i = 0; $i < count($aColumns); $i++) {
             $sWhere .= $aColumns[$i] . " LIKE '%" . $q . "%' OR ";
         }

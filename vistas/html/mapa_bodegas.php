@@ -34,7 +34,7 @@ $conexion->close();
 
 
   <title>Mapa de Bodegas</title>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGulcdBtz_Mydtmu432GtzJz82J_yb-rs"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAj-OWe4vKRnRiHQEx2ANZqxIGBT8z6Fo0"></script>
   <style>
     #mapa {
       height: 600px;
@@ -48,7 +48,7 @@ $conexion->close();
 		<div class="content">
 			<div class="container">
                             <h3 class="portlet-title">
-							Bodegas
+							Direcciones
 							</h3>
   <div id="mapa"></div>
   </div>

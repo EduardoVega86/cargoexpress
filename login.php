@@ -29,7 +29,7 @@ if ($login->isUserLoggedIn() == true) {
     
     header("location: vistas/html/principal.php");
     }else{
-      header("location: vistas/html/mis_procesos.php");  
+      header("location: vistas/html/principal.php");  
     }
         
 

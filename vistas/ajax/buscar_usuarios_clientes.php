@@ -23,7 +23,7 @@ if ($action == 'ajax') {
     $q        = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
     $aColumns = array('nombre_users', 'apellido_users'); //Columnas de busqueda
     $sTable   = "users";
-    $sWhere   = "WHERE cargo_users=3";
+    $sWhere   = "WHERE cargo_users=4";
     if ($_GET['q'] != "") {
         $sWhere = "AND (";
         for ($i = 0; $i < count($aColumns); $i++) {
