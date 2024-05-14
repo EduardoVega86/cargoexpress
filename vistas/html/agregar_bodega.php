@@ -77,39 +77,9 @@ permisos($modulo, $cadena_permisos);
                                                                                         <input id="nombre" name="nombre" class="form-control " type="text" placeholder="Nombre de la destinatario" required>
                                                                                             <br>
                                                                                              <input id="direccion" name="direccion" class="form-control " type="text" placeholder="Ingresa una dirección">
-                                                                                            <br>
-                                                                                           
-                                                                                           
-                                                                                            <select onchange="cambio_provincia()" class='form-control' name='provincia' id='provincia' required>
-												<option value="">-- Selecciona Provincia--</option>
-												<?php
-
-    $query_categoria = mysqli_query($conexion, "select distinct provincia, codigo_provincia from localidad order by codigo_parroquia;");
-    while ($rw = mysqli_fetch_array($query_categoria)) {
-        ?>
-													<option value="<?php echo $rw['codigo_provincia']; ?>"><?php echo $rw['provincia']; ?></option>
-													<?php
-}
-    ?>
-											</select>
-                                                                                          <br> 
-                                                                                          <div id="div_canton">
-                                                                                              <select   class='form-control' name='canton' id='canton' required>
-												<option value="">-- Selecciona Cantón--</option>
-												
-											</select>   
-                                                                                            </div>
-                                                                                          <br> 
-                                                                                          <div id="div_parroquia">
-                                                                                              <select   class='form-control' name='parroquia' id='parroquia' required>
-												<option value="">-- Selecciona Parroquia--</option>
-												
-											</select>   
-                                                                                            </div>
-                                                                                             <br> 
+											<br>
                                                                                             <input readonly id="direccion_completa" name="direccion_completa" class="form-control" type="text" placeholder="Ingresa una dirección">
-                                                                                           
-                                                                                            <br> 
+                                                                                        <br> 
                                                                                              <input readonly id="nombre_contacto" name="nombre_contacto" class="form-control " type="text" placeholder="Ingrese Contacto">
                                                                                              <br> 
                                                                                              <input readonly id="telefono" name="telefono" class="form-control " type="text" placeholder="Telefono de contacto">
