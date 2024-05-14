@@ -77,24 +77,31 @@ permisos($modulo, $cadena_permisos);
                                                                                         <input id="nombre" name="nombre" class="form-control " type="text" placeholder="Nombre de la destinatario" required>
                                                                                             <br>
                                                                                              <input id="direccion" name="direccion" class="form-control " type="text" placeholder="Ingresa una dirección">
-											                                                                                            <br>
+                                                                                             <br>
+                                                                                             <div class="form-group row">
+										<div class="col-md-12">
+											<div class="input-group">
                                                                                            
-                                                                                           
-                                                                                            <select onchange="cambio_provincia()" class='form-control' name='provincia' id='provincia' required>
-												<option value="">-- Selecciona Provincia--</option>
-												<?php
+                                                                                            <input readonly id="latitud" name="latitud" class="form-control" type="text" placeholder="Latitud">
+                                                                                            <input readonly id="longitud" name="longitud" class="form-control" type="text" placeholder="Longitud">   
+                                                                                    </div>
+                                                                                    </div>
+                                       </div>
+                                                                                           <!-- <select onchange="cambio_provincia()" class='form-control' name='provincia' id='provincia' required>
+												<option value="">-- Selecciona Provincia--</option> -->
+												<?php 
 
     $query_categoria = mysqli_query($conexion, "select distinct provincia, codigo_provincia from localidad order by codigo_parroquia;");
     while ($rw = mysqli_fetch_array($query_categoria)) {
         ?>
-													<option value="<?php echo $rw['codigo_provincia']; ?>"><?php echo $rw['provincia']; ?></option>
+												<!--	<option value="<?php echo $rw['codigo_provincia']; ?>"><?php echo $rw['provincia']; ?></option>
 													<?php
 }
     ?>
 											</select>
                                                                                           <br> 
-                                                                                          <div id="div_canton">
-                                                                                              <select   class='form-control' name='canton' id='canton' required>
+                                                                                          <!-- <div id="div_canton">
+                                                                                             <!-- <select   class='form-control' name='canton' id='canton' required>
 												<option value="">-- Selecciona Cantón--</option>
 												
 											</select>   
@@ -105,10 +112,8 @@ permisos($modulo, $cadena_permisos);
 												<option value="">-- Selecciona Parroquia--</option>
 												
 											</select>   
-                                                                                            </div>
-											<br>
-                                                                                            <input readonly id="direccion_completa" name="direccion_completa" class="form-control" type="text" placeholder="Ingresa una dirección">
-                                                                                        <br> 
+                                                                                            </div> --> 
+                                                                                            <input readonly id="direccion_completa" name="direccion_completa" class="form-control" type="hidden" placeholder="Ingresa una dirección">
                                                                                              <input readonly id="nombre_contacto" name="nombre_contacto" class="form-control " type="text" placeholder="Ingrese Contacto">
                                                                                              <br> 
                                                                                              <input readonly id="telefono" name="telefono" class="form-control " type="text" placeholder="Telefono de contacto">
@@ -124,15 +129,7 @@ permisos($modulo, $cadena_permisos);
 												</div>
                                                                                     	</div>
                                     </div>
-                                   <div class="form-group row">
-										<div class="col-md-12">
-											<div class="input-group">
-                                                                                           
-                                                                                            <input readonly id="latitud" name="latitud" class="form-control" type="text" placeholder="Latitud">
-                                                                                            <input readonly id="longitud" name="longitud" class="form-control" type="text" placeholder="Longitud">   
-                                                                                    </div>
-                                                                                    </div>
-                                       </div>
+                                   
                                                                                    <div class="form-group row">
 										<div class="col-md-12">
 											<div class="input-group">
