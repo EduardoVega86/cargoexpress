@@ -25,10 +25,16 @@ if ($action == 'ajax') {
     //$id_categoria = intval($_REQUEST['categoria']);
     $aColumns     = array('nombre'); //Columnas de busqueda
     $sTable       = "bodega";
+    if ($user_id !=1) {
     $sWhere       = "where id_empresa=$user_id";
-   
+    $busqueda1 = "and";
+    }
+    else {
+    $sWhere       = "";
+    $busqueda1 = "where";
+    }
     if ($_GET['q'] != "") {
-        $sWhere = "and (";
+        $sWhere = "$busqueda1 (";
         for ($i = 0; $i < count($aColumns); $i++) {
             $sWhere .= $aColumns[$i] . " LIKE '%" . $q . "%' OR ";
         }
