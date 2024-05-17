@@ -72,7 +72,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                         <div class="col-lg-12">
                                             <div class="card-box">
                                                 <div class="widget-chart">
-                                                    <H5><strong>DATOS PARA LA GUIA</strong></H5>
+                                                    <H5><strong>DATOS PARA LA GUÍA</strong></H5>
                                                     
                                                         <div class="row">
                                                             <div class="col-md-4">
