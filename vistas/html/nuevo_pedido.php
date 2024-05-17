@@ -50,7 +50,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                         <div class="portlet">
                             <div class="portlet-heading bg-primary">
                                 <h3 class="portlet-title">
-                                    Nueva Cotización
+                                    Nueva Guía
                                 </h3>
                                 <div class="portlet-widgets">
                                     <a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
