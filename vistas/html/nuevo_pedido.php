@@ -140,19 +140,22 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 
                                                             </div>
                                                             <div class="col-md-2">
-                                                                <span class="help-block">Tonelaje </span>
+                                                                <span class="help-block">Tipo de servicio </span>
                                                                 <select class="form-control" id="tonelaje" name="tonelaje">
-                                                                    <option value="">Seleccione tonlaje</option>
+                                                                    <option value="">Seleccione tipo de servicio</option>
                                                                      <option value="1">ENVÍO EXPRESS</option>
                                                                       <option value="">ENVÍO ILIMITADO</option>
                                                                        <option value="">ENVÍO BÁSICO</option>
-                                                                        <option value="">ENVÍO </option>
+                                                                        <option value="">DELIVERY</option>
+                                                                         <option value="">ESPECIAL</option>
+                                                                          <option value="">INTERPROVINCIAL</option>
+                                                                           <option value="">INTERPROVINCIAL EXPRESS</option>
                                                                     
                                                                 </select>
 
                                                             </div>
                                                             
-                                                            <div class="col-md-2">
+                                                            <!-- <div class="col-md-2">
                                                                 <span class="help-block">Valor $ </span>
                                                               <input type="number" class="datos form-control" id="valor" name="valor" placeholder="Valor" required>  
 
@@ -162,21 +165,21 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                 <input style="width: 20px; height: 20px"  type="checkbox" id="miCheckbox" onchange="toggleInput(this)">
                                                               <input type="number" class="form-control" id="estibadores" disabled> 
 
-                                                            </div>
+                                                            </div> -->
                                                             
 
                                                         </div>
                                                         <br>
                                                         <div class="row">
                                                             <div class="col-md-3">
-                                                                <span class="help-block">Fecha salida </span>
+                                                                <span class="help-block">Hora de salida </span>
                                                                 <input type="date" class="datos form-control" id="fecha_salida" name="fecha_salida" placeholder="Referencias Adicionales (Opcional)">
                                                             </div>
                                                             <div class="col-md-3">
-                                                                 <span class="help-block">Fecha entrega </span>
+                                                                 <span class="help-block">Hora de entrega </span>
                                                                 <input type="date" class="datos form-control" id="fecha_entrega" name="fecha_entrega" placeholder="Referencias Adicionales (Opcional)">
                                                             </div>
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-2">
                                                                 <span class="help-block">Referencias adicionales </span>
                                                                 <input type="text" class="datos form-control" id="observacion" name="observacion" placeholder="Referencias Adicionales (Opcional)">
                                                             </div>
