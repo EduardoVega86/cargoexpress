@@ -186,11 +186,11 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                             
                                                             <div class="col-md-2">
                                                                 <span class="help-block">Hora de salida </span>
-                                                                <input type="time" class="datos form-control" id="fecha_salida" name="fecha_salida" placeholder="Referencias Adicionales (Opcional)">
+                                                                <input type="time" class="datos form-control" id="hora_salida" name="hora_salida" placeholder="Hora de salida (Opcional)">
                                                             </div>
                                                             <div class="col-md-2">
                                                                  <span class="help-block">Hora de entrega </span>
-                                                                <input type="time" class="datos form-control" id="fecha_entrega" name="fecha_entrega" placeholder="Referencias Adicionales (Opcional)">
+                                                                <input type="time" class="datos form-control" id="hora_entrega" name="hora_entrega" placeholder="Hora de entrega (Opcional)">
                                                             </div>
                                                             <div class="col-md-2">
                                                                 <span class="help-block">Referencias adicionales </span>
