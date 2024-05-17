@@ -74,11 +74,16 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                 <div class="widget-chart">
                                                     <H5><strong>DATOS PARA LA GUIA</strong></H5>
                                                     
-
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <span class="help-block">Nombre del Destinatario </span>
+                                                                <input type="text" class="datos form-control" id="datos-guia" name="datos-guia" placeholder="Ingrese el nombre del destinatario" required>
+                                                                </div>
+                                                                </div>
 
                                                         <div class="row">
 
-                                                            <div class="col-md-3">
+                                                            <div class="col-md-2">
                                                                 <span class="help-block">Origen </span>
                                                                 <?php
                                                                 //echo "select * from bodega where id_empresa=$empresa";
@@ -111,10 +116,10 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                 <input type="hidden" class="form-control" id="id_camion" name="id_camion" value="">
                                                             </div>
 
-                                                            <div class="col-md-3">
+                                                            <div class="col-md-2">
                                                                 <span class="help-block">Destino </span>
                                                                 <select class="form-control" id="destino" name="destino">
-                                                                    <option value="">Seleccione origen</option>
+                                                                    <option value="">Seleccione destino</option>
                                                                     <?php
                                                                     $sql2 = "select * from bodega where id_empresa=$empresa";
                                                                     //echo $sql2;
@@ -155,36 +160,50 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 
                                                             </div>
                                                             
-                                                            <!-- <div class="col-md-2">
-                                                                <span class="help-block">Valor $ </span>
-                                                              <input type="number" class="datos form-control" id="valor" name="valor" placeholder="Valor" required>  
+                                                            <div class="col-md-1">
+                                                                <span class="help-block">Peso </span>
+                                                              <input type="number" class="datos form-control" id="valor" name="valor" placeholder="Kg" required>  
 
                                                             </div>
-                                                            <div class="col-md-2">
-                                                                <span class="help-block">Estibadores </span>
-                                                                <input style="width: 20px; height: 20px"  type="checkbox" id="miCheckbox" onchange="toggleInput(this)">
-                                                              <input type="number" class="form-control" id="estibadores" disabled> 
+                                                            <div class="col-md-1">
+                                                                <span class="help-block">Largo </span>
+                                                                <!-- <input style="width: 20px; height: 20px"  type="checkbox" id="miCheckbox" onchange="toggleInput(this)"> -->
+                                                              <input type="number" class="form-control" id="largo" placeholder="cms"> 
 
-                                                            </div> -->
-                                                            
-
-                                                        </div>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <span class="help-block">Alto </span>
+                                                                <!-- <input style="width: 20px; height: 20px"  type="checkbox" id="miCheckbox" onchange="toggleInput(this)"> -->
+                                                              <input type="number" class="form-control" id="alto" placeholder="cms"> 
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <span class="help-block">Ancho </span>
+                                                                <input type="number" class="datos form-control" id="ancho" name="ancho" placeholder="cms">
+                                                            </div>
+                                                            </div>
                                                         <br>
                                                         <div class="row">
-                                                            <div class="col-md-3">
+                                                            
+                                                            <div class="col-md-2">
                                                                 <span class="help-block">Hora de salida </span>
-                                                                <input type="date" class="datos form-control" id="fecha_salida" name="fecha_salida" placeholder="Referencias Adicionales (Opcional)">
+                                                                <input type="time" class="datos form-control" id="fecha_salida" name="fecha_salida" placeholder="Referencias Adicionales (Opcional)">
                                                             </div>
-                                                            <div class="col-md-3">
+                                                            <div class="col-md-2">
                                                                  <span class="help-block">Hora de entrega </span>
-                                                                <input type="date" class="datos form-control" id="fecha_entrega" name="fecha_entrega" placeholder="Referencias Adicionales (Opcional)">
+                                                                <input type="time" class="datos form-control" id="fecha_entrega" name="fecha_entrega" placeholder="Referencias Adicionales (Opcional)">
                                                             </div>
                                                             <div class="col-md-2">
                                                                 <span class="help-block">Referencias adicionales </span>
                                                                 <input type="text" class="datos form-control" id="observacion" name="observacion" placeholder="Referencias Adicionales (Opcional)">
                                                             </div>
                                                             <div class="col-md-2">
+                                                                <span class="help-block">Cobro contra entrega </span>
+                                                                <input style="width: 20px; height: 20px"  type="checkbox" id="cobroce" onchange="toggleInput(this)">
+                                                                <input type="number" class="form-control" id="alto" placeholder="Valor a Cobrar"> 
 
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                
                                                                 <button style="height: 100%; width: 100%" onclick="agregar_pedido(); calcular_distancia(); " class="btn btn-primary">Agregar</button>
 
                                                             </div>
