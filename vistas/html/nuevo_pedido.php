@@ -243,8 +243,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 
                                         </div>
 <div class="col-md-5">
-    <div id="disponibles" class='col-md-12' style="margin-top:10px"></div>
-                                                                </br>
+    <div id="disponibles" class='col-md-12' style="margin-top:0px"></div>
                                                                 <button  onclick="guardar_venta()" type="submit" style="width:100%; height: 100%; font-size: 20px" class="btn btn-primary"><span class="texto_boton"> Completa tu pedido</span></button>
                                                             </div>
                                         
