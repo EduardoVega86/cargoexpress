@@ -93,10 +93,10 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                 </div>
                                                            <div class="col-md-2">
                                                                 <span class="help-block">CI </span>
-                                                                <input style="width: 20px; height: 20px"  type="checkbox" id="subir-ci" onchange="toggleInput(this)">
+                                                                <input style="width: 20px; height: 20px"  type="radio" id="ci" name="tipoidentificacion" onchange="toggleInput(this)">
                                                                 <span class="help-block">RUC </span>
-                                                                <input style="width: 20px; height: 20px"  type="checkbox" id="subir-ruc" onchange="toggleInput(this)">
-                                                                <input type="file" class="form-control" id="alto" placeholder="Subir PDF"> 
+                                                                <input style="width: 20px; height: 20px"  type="radio" id="ruc" name="tipoidentificacion" onchange="toggleInput(this)">
+                                                                <input type="file" class="form-control" id="subir-ci-ruc" placeholder="Subir PDF"> 
                                                             </div>
                                                             <div class="col-md-2">
                                                                 <span class="help-block">Subir Foto / Logo </span>
