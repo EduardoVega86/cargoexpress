@@ -59,6 +59,7 @@ if ($action == 'ajax') {
                     <th>Nombres</th>
                     <th>Usuario</th>
                     <th>Email</th>
+                    <th>Completar Información</th>
                     <th>Agregado</th>
                     <th><span class="pull-right">Acciones</span></th>
 
@@ -88,6 +89,7 @@ while ($row = mysqli_fetch_array($query)) {
                         <td><?php echo $fullname; ?></td>
                         <td ><?php echo $user_name; ?></td>
                         <td ><?php echo $user_email; ?></td>
+                        <td ><a href="nuevo_usuario.php?id=<?php echo $user_id; ?>"><i class='fa fa-eye'></i> Ver</a></td>
                         <td><?php echo $date_added; ?></td>
 
                         <td >
