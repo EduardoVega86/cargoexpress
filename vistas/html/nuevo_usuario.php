@@ -17,8 +17,9 @@ $session_id = session_id();
 //echo $session_id; 
 $pais = get_row('perfil', 'pais', 'id_perfil', 1);
 
-$empresa = $_GET['id'];
-
+$id_cliente = $_GET['id'];
+//echo $id_cliente;
+$nombre = get_row('users', 'nombre_users', 'id_users', $id_cliente).' '.get_row('users', 'apellido_users', 'id_users', $id_cliente);
 
 
 get_cadena($user_id);
@@ -50,7 +51,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                         <div class="portlet">
                             <div class="portlet-heading bg-primary">
                                 <h3 class="portlet-title">
-                                    NUEVO CLIENTE
+                                   INFORMACIÓN DE CLIENTES
                                 </h3>
                                 <div class="portlet-widgets">
                                     <a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
@@ -72,7 +73,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                         <div class="col-lg-12">
                                             <div class="card-box">
                                                 <div class="widget-chart">
-                                                    <H5><strong>FORMULARIO PARA NUEVOS USUARIOS CLIENTES</strong></H5>
+                                                    <H5><strong><?php echo get_row('users', 'nombre_users', 'id_users', $id_cliente).' '.get_row('users', 'apellido_users', 'id_users', $id_cliente); ?></strong></H5>
                                                     
                                                         <div class="row">
                                                             <div class="col-md-1">
@@ -233,7 +234,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                             </div> -->
                                                      <H6><strong>INFORMACIÓN DE LOS SERVICIOS A LOS QUE ACCEDE</strong></H6>   
                                                      <br><br>
-                                                         <div class="col-md-10">
+                                                         <div class="col-md-12">
                                                                 <span class="help-block">Servicio Express </span>
                                                                 <input style="width: 20px; height: 20px"  type="checkbox" id="servicio-express" onchange="toggleInput(this)">
                                                                 <span class="help-block">&nbsp;&nbsp;&nbsp;Servicio Ilimitado</span>
@@ -250,6 +251,11 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                 <input style="width: 20px; height: 20px"  type="checkbox" id="servicio-interprovincial-express" onchange="toggleInput(this)">
                                                                 </div>
                                                                 </div>
+                                                            <div class="row">
+                                                                <div class="" id="servicios_cliente">
+                                                                    
+                                                                </div>  
+                                                            </div>
                                                                 <br>
                                                         <div class="row">
                                                     <H6><strong>PREFERENCIAS EN LAS NOTIFICACIONES</strong></H6> 
@@ -540,7 +546,27 @@ $(function () {
         });
 
     }
+    
+  
 </script>
+
+<script>
+        document.getElementById('prefijo').addEventListener('change', function() {
+            var inputValue = this.value;
+alert(inputValue);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'actualizar_usuario.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log('Respuesta del servidor:', xhr.responseText);
+                }
+            };
+
+            xhr.send('valor=' + encodeURIComponent(inputValue));
+        });
+    </script>
 
 <?php require 'includes/footer_end.php'
 ?>
