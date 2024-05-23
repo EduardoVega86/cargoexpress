@@ -107,107 +107,11 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                             </div>
                                                             
                                                                 </div>
+                                                 </div>
+                                             </div>
+                                         </div>
 
-                                                        <!-- <div class="row">
-
-                                                            <div class="col-md-2">
-                                                                <span class="help-block">Origen </span>
-                                                                <?php
-                                                                //echo "select * from bodega where id_empresa=$empresa";
-                                                                ?>
-                                                                <select class="form-control" id="origen" name="origen">
-                                                                    <option value="">Seleccione origen</option>
-                                                                    <?php
-                                                                    $sql2 = "select * from bodega where id_empresa=$empresa";
-                                                                    $query2 = mysqli_query($conexion, $sql2);
-
-                                                                    while ($row2 = mysqli_fetch_array($query2)) {
-                                                                        $id = $row2['id'];
-                                                                        $nombre = $row2['nombre'];
-                                                                        $localidad = $row2['localidad'];
-                                                                        $nombre_localidad = get_row('localidad', 'parroquia', 'codigo_parroquia', $localidad);
-
-                                                                        // Obtener el valor almacenado en la tabla orgien_laar
-                                                                        //$valor_seleccionado = $provinciadestino;
-
-                                                                        // Verificar si el valor actual coincide con el almacenado en la tabla
-                                                                        //$selected = ($valor_seleccionado == $cod_provincia) ? 'selected' : '';
-                                                                        // Imprimir la opción con la marca de "selected" si es el valor almacenado
-                                                                        //echo '<option value="' . $id . '" ' . $selected . '>' . $nombre . '</option>';
-                                                                        echo "<option value='$id' > $nombre - $nombre_localidad</option>";
-                                                                    }
-                                                                    ?> 
-                                                                </select>
-                                                                <input type="hidden" class="form-control" id="session" name="session" value="<?php echo $session_id; ?>">
-                                                                <input type="hidden" class="form-control" id="cliente" name="cliente" value="<?php echo $empresa; ?>">
-                                                                <input type="hidden" class="form-control" id="id_camion" name="id_camion" value="">
-                                                            </div> 
-
-                                                            <div class="col-md-2">
-                                                                <span class="help-block">Destino </span>
-                                                                <select class="form-control" id="destino" name="destino">
-                                                                    <option value="">Seleccione destino</option>
-                                                                    <?php
-                                                                    $sql2 = "select * from bodega where id_empresa=$empresa";
-                                                                    //echo $sql2;
-                                                                    $query2 = mysqli_query($conexion, $sql2);
-
-                                                                    while ($row2 = mysqli_fetch_array($query2)) {
-                                                                        $id = $row2['id'];
-                                                                        $nombre = $row2['nombre'];
-                                                                        $localidad = $row2['localidad'];
-                                                                        $nombre_localidad = get_row('localidad', 'parroquia', 'codigo_parroquia', $localidad);
-
-                                                                        // Obtener el valor almacenado en la tabla orgien_laar
-                                                                        //$valor_seleccionado = $provinciadestino;
-
-                                                                        // Verificar si el valor actual coincide con el almacenado en la tabla
-                                                                        //$selected = ($valor_seleccionado == $cod_provincia) ? 'selected' : '';
-                                                                        // Imprimir la opción con la marca de "selected" si es el valor almacenado
-                                                                        //echo '<option value="' . $id . '" ' . $selected . '>' . $nombre . '</option>';
-                                                                        echo "<option value='$id' > $nombre - $nombre_localidad</option>";
-                                                                    }
-                                                                    ?>
-                                                                </select>
-
-                                                            </div>
-                                                            <div class="col-md-2">
-                                                                <span class="help-block">Tipo de servicio </span>
-                                                                <select class="form-control" id="tonelaje" name="tonelaje">
-                                                                    <option value="">Seleccione tipo de servicio</option>
-                                                                     <option value="1">ENVÍO EXPRESS</option>
-                                                                      <option value="">ENVÍO ILIMITADO</option>
-                                                                       <option value="">ENVÍO BÁSICO</option>
-                                                                        <option value="">DELIVERY</option>
-                                                                         <option value="">ESPECIAL</option>
-                                                                          <option value="">INTERPROVINCIAL</option>
-                                                                           <option value="">INTERPROVINCIAL EXPRESS</option>
-                                                                    
-                                                                </select>
-
-                                                            </div>
-                                                            
-                                                            <div class="col-md-1">
-                                                                <span class="help-block">Peso </span>
-                                                              <input type="number" class="datos form-control" id="valor" name="valor" placeholder="Kg" required>  
-
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <span class="help-block">Largo </span>
-                                                                 <input style="width: 20px; height: 20px"  type="checkbox" id="miCheckbox" onchange="toggleInput(this)">
-                                                              <input type="number" class="form-control" id="largo" placeholder="cms"> 
-
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <span class="help-block">Alto </span>
-                                                                 <input style="width: 20px; height: 20px"  type="checkbox" id="miCheckbox" onchange="toggleInput(this)">
-                                                              <input type="number" class="form-control" id="alto" placeholder="cms"> 
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <span class="help-block">Ancho </span>
-                                                                <input type="number" class="datos form-control" id="ancho" name="ancho" placeholder="cms">
-                                                            </div>
-                                                            </div> -->
+                                                      
                                                         <br>
                                                         <div class="row">
                                                      <H6><strong>Información de Matriz y Sucursales</strong></H6>   
