@@ -105,7 +105,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 
                                                       
                                                         <br>
-                                                        <div class="row">
+                                                       <!--  <div class="row">
                                                      <H6><strong>Información de Matriz y Sucursales</strong></H6>   
                                                      <br><br>                                                            
                                                             <div class="col-md-2">
@@ -114,7 +114,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                             </div>
                                                             <br>
                                                         <div class="row">
-                                                            <!-- <div class="col-md-2">
+                                                            <div class="col-md-2">
                                                                  <span class="help-block">Hora de entrega </span>
                                                                 <input type="time" class="datos form-control" id="hora_entrega" name="hora_entrega" placeholder="Hora de entrega (Opcional)">
                                                             </div>
@@ -127,7 +127,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                 <input style="width: 20px; height: 20px"  type="checkbox" id="cobroce" onchange="toggleInput(this)">
                                                                 <input type="number" class="form-control" id="alto" placeholder="Valor a Cobrar"> 
 
-                                                            </div> -->
+                                                            </div> 
                                                      <H6><strong>INFORMACIÓN DE LOS SERVICIOS A LOS QUE ACCEDE</strong></H6>   
                                                      <br><br>
                                                          <div class="col-md-12">
@@ -179,7 +179,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                 <button style="height: 100%; width: 100%" onclick="agregar_sucursal(); " class="btn btn-primary">Agregar cuenta bancaria</button>
                                                             </div>
                                                             </div>
-                                                            <br>
+                                                            <br> -->
                                                         <div class="row">
                                                      <div class="col-md-2">
                                                                 
