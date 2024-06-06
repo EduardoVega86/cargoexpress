@@ -102,9 +102,6 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                  </div>
                                              </div>
                                          </div>
-
-                                                      
-                                                        <br>
                                                        <!--  <div class="row">
                                                      <H6><strong>Información de Matriz y Sucursales</strong></H6>   
                                                      <br><br>                                                            
@@ -183,7 +180,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                         <div class="row">
                                                      <div class="col-md-2">
                                                                 
-                                                                <button style="height: 100%; width: 100%" onclick="agregar_cliente();" class="btn btn-primary">Agregar</button>
+                                                                <button style="height: 100%; width: 100%" onclick="agregar_cliente();" class="btn btn-primary">Guardar </button>
 
                                                             </div>
                                                 </div>
