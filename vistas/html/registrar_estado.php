@@ -51,7 +51,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                         <div class="portlet">
                             <div class="portlet-heading bg-primary">
                                 <h3 class="portlet-title">
-                                   INFORMACIÓN DE CLIENTES
+                                   REGISTRAR ESTADO
                                 </h3>
                                 <div class="portlet-widgets">
                                     <a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
@@ -78,31 +78,23 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                         <div class="row">
                                                             <div class="col-md-1">
                                                                 <span class="help-block">Estado </span>
-                                                                <input type="text" class="datos form-control" id="prefijo" name="prefijo" placeholder="" required>
+                                                                <input type="text" class="datos form-control" id="mensajero-estado" name="mensajero-estado" placeholder="" required>
                                                                 </div>
                                                             <div class="col-md-2">
                                                                 <span class="help-block">Comentario </span>
-                                                                <input type="text" class="datos form-control" id="nombre-empresa" name="nombre-empresa" placeholder="" required>
+                                                                <input type="text" class="datos form-control" id="mensajero-comentario" name="mensajero-comentario" placeholder="" required>
                                                                 </div>
                                                             <div class="col-md-2">
-                                                                <span class="help-block">Foto </span>
-                                                                <input type="text" class="datos form-control" id="cedula-ruc-pasaporte" name="cedula-ruc-pasaporte" placeholder="" required>
-                                                                </div>
-                                                            <div class="col-md-2">
-                                                                <span class="help-block">Nombre del representante Legal </span>
-                                                                <input type="text" class="datos form-control" id="representante-legal" name="representante-legal" placeholder="" required>
+                                                                <span class="help-block">Subir Foto </span>
+                                                                <input type="file" class="datos form-control" id="mensajero-subir-foto" name="mensajero-subir-foto" placeholder="" required>
                                                                 </div>
                                                            <div class="col-md-2">
-                                                                <span class="help-block">CI </span>
-                                                                <input style="width: 20px; height: 20px"  type="radio" id="ci" name="tipoidentificacion" onchange="toggleInput(this)">
-                                                                <span class="help-block">RUC </span>
-                                                                <input style="width: 20px; height: 20px"  type="radio" id="ruc" name="tipoidentificacion" onchange="toggleInput(this)">
-                                                                <input type="file" class="form-control" id="subir-ci-ruc" placeholder="Subir PDF"> 
+                                                                <span class="help-block">Efectivo </span>
+                                                                <input style="width: 20px; height: 20px; margin-top: 30px"  type="radio" id="mensajero-efectivo" name="mensajero-efectivo" onchange="toggleInput(this)">
+                                                                <span class="help-block">Transferencia </span>
+                                                                <input style="width: 20px; height: 20px; margin-top: 30px"  type="radio" id="mensajero-transferencia" name="mensajero-transferencia" onchange="toggleInput(this)">
                                                             </div>
-                                                            <div class="col-md-2">
-                                                                <span class="help-block">Subir Foto / Logo </span>
-                                                                <input type="file" class="datos form-control" id="sibir-foto" name="subir-foto" placeholder="" required>
-                                                                </div>
+                                                           
 
                                                             </div>
                                                             
