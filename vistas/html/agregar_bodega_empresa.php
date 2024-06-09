@@ -15,6 +15,8 @@ $rol= $_SESSION['cargo_users'];
 get_cadena($user_id);
 $modulo = "Bodegas Empresa";
 permisos($modulo, $cadena_permisos);
+$id=$_GET['id'];
+
 //Finaliza Control de Permisos
 ?>
 
@@ -52,14 +54,14 @@ permisos($modulo, $cadena_permisos);
                                                                                         
                                                                                     
     ?>
-                                                                                    <select  class='form-control' name='empresa' id='empresa' required>
+                                                                                    <select   class='form-control' name='empresa' id='empresa' required>
 												<option value="">-- Selecciona cliente--</option>
 												<?php
 
     $query_categoria = mysqli_query($conexion, "select * from users where cargo_users=4 order by apellido_users;");
     while ($rw = mysqli_fetch_array($query_categoria)) {
         ?>
-													<option value="<?php echo $rw['id_users']; ?>"><?php echo $rw['apellido_users']; ?></option>
+													<option <?php  if($id==$rw['id_users']){ echo 'selected'; } ?> value="<?php echo $rw['id_users']; ?>"><?php echo $rw['apellido_users']; ?></option>
 													<?php
 }
     ?>

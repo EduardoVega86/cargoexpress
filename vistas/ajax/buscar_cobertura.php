@@ -25,7 +25,7 @@ if ($action == 'ajax') {
     // escaping, additionally removing everything that could be (html/javascript-) code
     $q        = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
     $aColumns = array('nombre_linea'); //Columnas de busqueda
-    $sTable   = "lineas";
+    $sTable   = "cobertura";
     $sWhere   = "";
     if ($_GET['q'] != "") {
         $sWhere = "WHERE (";
@@ -35,7 +35,7 @@ if ($action == 'ajax') {
         $sWhere = substr_replace($sWhere, "", -3);
         $sWhere .= ')';
     }
-    $sWhere .= " order by id_linea";
+    $sWhere .= " order by id";
     include 'pagination.php'; //include pagination file
     //pagination variables
     $page      = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
@@ -59,18 +59,30 @@ if ($action == 'ajax') {
             <table class="table table-sm table-striped">
                 <tr  class="info">
                     <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Estado</th>
+                    <th>Servicio</th>
+                    <th>Valor</th>
+                    <th>Adicional</th>
+                    <th>Peso Maximo</th>
+                    <th>Largo</th>
+                    <th>Alto</th>
+                    <th>Ancho</th>
+                    <th>Contra Entrega</th>
+                    <th>Costo</th>
+                     <th>Etiqueta</th>
                     <th class='text-right'>Acciones</th>
 
                 </tr>
                 <?php
 while ($row = mysqli_fetch_array($query)) {
-            $id_linea     = $row['id_linea'];
-            $nombre       = $row['nombre_linea'];
-            $descripcion  = $row['descripcion_linea'];
-            $estado_linea = $row['estado_linea'];
+            $id     = $row['id'];
+            $servicio      = $row['servicio'];
+            $valor       = $row['valor'];
+            $adicional  = $row['adicional'];
+            $peso_max = $row['peso_max'];
+            $largo = $row['largo'];
+            $alto = $row['alto'];
+            $ancho = $row['ancho'];
+            $contra_entrega = $row['contra_entrega'];
             $date_added   = date('d/m/Y', strtotime($row['date_added']));
             if ($estado_linea == 1) {
                 $estado = "<span class='badge badge-success'>Activo</span>";

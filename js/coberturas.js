@@ -6,7 +6,7 @@
 		    var q = $("#q").val();
 		    $("#loader").fadeIn('slow');
 		    $.ajax({
-		        url: '../ajax/buscar_linea.php?action=ajax&page=' + page + '&q=' + q,
+		        url: '../ajax/buscar_coberturas.php?action=ajax&page=' + page + '&q=' + q,
 		        beforeSend: function(objeto) {
 		            $('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
 		        },

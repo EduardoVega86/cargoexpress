@@ -2,6 +2,18 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/xampp/htdocs/cargoexpress/vistas/funciones.php</file>
+            <file>file:/C:/xampp/htdocs/cargoexpress/vistas/html/cobertura.php</file>
+            <file>file:/C:/xampp/htdocs/cargoexpress/vistas/ajax/buscar_cliente.php</file>
+            <file>file:/C:/xampp/htdocs/cargoexpress/js/coberturas.js</file>
+            <file>file:/C:/xampp/htdocs/cargoexpress/vistas/html/nuevo_usuario.php</file>
+            <file>file:/C:/xampp/htdocs/cargoexpress/vistas/ajax/buscar_usuarios_clientes.php</file>
+            <file>file:/C:/xampp/htdocs/cargoexpress/vistas/ajax/buscar_cobertura.php</file>
+            <file>file:/C:/xampp/htdocs/cargoexpress/vistas/html/lineas.php</file>
+            <file>file:/C:/xampp/htdocs/cargoexpress/vistas/db.php</file>
+            <file>file:/C:/xampp/htdocs/cargoexpress/vistas/ajax/nuevo_usuario.php</file>
+            <file>file:/C:/xampp/htdocs/cargoexpress/.gitignore</file>
+        </group>
     </open-files>
 </project-private>

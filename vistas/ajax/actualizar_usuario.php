@@ -1,24 +1,22 @@
 <?php
 include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 /*Inicia validacion del lado del servidor*/
-if (empty($_POST['mod_id'])) {
-    $errors[] = "ID vacío";
+if (empty($_POST['campo'])) {
+    $errors[] = "campo";
 } else if (
-    !empty($_POST['mod_id'])
+    !empty($_POST['campo'])
 ) {
     /* Connect To Database*/
     require_once "../db.php";
     require_once "../php_conexion.php";
     // escaping, additionally removing everything that could be (html/javascript-) code
-    $nombre      = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_nombre"], ENT_QUOTES)));
-    $descripcion = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_descripcion"], ENT_QUOTES)));
-    $estado      = intval($_POST['mod_estado']);
-    $id_linea    = intval($_POST['mod_id']);
+   $campo= $_POST['campo'];
+   $id_usuario= $_POST['id_usuario'];
+   $valor= $_POST['valor'];
 
-    $sql = "UPDATE lineas SET  nombre_linea='" . $nombre . "',
-                                estado_linea='" . $estado . "',
-                                descripcion_linea='" . $descripcion . "'
-                                WHERE id_linea='" . $id_linea . "'";
+    $sql = "UPDATE users SET  $campo='" . $valor . "'
+                            WHERE id_users='" . $id_usuario . "'";
+    echo $sql;
     $query_update = mysqli_query($conexion, $sql);
     if ($query_update) {
         $messages[] = "Linea ha sido actualizada con Exito.";

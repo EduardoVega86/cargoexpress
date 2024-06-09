@@ -18,6 +18,21 @@ $session_id = session_id();
 $pais = get_row('perfil', 'pais', 'id_perfil', 1);
 
 $id_cliente = $_GET['id'];
+$sql="select * from users where id_users=$id_cliente";
+$query = mysqli_query($conexion, $sql);
+
+while ($row = mysqli_fetch_array($query)) {
+    $prefijo = $row['prefijo'];
+    $empresa = $row['empresa'];
+    $representante = $row['represetante'];
+    $cedula = $row['cedula'];
+     $cedula_ruc = $row['cedula_ruc'];
+     $url_cedula=$row['url_cedula_ruc'];
+     $foto=$row['foto'];
+   // $prefijo = $row['prefijo'];
+}
+
+
 //echo $id_cliente;
 $nombre = get_row('users', 'nombre_users', 'id_users', $id_cliente).' '.get_row('users', 'apellido_users', 'id_users', $id_cliente);
 
@@ -76,32 +91,50 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                     <H5><strong><?php echo get_row('users', 'nombre_users', 'id_users', $id_cliente).' '.get_row('users', 'apellido_users', 'id_users', $id_cliente); ?></strong></H5>
                                                     
                                                         <div class="row">
-                                                            <div class="col-md-1">
+                                                            <div class="col-md-3">
                                                                 <span class="help-block">Prefijo </span>
-                                                                <input type="text" class="datos form-control" id="prefijo" name="prefijo" placeholder="" required>
+                                                                <input type="hidden" class="datos form-control" id="id_usuario" name="id_usuario" value="<?php echo $id_cliente;?>">
+                                                                <input type="text" class="datos form-control" id="prefijo" name="prefijo" placeholder="" value="<?php echo $prefijo;?>" required>
                                                                 </div>
-                                                            <div class="col-md-2">
+                                                            <div class="col-md-3">
                                                                 <span class="help-block">Nombre de la Empresa / Persona </span>
-                                                                <input type="text" class="datos form-control" id="nombre-empresa" name="nombre-empresa" placeholder="" required>
+                                                                <input type="text" class="datos form-control" id="empresa" name="empresa" value="<?php echo $empresa;?>" placeholder="" required>
                                                                 </div>
-                                                            <div class="col-md-2">
+                                                            <div class="col-md-3">
                                                                 <span class="help-block">Cédula / RUC / Pasaporte </span>
-                                                                <input type="text" class="datos form-control" id="cedula-ruc-pasaporte" name="cedula-ruc-pasaporte" placeholder="" required>
+                                                                <input type="text" class="datos form-control" id="cedula" name="cedula" placeholder="" value="<?php echo $cedula;?>" required>
                                                                 </div>
-                                                            <div class="col-md-2">
+                                                            <div class="col-md-3">
                                                                 <span class="help-block">Nombre del representante Legal </span>
-                                                                <input type="text" class="datos form-control" id="representante-legal" name="representante-legal" placeholder="" required>
+                                                                <input type="text" class="datos form-control" id="representante" name="representante" placeholder="" value="<?php echo $representante;?>" required>
                                                                 </div>
-                                                           <div class="col-md-2">
-                                                                <span class="help-block">CI </span>
-                                                                <input style="width: 20px; height: 20px"  type="radio" id="ci" name="tipoidentificacion" onchange="toggleInput(this)">
-                                                                <span class="help-block">RUC </span>
-                                                                <input style="width: 20px; height: 20px"  type="radio" id="ruc" name="tipoidentificacion" onchange="toggleInput(this)">
-                                                                <input type="file" class="form-control" id="subir-ci-ruc" placeholder="Subir PDF"> 
                                                             </div>
-                                                            <div class="col-md-2">
+                                                    <div style="margin-top: 15px" class="row">
+                                                        </br>
+                                                           <div class="col-md-3">
+                                                                <span class="help-block">CI </span>
+                                                                <input style="width: 20px; height: 20px"  type="radio" id="ci" name="tipoidentificacion" value="1" <?php if ($cedula_ruc == 1) echo 'checked'; ?> onchange="radio(this)">
+                                                                <span class="help-block">RUC </span>
+                                                                <input style="width: 20px; height: 20px"  type="radio" id="ruc" name="tipoidentificacion" value="2" <?php if ($cedula_ruc == 2) echo 'checked'; ?> onchange="radio2(this)">
+                                                                 <form id="uploadForm" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="file" class="form-control" id="subir-ci-ruc" name="file" onchange="uploadFile()" placeholder="Subir PDF">
+                <?php if (!empty($url_cedula)) { ?>
+                    <a href="<?php echo htmlspecialchars($url_cedula); ?>" class="btn btn-primary ml-2" download>Descargar</a>
+                <?php } ?>
+            </div>
+        </form>
+                                                            </div>
+                                                            <div class="col-md-3">
                                                                 <span class="help-block">Subir Foto / Logo </span>
-                                                                <input type="file" class="datos form-control" id="sibir-foto" name="subir-foto" placeholder="" required>
+                                                                <form id="uploadForm2" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="file" class="form-control" id="subir-foto" name="file" onchange="uploadFile2()" placeholder="Subir PDF">
+                <?php if (!empty($foto)) { ?>
+                    <a href="<?php echo htmlspecialchars($foto); ?>" class="btn btn-primary ml-2" download>Descargar</a>
+                <?php } ?>
+            </div>
+        </form>
                                                                 </div>
 
                                                             </div>
@@ -114,10 +147,55 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                       
                                                         <br>
                                                         <div class="row">
+                                                             <div class="col-lg-12">
+                                                                 
                                                      <H6><strong>Información de Matriz y Sucursales</strong></H6>   
-                                                     <br><br>                                                            
+                                                     </div>
+                                                            <div class="col-lg-12">
+                                                            <div class="table-responsive">
+          <table class="table table-sm table-striped">
+            <tr  class="info">
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Direccion</th>
+                <th>Localidad</th>
+                 <th>Responsable</th>
+                 <th>Telefono</th>
+                                                     <?php
+                                                     $sql="select * from bodega where id_empresa=$id_cliente";
+$query = mysqli_query($conexion, $sql);
+
+while ($row = mysqli_fetch_array($query)) {
+    
+
+       $id          = $row['id'];
+            $nombre      = $row['nombre'];
+            $direccion      = $row['direccion'];
+            $localidad = $row['localidad'];
+            $responsable      = $row['responsable'];
+            $contacto      = $row['contacto'];
+     ?>
+              <tr>
+                    <td><span class="badge badge-purple"><?php echo $id; ?></span></td>
+                   
+               
+                    <td ><?php echo $nombre; ?></td>
+                    <td ><?php echo $direccion; ?></td>
+                    <td ><?php echo $localidad; ?></td>
+                    <td ><?php echo $responsable; ?></td>
+                    <td ><?php echo $contacto; ?></td>
+                    
+                    
+           </tr>                                              
+     <?php
+}
+     // $prefijo = $row['prefijo'];
+?>
+           </table>
+                  </div>
+                 </div>
                                                             <div class="col-md-2">
-                                                                <button style="height: 100%; width: 100%" onclick="agregar_sucursal(); " class="btn btn-primary">Agregar Sucursal</button>
+                                                                <a style="height: 100%; width: 100%" href="agregar_bodega_empresa.php?id=<?php echo $id_cliente;?>" class="btn btn-primary">Agregar Sucursal</a>
                                                             </div>
                                                             </div>
                                                             <br>
@@ -136,23 +214,69 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                 <input type="number" class="form-control" id="alto" placeholder="Valor a Cobrar"> 
 
                                                             </div> -->
+                                                               <div class="col-md-6">
                                                      <H6><strong>INFORMACIÓN DE LOS SERVICIOS A LOS QUE ACCEDE</strong></H6>   
-                                                     <br><br>
-                                                         <div class="col-md-12">
-                                                                <span class="help-block">Servicio Express </span>
-                                                                <input style="width: 20px; height: 20px"  type="checkbox" id="servicio-express" onchange="toggleInput(this)">
-                                                                <span class="help-block">&nbsp;&nbsp;&nbsp;Servicio Ilimitado</span>
-                                                                <input style="width: 20px; height: 20px"  type="checkbox" id="servicio-ilimitado" onchange="toggleInput(this)">
-                                                                <span class="help-block">&nbsp;&nbsp;&nbsp;Servicio Básico</span>
-                                                                <input style="width: 20px; height: 20px"  type="checkbox" id="servicio-basico" onchange="toggleInput(this)">
-                                                                <span class="help-block">&nbsp;&nbsp;&nbsp;Servicio Delivery</span>
-                                                                <input style="width: 20px; height: 20px"  type="checkbox" id="servicio-delivery" onchange="toggleInput(this)">
-                                                                <span class="help-block">&nbsp;&nbsp;&nbsp;Servicio Especial</span>
-                                                                <input style="width: 20px; height: 20px"  type="checkbox" id="servicio-especial" onchange="toggleInput(this)">
-                                                                <span class="help-block">&nbsp;&nbsp;&nbsp;Interprovincial</span>
-                                                                <input style="width: 20px; height: 20px"  type="checkbox" id="servicio-interprovincial" onchange="toggleInput(this)">
-                                                                <span class="help-block">&nbsp;&nbsp;&nbsp;Interprovincial Express</span>
-                                                                <input style="width: 20px; height: 20px"  type="checkbox" id="servicio-interprovincial-express" onchange="toggleInput(this)">
+                                                                                                     
+                                                               <?php
+                                                     $sql="select * from servicios";
+$query = mysqli_query($conexion, $sql);
+
+while ($row = mysqli_fetch_array($query)) {
+    $id_servicio      = $row['id_servicio'];
+            $nombre_servicio      = $row['nombre_servicio'];
+
+?>
+                                                               
+                                                                <input <?php 
+                                                                
+                                                                $sql_check = "SELECT * FROM servicios_empresa WHERE id_servicio = $id_servicio AND id_empresa = $id_cliente";
+$result = mysqli_query($conexion, $sql_check);
+
+if (mysqli_num_rows($result) > 0) { 
+  echo 'checked';  
+}    ?>
+
+    style="width: 20px; height: 20px"  type="checkbox" id="servicio-express"  onchange="activar_servicio(<?php echo $id_servicio; ?>)"> <span class="help-block"><?php echo $nombre_servicio; ?></span>
+                                                                <br>
+            <?php                                                    
+                  }
+?>                 
+                                                                
+                                                                
+                                                                
+                                                          
+                                                                </div>
+                                                            <div class="col-md-6">
+                                                     <H6><strong>PREFERENCIAS EN LAS NOTIFICACIONES</strong></H6>   
+                                                                                                     
+                                                               <?php
+                                                     $sql="select * from notificaciones";
+$query = mysqli_query($conexion, $sql);
+
+while ($row = mysqli_fetch_array($query)) {
+    $id_notificacion     = $row['id'];
+            $notificacion      = $row['notificacion'];
+
+?>
+                                                               
+                                                                <input <?php 
+                                                                
+                                                                $sql_check = "SELECT * FROM notificacion_cliente WHERE id_notificacion = $id_notificacion AND id_empresa = $id_cliente";
+$result = mysqli_query($conexion, $sql_check);
+
+if (mysqli_num_rows($result) > 0) { 
+  echo 'checked';  
+}    ?>
+
+    style="width: 20px; height: 20px"  type="checkbox" id="servicio-express"  onchange="activar_notificacion(<?php echo $id_notificacion; ?>)"> <span class="help-block"><?php echo $notificacion; ?></span>
+                                                                <br>
+            <?php                                                    
+                  }
+?>                 
+                                                                
+                                                                
+                                                                
+                                                          
                                                                 </div>
                                                                 </div>
                                                             <div class="row">
@@ -161,25 +285,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                 </div>  
                                                             </div>
                                                                 <br>
-                                                        <div class="row">
-                                                    <H6><strong>PREFERENCIAS EN LAS NOTIFICACIONES</strong></H6> 
-                                                         <div class="col-md-10">
-                                                                <span class="help-block">Entrega (cuando el mensajero registre la entrega)</span>
-                                                                <input style="width: 20px; height: 20px"  type="checkbox" id="servicio-express" onchange="toggleInput(this)">
-                                                                <span class="help-block">&nbsp;&nbsp;&nbsp;Alerta envío (cuando el mensajero notifique la novedad)</span>
-                                                                <input style="width: 20px; height: 20px"  type="checkbox" id="servicio-ilimitado" onchange="toggleInput(this)">
-                                                                <span class="help-block">&nbsp;&nbsp;&nbsp;Envío no efectivo (cuando el mensajero registre la novedad)</span>
-                                                                <input style="width: 20px; height: 20px"  type="checkbox" id="servicio-basico" onchange="toggleInput(this)">
-                                                                </div>
-                                                         <div class="col-md-10">
-                                                                <span class="help-block">Retiro (cuando el mensajero registre el retiro)</span>
-                                                                <input style="width: 20px; height: 20px"  type="checkbox" id="servicio-delivery" onchange="toggleInput(this)">
-                                                                <span class="help-block">&nbsp;&nbsp;&nbsp;Alerta retiro (cuando el mensajero notifique la novedad)</span>
-                                                                <input style="width: 20px; height: 20px"  type="checkbox" id="servicio-especial" onchange="toggleInput(this)">
-                                                                <span class="help-block">&nbsp;&nbsp;&nbsp;Retiro no efectivo (cuando el mensajero registre la novedad)</span>
-                                                                <input style="width: 20px; height: 20px"  type="checkbox" id="servicio-interprovincial" onchange="toggleInput(this)">
-                                                                </div>
-                                                            </div>
+                                                        
                                                             <br>
                                                        <div class="row">
                                                     <H6><strong>Información Bancaria (para usuarios clientes que deseen cobranza contra entrega)</strong></H6> 
@@ -189,11 +295,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                             </div>
                                                             <br>
                                                         <div class="row">
-                                                     <div class="col-md-2">
-                                                                
-                                                                <button style="height: 100%; width: 100%" onclick="agregar_cliente();" class="btn btn-primary">Agregar</button>
-
-                                                            </div>
+                                                     
                                                 </div>
                                             </div>
 
@@ -243,234 +345,196 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 <script type="text/javascript" src="../../js/cotizacion.js"></script>
 <!-- ============================================================== -->
 <!-- Codigos Para el Auto complete de Clientes -->
-<script>
-     function calcular_distancia() {
-    var origen = (-0.1763603, -78.47949419999999) 
-var destino = (-78.503773, -0.1329112) 
-resultado = gmaps.distance_matrix(origen, destino, mode='driving')
 
-
-distancia = resultado['rows'][0]['elements'][0]['distance']['text']
-alert(distancia)
-  }
-     function agregar_pedido() {
-    var valor = document.getElementById('valor').value;
-    var estibadores = document.getElementById('estibadores').value;
-    var origen = document.getElementById('origen').value;
-    var destino = document.getElementById('destino').value;
-    var cliente = document.getElementById('cliente').value;
-    var tonelaje = document.getElementById('tonelaje').value;
-    //Inicia validacion
-    if (isNaN(valor)) {
-        $.Notification.notify('error', 'bottom center', 'NOTIFICACIÓN', 'LA CANTIDAD NO ES UN NUMERO, INTENTAR DE NUEVO')
-        document.getElementById('valor').focus();
-        return false;
-    }
-    if (isNaN(estibadores)) {
-        $.Notification.notify('error', 'bottom center', 'NOTIFICACIÓN', 'EL PRECIO NO ES UN NUMERO, INTENTAR DE NUEVO')
-        document.getElementById('estibadores').focus();
-        return false;
-    }
-    //Fin validacion
-    $.ajax({
-        type: "POST",
-        url: "../ajax/agregar_tmp_modalcot.php",
-        data: "id=" + cliente + "&valor=" + valor + "&estibadores=" + estibadores+ "&origen=" + origen+ "&destino=" + destino+ "&tonelaje=" + tonelaje + "&operacion=" + 2,
-        beforeSend: function(objeto) {
-            $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
-        },
-        success: function(datos) {
-            $("#resultados").html(datos);
-            $.ajax({
-        type: "POST",
-        url: "../ajax/buscar_camion_disponible.php",
-        data: "tonelaje=" + tonelaje,
-        
-        success: function(datos_disponibles) {
-            $("#disponibles").html(datos_disponibles);
-        }
-    });
-        }
-    });
-}
-
-function guardar_venta() {
-    var valor = document.getElementById('valor').value;
-    var estibadores = document.getElementById('estibadores').value;
-    var origen = document.getElementById('origen').value;
-    var destino = document.getElementById('destino').value;
-    var cliente = document.getElementById('cliente').value;
-    var tonelaje = document.getElementById('tonelaje').value;
-    var id_camion = document.getElementById('id_camion').value;
-    var observacion = document.getElementById('observacion').value;
-    //Inicia validacion
-    
-    
-    //Fin validacion
-    $.ajax({
-        type: "POST",
-        url: "../ajax/guardar_pedido.php",
-        data: "id=" + cliente + "&valor=" + valor + "&estibadores=" + estibadores+ "&origen=" + origen+ "&destino=" + destino+ "&tonelaje=" + tonelaje + "&observacion=" + observacion+ "&id_camion=" + id_camion,
-        beforeSend: function(objeto) {
-            $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
-        },
-        success: function(datos) {
-            alert(datos)
-             if (datos == "ok") {
-              // alert();
-                  Swal.fire({
-                    title: "¡Pedido ingresado con éxito!",
-                    icon: "success",
-                    confirmButtonText: "¡Aceptar!",
-                  }).then(() => {
-                    window.location.reload();
-                  });
-                }else{
-               window.location.reload();     
-     }
-  
-        }
-    });
-}
-        
-   function toggleInput(checkbox) {
-    var inputText = document.getElementById("estibadores");
-    inputText.disabled = !checkbox.checked; // Deshabilita si no está marcado, habilita si está marcado
-    //inputText.value(0)
-}                                                                                                     
-function seleccionarUnico(checkboxSeleccionado, id_camion) {
-    // Obtener todos los checkboxes con el nombre 'filaSeleccionada'
-    //alert(id_camion)
-     $('#id_camion').val(id_camion);
-    var checkboxes = document.getElementsByName('filaSeleccionada');
-    
-    // Recorrer todos los checkboxes y deseleccionar todos excepto el que fue seleccionado
-    for(var i=0; i < checkboxes.length; i++) {
-        if(checkboxes[i] !== checkboxSeleccionado) {
-            checkboxes[i].checked = false;
-        }
-    }
-}
-
-$(function () {
-                                                                                                                                                $("#nombre_cliente").autocomplete({
-                                                                                                                                                    source: "../ajax/autocomplete/clientes.php",
-                                                                                                                                                    minLength: 2,
-                                                                                                                                                    select: function (event, ui) {
-                                                                                                                                                        event.preventDefault();
-                                                                                                                                                        $('#id_cliente').val(ui.item.id_cliente);
-                                                                                                                                                        $('#nombre_cliente').val(ui.item.nombre_cliente);
-                                                                                                                                                        $('#tel1').val(ui.item.fiscal_cliente);
-                                                                                                                                                        $('#em').val(ui.item.email_cliente);
-                                                                                                                                                        $.Notification.notify('success', 'bottom right', 'EXITO!', 'CLIENTE AGREGADO CORRECTAMENTE')
-                                                                                                                                                    }
-                                                                                                                                                });
-                                                                                                                                            });
-
-                                                                                                                                            $("#nombre_cliente").on("keydown", function (event) {
-                                                                                                                                                if (event.keyCode == $.ui.keyCode.LEFT || event.keyCode == $.ui.keyCode.RIGHT || event.keyCode == $.ui.keyCode.UP || event.keyCode == $.ui.keyCode.DOWN || event.keyCode == $.ui.keyCode.DELETE || event.keyCode == $.ui.keyCode.BACKSPACE) {
-                                                                                                                                                    $("#id_cliente").val("");
-                                                                                                                                                    $("#tel1").val("");
-                                                                                                                                                    $("#em").val("");
-                                                                                                                                                }
-                                                                                                                                                if (event.keyCode == $.ui.keyCode.DELETE) {
-                                                                                                                                                    $("#nombre_cliente").val("");
-                                                                                                                                                    $("#id_cliente").val("");
-                                                                                                                                                    $("#tel1").val("");
-                                                                                                                                                    $("#em").val("");
-                                                                                                                                                }
-                                                                                                                                            });
-</script>
 <!-- FIN -->
+
+
+
+
 <script>
-    // print order function
-    function printFactura(id_factura) {
-        $('#modal_vuelto').modal('hide');
-        if (id_factura) {
-            $.ajax({
-                url: '../pdf/documentos/imprimir_cotizacion.php',
-                type: 'post',
-                data: {
-                    id_factura: id_factura
-                },
-                dataType: 'text',
-                success: function (response) {
-                    var mywindow = window.open('', 'Stock Management System', 'height=400,width=600');
-                    mywindow.document.write('<html><head><title>Facturación</title>');
-                    mywindow.document.write('</head><body>');
-                    mywindow.document.write(response);
-                    mywindow.document.write('</body></html>');
-                    mywindow.document.close(); // necessary for IE >= 10
-                    mywindow.focus(); // necessary for IE >= 10
-                    mywindow.print();
-                    mywindow.close();
-                } // /success function
+    document.getElementById('prefijo').addEventListener('change', function() {
+        var prefijoValue = this.value;
+        var otraVariable = 'valor2'; // Aquí puedes definir el valor de la segunda variable
+ var id_usuario = $('#id_usuario').val(); 
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '../ajax/actualizar_usuario.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-            }); // /ajax function to fetch the printable order
-        } // /if orderId
-    } // /print order function
-</script>
-<script>
-    function obtener_caja(user_id) {
-        $(".outer_div3").load("../modal/carga_caja.php?user_id=" + user_id); //carga desde el ajax
-    }
-</script>
-<script>
-    function showDiv(select) {
-        if (select.value == 4) {
-            $("#resultados3").load("../ajax/carga_prima.php");
-        } else {
-            $("#resultados3").load("../ajax/carga_resibido.php");
-        }
-    }
-
-    function cargar_provincia_pedido() {
-
-        var id_provincia = $('#provinica').val();
-        //alert($('#provinica').val())
-        //var data = new FormData(formulario);
-
-        $.ajax({
-            url: "../../../ajax/cargar_ciudad_pedido.php", // Url to which the request is send
-            type: "POST", // Type of request to be send, called as method
-            data: {
-                provinica: id_provincia,
-
-            }, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
-            dataType: 'text', // To send DOMDocument or non processed data file it is set to false
-            success: function (data) // A function to be called if request succeeds
-            {
-
-
-
-                $('#div_ciudad').html(data);
-
-
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log('Respuesta del servidor:', xhr.responseText);
             }
-        });
+        };
 
+        var params = 'campo=prefijo' + '&valor=' + encodeURIComponent(prefijoValue) +  '&id_usuario=' + id_usuario;
+        xhr.send(params);
+    });
+    
+     document.getElementById('empresa').addEventListener('change', function() {
+        var prefijoValue = this.value;
+        var otraVariable = 'valor2'; // Aquí puedes definir el valor de la segunda variable
+ var id_usuario = $('#id_usuario').val(); 
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '../ajax/actualizar_usuario.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log('Respuesta del servidor:', xhr.responseText);
+            }
+        };
+
+        var params = 'campo=empresa' + '&valor=' + encodeURIComponent(prefijoValue) +  '&id_usuario=' + id_usuario;
+        xhr.send(params);
+    });
+    
+    document.getElementById('cedula').addEventListener('change', function() {
+        var prefijoValue = this.value;
+        var otraVariable = 'valor2'; // Aquí puedes definir el valor de la segunda variable
+ var id_usuario = $('#id_usuario').val(); 
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '../ajax/actualizar_usuario.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log('Respuesta del servidor:', xhr.responseText);
+            }
+        };
+
+        var params = 'campo=cedula' + '&valor=' + encodeURIComponent(prefijoValue) +  '&id_usuario=' + id_usuario;
+        xhr.send(params);
+    });
+    
+    document.getElementById('representante').addEventListener('change', function() {
+        var prefijoValue = this.value;
+        var otraVariable = 'valor2'; // Aquí puedes definir el valor de la segunda variable
+ var id_usuario = $('#id_usuario').val(); 
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '../ajax/actualizar_usuario.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log('Respuesta del servidor:', xhr.responseText);
+            }
+        };
+
+        var params = 'campo=represetante' + '&valor=' + encodeURIComponent(prefijoValue) +  '&id_usuario=' + id_usuario;
+        xhr.send(params);
+    });
+    
+    function radio(valor){
+        var prefijoValue = 1;
+        var otraVariable = 'valor2'; // Aquí puedes definir el valor de la segunda variable
+ var id_usuario = $('#id_usuario').val(); 
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '../ajax/actualizar_usuario.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log('Respuesta del servidor:', xhr.responseText);
+            }
+        };
+
+        var params = 'campo=cedula_ruc' + '&valor=' + encodeURIComponent(prefijoValue) +  '&id_usuario=' + id_usuario;
+        xhr.send(params);
     }
     
-  
+    function radio2(valor){
+        var prefijoValue = 2;
+        var otraVariable = 'valor2'; // Aquí puedes definir el valor de la segunda variable
+ var id_usuario = $('#id_usuario').val(); 
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '../ajax/actualizar_usuario.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log('Respuesta del servidor:', xhr.responseText);
+            }
+        };
+
+        var params = 'campo=cedula_ruc' + '&valor=' + encodeURIComponent(prefijoValue) +  '&id_usuario=' + id_usuario;
+        xhr.send(params);
+    }
+    
+    function uploadFile() {
+            var formData = new FormData(document.getElementById('uploadForm'));
+            formData.append('id_usuario', $('#id_usuario').val());
+            $.ajax({
+                url: '../ajax/subir_cedula.php',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    $('#result').html(response);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    $('#result').html('Error al subir el archivo: ' + textStatus);
+                }
+            });
+        }
+        
+        function uploadFile2() {
+            var formData = new FormData(document.getElementById('uploadForm2'));
+            formData.append('id_usuario', $('#id_usuario').val());
+            $.ajax({
+                url: '../ajax/subir_foto.php',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    $('#result').html(response);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    $('#result').html('Error al subir el archivo: ' + textStatus);
+                }
+            });
+        }
+        
+          function activar_servicio(servicio) {
+         
+             var servicio = servicio;
+     
+ var id_usuario = $('#id_usuario').val(); 
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '../ajax/activar_servicio.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log('Respuesta del servidor:', xhr.responseText);
+            }
+        };
+
+        var params = 'servicio=' + encodeURIComponent(servicio) +  '&id_usuario=' + id_usuario;
+        xhr.send(params);
+        }
+        
+        function activar_notificacion(notificacion) {
+         
+             var notificacion = notificacion;
+     
+ var id_usuario = $('#id_usuario').val(); 
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '../ajax/activar_notificacion.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log('Respuesta del servidor:', xhr.responseText);
+            }
+        };
+
+        var params = 'notificacion=' + encodeURIComponent(notificacion) +  '&id_usuario=' + id_usuario;
+        xhr.send(params);
+        }
 </script>
 
-<script>
-        document.getElementById('prefijo').addEventListener('change', function() {
-            var inputValue = this.value;
-alert(inputValue);
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'actualizar_usuario.php', true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    console.log('Respuesta del servidor:', xhr.responseText);
-                }
-            };
-
-            xhr.send('valor=' + encodeURIComponent(inputValue));
-        });
-    </script>
 
 <?php require 'includes/footer_end.php'
 ?>
