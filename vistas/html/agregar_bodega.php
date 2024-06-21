@@ -52,6 +52,17 @@ permisos($modulo, $cadena_permisos);
                                                                                         
                                                                                     
     ?>
+    <br>
+                                                                                        <input id="nombre-sucursal" name="nombre-sucursal" class="form-control " type="text" placeholder="Nombre de la sucursal" required> <br>
+</select>
+                                                                <select class="form-control" id="direccion-ciudad" name="direccion-ciudad">
+                                                                  <option value="">--Ciudad--</option>                                                                    
+                                                                    <option value="">Quito</option>
+                                                                     <option value="1">Guayaquil</option>
+                                                                      <option value="">Cuenca</option>
+                                                                       <option value="">Ambato</option>
+                                                                </select>
+                                                                                            <br>                                                                                            
                                                                                     <select  class='form-control' name='empresa' id='empresa' required>
 												<option value="">-- Selecciona cliente--</option>
 												<?php
@@ -74,7 +85,7 @@ permisos($modulo, $cadena_permisos);
                                                                                     }
     ?>
 											<br>
-                                                                                        <input id="nombre" name="nombre" class="form-control " type="text" placeholder="Nombre de la destinatario" required>
+                                                                                        <input id="nombre" name="nombre" class="form-control " type="text" placeholder="Nombre de Contacto" required>
                                                                                             <br>
                                                                                              <input id="direccion" name="direccion" class="form-control " type="text" placeholder="Ingresa una dirección">
                                                                                              <br>
@@ -114,12 +125,8 @@ permisos($modulo, $cadena_permisos);
 											</select>   
                                                                                             </div> --> 
                                                                                             <input readonly id="direccion_completa" name="direccion_completa" class="form-control" type="hidden" placeholder="Ingresa una dirección">
-                                                                                             <input readonly id="nombre_contacto" name="nombre_contacto" class="form-control " type="text" placeholder="Ingrese Contacto">
-                                                                                             <br> 
                                                                                              <input readonly id="telefono" name="telefono" class="form-control " type="text" placeholder="Telefono de contacto">
-                                                                                            <br> 
-                                                                                            <input readonly id="numero_casa" name="numero_casa" class="form-control " type="text" placeholder="Numeracion">
-                                                                                              <br>
+                                                                                            <br>
                                                                                               <input readonly id="referencia" name="referencia" class="form-control " type="text" placeholder="Ingrese referencia"> 
                                                                                             <div class="input-group">
                                                                                             
