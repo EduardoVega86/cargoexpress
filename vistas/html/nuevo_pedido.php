@@ -75,14 +75,10 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                     <H5><strong>DATOS PARA LA GUÍA</strong></H5>
                                                     
                                                         <div class="row">
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-2">
                                                                 <span class="help-block">Nombre del Destinatario </span>
                                                                 <input type="text" class="datos form-control" id="datos-guia" name="datos-guia" placeholder="Ingrese el nombre del destinatario" required>
                                                                 </div>
-                                                                </div>
-
-                                                        <div class="row">
-
                                                             <div class="col-md-2">
                                                                 <span class="help-block">Origen </span>
                                                                 <?php
@@ -115,7 +111,6 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                 <input type="hidden" class="form-control" id="cliente" name="cliente" value="<?php echo $empresa; ?>">
                                                                 <input type="hidden" class="form-control" id="id_camion" name="id_camion" value="">
                                                             </div>
-
                                                             <div class="col-md-2">
                                                                 <span class="help-block">Destino </span>
                                                                 <select class="form-control" id="destino" name="destino">
@@ -145,6 +140,23 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 
                                                             </div>
                                                             <div class="col-md-2">
+                                                                <span class="help-block">Ciudad </span>                                                                
+                                                                <select class="form-control" id="nuevo-pedido-ciudad" name="nuevo-pedido-ciudad">
+                                                                  <option value="">Seleccione Ciudad</option>                                                                    
+                                                                    <option value="">Quito</option>
+                                                                     <option value="">Guayaquil</option>
+                                                                      <option value="">Cuenca</option>
+                                                                       <option value="">Ambato</option>
+                                                                </select>
+                                                                </div>
+                                                            <div class="col-md-2">
+                                                                <span class="help-block">Teléfono Destinatario </span>
+                                                                <input type="text" class="datos form-control" id="telefono-destinatario" name="telefono-destinatario" placeholder="Whatsapp" required>
+                                                                </div>
+                                                                </div>
+                                                        <br>
+                                                        <div class="row">
+                                                            <div class="col-md-2">
                                                                 <span class="help-block">Tipo de servicio </span>
                                                                 <select class="form-control" id="tonelaje" name="tonelaje">
                                                                     <option value="">Seleccione tipo de servicio</option>
@@ -159,7 +171,6 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                 </select>
 
                                                             </div>
-                                                            
                                                             <div class="col-md-1">
                                                                 <span class="help-block">Peso </span>
                                                               <input type="number" class="datos form-control" id="valor" name="valor" placeholder="Kg" required>  
@@ -180,19 +191,26 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                 <span class="help-block">Ancho </span>
                                                                 <input type="number" class="datos form-control" id="ancho" name="ancho" placeholder="cms">
                                                             </div>
+                                                           <div class="col-md-2">
+                                                                <span class="help-block">Dirección Destino </span>
+                                                                <input type="text" class="datos form-control" id="direccion-destino" name="direccion-destino" placeholder="Ingrese Dirección" required>
+                                                                </div>                                                            
                                                             </div>
                                                         <br>
-                                                        <div class="row">
-                                                            
-                                                            <div class="col-md-2">
+                                                        <div class="row">                                                        
+                                                           <div class="col-md-2">
+                                                                <span class="help-block">Indicaciones </span>
+                                                                <input type="text" class="datos form-control" id="indicaciones" name="indicaciones" placeholder="" required>
+                                                                </div>                                                               
+                                                           <div class="col-md-1">
                                                                 <span class="help-block">Hora de salida </span>
                                                                 <input type="time" class="datos form-control" id="hora_salida" name="hora_salida" placeholder="Hora de salida (Opcional)">
                                                             </div>
-                                                            <div class="col-md-2">
+                                                            <div class="col-md-1">
                                                                  <span class="help-block">Hora de entrega </span>
                                                                 <input type="time" class="datos form-control" id="hora_entrega" name="hora_entrega" placeholder="Hora de entrega (Opcional)">
                                                             </div>
-                                                            <div class="col-md-2">
+                                                           <div class="col-md-2">
                                                                 <span class="help-block">Referencias adicionales </span>
                                                                 <input type="text" class="datos form-control" id="observacion" name="observacion" placeholder="Referencias Adicionales (Opcional)">
                                                             </div>
@@ -200,25 +218,24 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                 <span class="help-block">Cobro contra entrega </span>
                                                                 <input style="width: 20px; height: 20px"  type="checkbox" id="cobroce" onchange="toggleInput(this)">
                                                                 <input type="number" class="form-control" id="alto" placeholder="Valor a Cobrar"> 
-
                                                             </div>
+                                                           <div class="col-md-2">
+                                                                <span class="help-block">Envío asegurado     </span>
+                                                                <input style="width: 20px; height: 20px"  type="checkbox" id="cobroce" onchange="toggleInput(this)">
+                                                                <input type="number" class="form-control" id="alto" placeholder="Valor"> 
+                                                            </div>                                                                              
+                                                        </div>
+                                                        <br>                                                        
+                                                        <div class="row">
+                                                            
+ 
+ 
                                                             <div class="col-md-2">
                                                                 
-                                                                <button style="height: 100%; width: 100%" onclick="agregar_pedido(); calcular_distancia(); " class="btn btn-primary">Agregar</button>
+                                                                <button style="height: 100%; width: 100%" onclick="agregar_pedido(); calcular_distancia(); " class="btn btn-primary">Generar Orden</button>
 
                                                             </div>
                                                         </div>
-                                                        
-
-                                                        
-                                                        
-
-
-
-                                                        
-                                                        
-                                                    
-
                                                 </div>
                                             </div>
 
