@@ -127,7 +127,7 @@
 						<li><a href="../html/new_cotizacion.php">Nuevo Envío</a></li>
                                                 <li><a href="#">Nuevo Retiro</a></li>
                                                 <li><a href="#">Ingreso Manual</a></li>
-                                                <li><a href="#">Órdenes</a></li>
+                                                <li><a href="../html/ordenes.php">Órdenes</a></li>
                                                 <li><a href="#">Notificaciones</a></li>
                                                 <li><a href="#">Validación de Órdenes</a></li>
                                                 <li><a href="#">Directorio</a></li>
