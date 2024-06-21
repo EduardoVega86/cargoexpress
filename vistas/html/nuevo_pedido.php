@@ -76,10 +76,6 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                     
                                                         <div class="row">
                                                             <div class="col-md-2">
-                                                                <span class="help-block">Nombre del Destinatario </span>
-                                                                <input type="text" class="datos form-control" id="datos-guia" name="datos-guia" placeholder="Ingrese el nombre del destinatario" required>
-                                                                </div>
-                                                            <div class="col-md-2">
                                                                 <span class="help-block">Origen </span>
                                                                 <?php
                                                                 //echo "select * from bodega where id_empresa=$empresa";
@@ -110,7 +106,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                 <input type="hidden" class="form-control" id="session" name="session" value="<?php echo $session_id; ?>">
                                                                 <input type="hidden" class="form-control" id="cliente" name="cliente" value="<?php echo $empresa; ?>">
                                                                 <input type="hidden" class="form-control" id="id_camion" name="id_camion" value="">
-                                                            </div>
+                                                            </div>                                                            
                                                             <div class="col-md-2">
                                                                 <span class="help-block">Destino </span>
                                                                 <select class="form-control" id="destino" name="destino">
@@ -137,8 +133,11 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                     }
                                                                     ?>
                                                                 </select>
-
                                                             </div>
+                                                            <div class="col-md-2">
+                                                                <span class="help-block">Nombre del Destinatario </span>
+                                                                <input type="text" class="datos form-control" id="datos-guia" name="datos-guia" placeholder="Ingrese el nombre del destinatario" required>
+                                                                </div>                                                            
                                                             <div class="col-md-2">
                                                                 <span class="help-block">Ciudad </span>                                                                
                                                                 <select class="form-control" id="nuevo-pedido-ciudad" name="nuevo-pedido-ciudad">
@@ -193,7 +192,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                             </div>
                                                            <div class="col-md-2">
                                                                 <span class="help-block">Dirección Destino </span>
-                                                                <input type="text" class="datos form-control" id="direccion-destino" name="direccion-destino" placeholder="Ingrese Dirección" required>
+                                                                <input id="direccion_destino" name="direccion_destino" class="form-control " type="text" placeholder="Ingresa una dirección">
                                                                 </div>                                                            
                                                             </div>
                                                         <br>
@@ -211,8 +210,8 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                 <input type="time" class="datos form-control" id="hora_entrega" name="hora_entrega" placeholder="Hora de entrega (Opcional)">
                                                             </div>
                                                            <div class="col-md-2">
-                                                                <span class="help-block">Referencias adicionales </span>
-                                                                <input type="text" class="datos form-control" id="observacion" name="observacion" placeholder="Referencias Adicionales (Opcional)">
+                                                                <span class="help-block">Referencias adicionales (Opcional)</span>
+                                                                <input type="text" class="datos form-control" id="observacion" name="observacion" placeholder="">
                                                             </div>
                                                             <div class="col-md-2">
                                                                 <span class="help-block">Cobro contra entrega </span>
@@ -232,7 +231,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
  
                                                             <div class="col-md-2">
                                                                 
-                                                                <button style="height: 100%; width: 100%" onclick="agregar_pedido(); calcular_distancia(); " class="btn btn-primary">Generar Orden</button>
+                                                                <button style="height: 100%; width: 100%" onclick="agregar_pedido(); calcular_distancia(); " class="btn btn-primary">Calcular</button>
 
                                                             </div>
                                                         </div>
@@ -261,7 +260,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                         </div>
 <div class="col-md-5">
     <div id="disponibles" class='col-md-12' style="margin-top:0px"></div>
-                                                                <button  onclick="guardar_venta()" type="submit" style="width:100%; height: 100%; font-size: 20px" class="btn btn-primary"><span class="texto_boton"> Completa tu pedido</span></button>
+                                                                <button  onclick="guardar_venta()" type="submit" style="width:100%; height: 100%; font-size: 20px" class="btn btn-primary"><span class="texto_boton"> Generar Orden</span></button>
                                                             </div>
                                         
 
@@ -294,6 +293,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 <?php require 'includes/pie.php'; ?>
 
     </div>
+
     <!-- ============================================================== -->
     <!-- End Right content here -->
     <!-- ============================================================== -->
@@ -309,7 +309,21 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 <!-- ============================================================== -->
 <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
 <script type="text/javascript" src="../../js/cotizacion.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAj-OWe4vKRnRiHQEx2ANZqxIGBT8z6Fo0&libraries=places&callback=initMap"></script>
 <!-- ============================================================== -->
+<script>
+    function initAutocomplete() {
+         var input = document.getElementById('direccion_destino');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        autocomplete.setTypes(['address']);
+        autocomplete.addListener('place_changed', function() {
+            var place = autocomplete.getPlace();
+            console.log(place);
+        });
+    }
+    google.maps.event.addDomListener(window, 'load', initAutocomplete);
+</script>
+
 <!-- Codigos Para el Auto complete de Clientes -->
 <script>
      function calcular_distancia() {
@@ -448,7 +462,7 @@ $(function () {
                                                                                                                                                     $("#em").val("");
                                                                                                                                                 }
                                                                                                                                             });
-</script>
+      </script>
 <!-- FIN -->
 <script>
     // print order function
