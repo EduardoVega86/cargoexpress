@@ -6,7 +6,7 @@
 		    var q = $("#q").val();
 		    $("#loader").fadeIn('slow');
 		    $.ajax({
-		        url: '../ajax/buscar_bodegas.php?action=ajax&page=' + page + '&q=' + q,
+		        url: '../ajax/buscar_ordenes_mensajero.php?action=ajax&page=' + page + '&q=' + q,
 		        beforeSend: function(objeto) {
 		            $('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
 		        },
@@ -102,38 +102,35 @@
 		});
 
 		function obtener_datos(id) {
-		    var nombre_cliente = $("#nombre_cliente" + id).val();
-		    var fiscal_cliente = $("#fiscal_cliente" + id).val();
-		    var telefono_cliente = $("#telefono_cliente" + id).val();
-		    var email_cliente = $("#email_cliente" + id).val();
-		    var direccion_cliente = $("#direccion_cliente" + id).val();
-		    var status_cliente = $("#status_cliente" + id).val();
+                    //alert(id)
+		    var id_pedido = $("#id_pedido" + id).val();
                     
+		    
                     
-                    var razon_social = $("#razon_social" + id).val();
-                    //alert(razon_social);
-		    var nombre_contacto = $("#nombre_contacto" + id).val();
-		    var telefono_contacto = $("#telefono_contacto" + id).val();
-		    var cargo_contacto = $("#cargo_contacto" + id).val();
-		    var observaciones = $("#observaciones" + id).val();
-		    var giro_negocio = $("#giro_negocio" + id).val();
-                    var ciudad = $("#ciudad" + id).val();
-                    var credito = $("#credito" + id).val();
-                    
-		    $("#mod_nombre").val(nombre_cliente);
-		    $("#mod_fiscal").val(fiscal_cliente);
-		    $("#mod_telefono").val(telefono_cliente);
-		    $("#mod_email").val(email_cliente);
-		    $("#mod_direccion").val(direccion_cliente);
-		    $("#mod_estado").val(status_cliente);
-		    $("#mod_id").val(id);
-                    
-                    $("#mod_razon_social").val(razon_social);
-		   $("#mod_nombre_contacto").val(nombre_contacto);
-		     $("#mod_telefono_contacto").val(telefono_contacto);
-		    $("#mod_cargo_contacto").val(cargo_contacto);
-		   $("#mod_observaciones").val(observaciones);
-		     $("#mod_giro_negocio").val(giro_negocio);
-                    $("#mod_ciudad").val(ciudad);
-                     $("#mod_credito").val(credito);
+		  // alert(id_pedido)
+                     $("#id_pedido").val(id_pedido);
 		}
+                
+                function cambiar_estado() {
+    var form = document.getElementById('guardar_linea');
+    var formData = new FormData(form);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '../ajax/cambiar_estado.php', true);
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            Swal.fire({
+                    title: "¡Pedido actualizado con éxito!",
+                    icon: "success",
+                    confirmButtonText: "¡Aceptar!",
+                  }).then(() => {
+                    window.location.reload();
+                  });
+        } else {
+            console.error('Error en la petición AJAX');
+        }
+    };
+
+    xhr.send(formData);
+}
