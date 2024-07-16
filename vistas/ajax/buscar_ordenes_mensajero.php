@@ -23,15 +23,15 @@ if ($action == 'ajax') {
     // escaping, additionally removing everything that could be (html/javascript-) code
     $q            = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
     //$id_categoria = intval($_REQUEST['categoria']);
-    $aColumns     = array('nombre'); //Columnas de busqueda
-    $sTable       = "bodega";
+    $aColumns     = array('destinatario'); //Columnas de busqueda
+    $sTable       = "pedidos";
     if ($user_id !=1) {
-    $sWhere       = "where id_empresa=$user_id";
-    $busqueda1 = "and";
+    $sWhere       = "where id_driver=$user_id";
+    $busqueda1 = "";
     }
     else {
     $sWhere       = "";
-    $busqueda1 = "where";
+    $busqueda1 = "where id_driver=$user_id";
     }
     if ($_GET['q'] != "") {
         $sWhere = "$busqueda1 (";
@@ -43,7 +43,7 @@ if ($action == 'ajax') {
 
     }
 
-    $sWhere .= " order by nombre asc";
+    $sWhere .= " order by id_pedido desc";
 
     include 'pagination.php'; //include pagination file
     //pagination variables
@@ -69,11 +69,12 @@ if ($action == 'ajax') {
           <table class="table table-sm table-striped">
             <tr  class="info">
                 <th>ID</th>
-                <th>Nombre</th>
-                <th>Direccion</th>
-                <th>Localidad</th>
-                 <th>Responsable</th>
-                 <th>Telefono</th>
+                <th>Destinatario</th>
+                <th>Origen</th>
+                <th>Destino</th>
+                 <th>Estado</th>
+                 <th>Mensajero</th>
+                  <th>Fecha</th>
                  
                
                              
@@ -82,50 +83,67 @@ if ($action == 'ajax') {
             </tr>
             <?php
 while ($row = mysqli_fetch_array($query)) {
-            $id          = $row['id'];
-            $nombre      = $row['nombre'];
-            $direccion      = $row['direccion'];
-            $localidad = $row['localidad'];
-            $responsable      = $row['responsable'];
-            $contacto      = $row['contacto'];
+            $id          = $row['id_pedido'];
+            $nombre      = $row['nombre_destinatario'];
+            $origen     = $row['id_bodega_origen'];
+            $destino = $row['id_bodega_destino'];
+         
+            $telefono      = $row['telefono_destinatario'];
+            $fecha      = $row['fecha'];
+            $id_estado      = $row['estado'];
             
-           
+            $id_driver      = $row['id_driver'];
+            
+            $fecha      = $row['fecha'];
+            
+           $estado= get_row('estados', 'estado', 'id_estado', $id_estado);
+            
             //$id_imp_producto      = $row['id_imp_producto'];
            /* if ($status_producto == 1) {
                 $estado = "<span class='badge badge-success'>Activo</span>";
             } else {
                 $estado = "<span class='badge badge-danger'>Inactivo</span>";
             }*/
+            $direccion_origen= get_row('bodega', 'direccion', 'id', $origen);
+            $direccio_destino= get_row('bodega', 'direccion', 'id', $destino);
+                    
+                    if($id_driver==0){
+                     $driver='NO ASIGNADO'  ; 
+                    }else{
+                      $driver= get_row('users', 'nombre_users', 'id_users', $id_driver).' '.get_row('users', 'apellido_users', 'id_users', $id_driver) ;   
+                    }
             ?>
 
                
-                <input type="hidden" value="<?php echo $nombre; ?>" id="nombre<?php echo $id_edificio; ?>">
-                <input type="hidden" value="<?php echo $direccion; ?>" id="direccion<?php echo $id_edificio; ?>">
-                <input type="hidden" value="<?php echo $telefono; ?>" id="telefono<?php echo $id_edificio; ?>">
-                <input type="hidden" value="<?php echo $fecha_contrato; ?>" id="fecha<?php echo $id_edificio; ?>">
+                <input type="hidden" value="<?php echo $nombre; ?>" id="nombre<?php echo $id; ?>">
+                <input type="hidden" value="<?php echo $origen; ?>" id="direccion<?php echo $id; ?>">
+                <input type="hidden" value="<?php echo $destino; ?>" id="telefono<?php echo $id; ?>">
+                <input type="hidden" value="<?php echo $estado; ?>" id="fecha<?php echo $id; ?>">
+                <input type="hidden" value="<?php echo $id; ?>" id="id_pedido<?php echo $id; ?>">
                 
                 <tr>
                     <td><span class="badge badge-purple"><?php echo $id; ?></span></td>
                    
                
                     <td ><?php echo $nombre; ?></td>
-                    <td ><?php echo $direccion; ?></td>
-                    <td ><?php echo $localidad; ?></td>
-                    <td ><?php echo $responsable; ?></td>
-                    <td ><?php echo $contacto; ?></td>
+                    <td ><?php echo $direccion_origen; ?></td>
+                    <td ><?php echo $direccio_destino; ?></td>
+                    <td ><?php echo $estado; ?></td>
+                    <td ><?php echo $driver; ?></td>
+                    <td ><?php echo $fecha; ?></td>
                     
                     <td >
 
                       <div class="btn-group dropdown pull-right">
                         <button type="button" class="btn btn-warning btn-rounded waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>
                         <div class="dropdown-menu dropdown-menu-right">
-                           <?php if ($permisos_ver == 1) {?>
-                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editarProducto" onclick="obtener_datos('<?php echo $id_edificio; ?>');carga_img('<?php echo $id_edificio; ?>');"><i class='fa fa-edit'></i> Editar</a>
+                           <?php if (1 == 1) {?>
+                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#nuevaLinea" onclick="obtener_datos('<?php echo $id; ?>');"><i class='fa fa-edit'></i> Cambiar estado</a>
                            <?php }
             if ($permisos_editar == 1) {?>
                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#stock_ad" onclick="servicio_id(<?php echo $id_edificio; ?>)" data-id="<?php echo $id_edificio; ?>"><i class='fa fa-edit'></i> Servicios</a>
                            <!--<a class="dropdown-item" href="historial.php?id=<?php echo $id_producto; ?>"><i class='fa fa-calendar'></i> Historial</a>-->
-                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $id_edificio; ?>"><i class='fa fa-trash'></i> Borrar</a>
+                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $id_edificio; ?>"><i class='fa fa-trash'></i> Anular</a>
                            
                            <?php }
             ?>
