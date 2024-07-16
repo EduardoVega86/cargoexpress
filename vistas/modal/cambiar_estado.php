@@ -6,48 +6,55 @@ if (isset($conexion)) {
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					<h4 class="modal-title"><i class='fa fa-edit'></i> Nueva Linea</h4>
+					<h4 class="modal-title"><i class='fa fa-edit'></i> Cambiar Estado</h4>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" method="post" id="guardar_linea" name="guardar_linea">
+					<form class="form-horizontal" method="post" id="guardar_linea" name="guardar_linea" enctype="multipart/form-data">
 						<div id="resultados_ajax"></div>
-
-						<div class="row">
-							<div class="col-md-6">
+                                                <div class="col-md-12">
 								<div class="form-group">
-									<label for="nombre" class="control-label">Nombre:</label>
-									<input type="text" class="form-control UpperCase" id="nombre" name="nombre"  autocomplete="off" required>
+									 <input id="id_pedido" type="hidden" name="id_pedido">
+						<select class='form-control' name='estado' id='estado' required>
+												<option value="">-- Selecciona --</option>
+												<?php
+
+    $query_categoria = mysqli_query($conexion, "select * from estados ");
+    while ($rw = mysqli_fetch_array($query_categoria)) {
+        ?>
+													<option value="<?php echo $rw['id_estado']; ?>"><?php echo $rw['estado']; ?></option>
+													<?php
+}
+    ?>
+											</select>
 								</div>
 							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-12">
+                                               
+                                                <div class="col-md-12">
 								<div class="form-group">
-									<label for="descripcion" class="control-label">Descripción:</label>
-									<textarea class="form-control UpperCase"  id="descripcion" name="descripcion" maxlength="255" autocomplete="off"></textarea>
-								</div>
+                                                                    <label for="mod_nombre" class="control-label">Observacion</label>
+                                                <input id="observacion" type="text" name="observacion" class="form-control">
+                                                </div>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
+                                                
+                                                <div class="col-md-12">
 								<div class="form-group">
-									<label for="estado" class="control-label">Estado:</label>
-									<select class="form-control" id="estado" name="estado" required>
-										<option value="">-- Selecciona --</option>
-										<option value="1" selected>Activo</option>
-										<option value="0">Inactivo</option>
-									</select>
-								</div>
+                                                                    <label for="mod_nombre" class="control-label">Imagen Evidencia</label>
+                                                <input id="imagen" type="file" name="imagen" class="form-control">
+                                                </div>
 							</div>
-						</div>
-
+                                                
+                                                <div class="col-md-12">
+								<div id="historial" class="form-group">
+                                                
+                                                </div>
+							</div>
+</form>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Cerrar</button>
-						<button type="submit" class="btn btn-primary waves-effect waves-light" id="guardar_datos">Guardar</button>
+                                                  <button type="button" class="btn btn-primary waves-effect waves-light" onclick="cambiar_estado()">Asignar</button>
 					</div>
-				</form>
+				
 			</div>
 		</div>
 	</div><!-- /.modal -->
