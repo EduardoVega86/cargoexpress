@@ -11,7 +11,7 @@ require_once "../php_conexion.php"; //Contiene funcion que conecta a la base de 
 include "../permisos.php";
 $user_id = $_SESSION['id_users'];
 get_cadena($user_id);
-$modulo = "Bodegas Empresa";
+$modulo = "Ordenes";
 permisos($modulo, $cadena_permisos);
 //Finaliza Control de Permisos
 ?>
@@ -32,7 +32,7 @@ permisos($modulo, $cadena_permisos);
 		<!-- Start content -->
 		<div class="content">
 			<div class="container">
-<?php if ($permisos_ver == 1) {
+<?php if (1 == 1) {
     ?>
 				<div class="col-lg-12">
 					<div class="portlet">
@@ -53,8 +53,8 @@ permisos($modulo, $cadena_permisos);
 							<div class="portlet-body">
 
 <?php
-if ($permisos_editar == 1) {
-        include '../modal/registro_cliente.php';
+if (1 == 1) {
+        include '../modal/cambiar_estado.php';
         include "../modal/editar_cliente.php";
         include "../modal/eliminar_cliente.php";
     }
@@ -76,25 +76,30 @@ if ($permisos_editar == 1) {
                                                  <select class="form-control" id="estado-pedido" name="estado-pedido">
                                                  <option value="">--Estado--</option>                                                                    
                                                  <option value="">Todos</option>
-                                                 <option value="">Creado</option>
-                                                 <option value="">En Tránsito</option>
-                                                 <option value="">Recolectado</option>
-                                                 <option value="">No Efectivo</option>
-                                                 <option value="">Cancelado</option>
-                                                 <option value="">Rezagado</option>
-                                                 <option value="">Entregado</option>
-                                                 <option value="">Completado</option>
+                                                 <option value="1">Creado</option>
+                                                 <option value="2">En Tránsito</option>
+                                                 <option value="3">Recolectado</option>
+                                                 <option value="4">No Efectivo</option>
+                                                 <option value="5">Cancelado</option>
+                                                 <option value="6">Rezagado</option>
+                                                 <option value="7">Entregado</option>
+                                                 <option value="8">Completado</option>
                                                                 </select>												    
 												</div>	
 												<div class="col-md-1">
                                                  </select>
-                                                 <select class="form-control" id="tipo-servicio" name="tipo-servicio">
-                                                 <option value="">--Tipo de Servicio--</option>                                                                    
-                                                 <option value="">Xpress</option>
-                                                 <option value="">Limitado</option>
-                                                 <option value="">Básico</option>
-                                                 <option value="">Delivery</option>
-                                                                </select>												    
+                                                 <select class='form-control' name='linea' id='linea' required>
+												<option value="">-- Selecciona --</option>
+												<?php
+
+    $query_categoria = mysqli_query($conexion, "select * from servicios");
+    while ($rw = mysqli_fetch_array($query_categoria)) {
+        ?>
+													<option value="<?php echo $rw['id_servicio']; ?>"><?php echo $rw['nombre_servicio']; ?></option>
+													<?php
+}
+    ?>
+											</select>												    
 												</div>												
 												<div class="col-md-1">
                                                  </select>
@@ -172,7 +177,7 @@ if ($permisos_editar == 1) {
 	<!-- Todo el codigo js aqui-->
 	<!-- ============================================================== -->
 	<script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
-	<script type="text/javascript" src="../../js/bodegas.js"></script>
+	<script type="text/javascript" src="../../js/ordenes_mensajero.js"></script>
 <script>
        $(document).ready( function () {
         $(".UpperCase").on("keypress", function () {
