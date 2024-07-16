@@ -6,46 +6,29 @@ if (isset($conexion)) {
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					<h4 class="modal-title"><i class='fa fa-edit'></i> Nueva Linea</h4>
+					<h4 class="modal-title"><i class='fa fa-edit'></i> Asignar Mensajero</h4>
 				</div>
 				<div class="modal-body">
 					<form class="form-horizontal" method="post" id="guardar_linea" name="guardar_linea">
 						<div id="resultados_ajax"></div>
+                                                <input id="id_pedido" type="hidden" name="id_pedido">
+						<select class='form-control' name='mensajero' id='mensajero' required>
+												<option value="">-- Selecciona --</option>
+												<?php
 
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="nombre" class="control-label">Nombre:</label>
-									<input type="text" class="form-control UpperCase" id="nombre" name="nombre"  autocomplete="off" required>
-								</div>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<label for="descripcion" class="control-label">Descripción:</label>
-									<textarea class="form-control UpperCase"  id="descripcion" name="descripcion" maxlength="255" autocomplete="off"></textarea>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="estado" class="control-label">Estado:</label>
-									<select class="form-control" id="estado" name="estado" required>
-										<option value="">-- Selecciona --</option>
-										<option value="1" selected>Activo</option>
-										<option value="0">Inactivo</option>
-									</select>
-								</div>
-							</div>
-						</div>
+    $query_categoria = mysqli_query($conexion, "select * from users where cargo_users=6");
+    while ($rw = mysqli_fetch_array($query_categoria)) {
+        ?>
+													<option value="<?php echo $rw['id_users']; ?>"><?php echo $rw['nombre_users'].' '.$rw['apellido_users']; ?></option>
+													<?php
+}
+    ?>
+											</select>
 
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Cerrar</button>
-						<button type="submit" class="btn btn-primary waves-effect waves-light" id="guardar_datos">Guardar</button>
+                                                <button type="button" class="btn btn-primary waves-effect waves-light" onclick="asignar_mensajero()">Asignar</button>
 					</div>
 				</form>
 			</div>
