@@ -65,7 +65,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                 <div class="portlet-body">
                                     <?php
                                     include "../modal/buscar_productos_ventas.php";
-                                    include "../modal/registro_cliente.php";
+                                    include "../modal/registro_mensajero.php";
                                     include "../modal/registro_producto.php";
                                     ?>
                                     <div class="row">
@@ -136,7 +136,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                             </div>
                                                             <div class="col-md-2">
                                                                 <span class="help-block">Nombre del Destinatario </span>
-                                                                <input type="text" class="datos form-control" id="datos-guia" name="datos-guia" placeholder="Ingrese el nombre del destinatario" required>
+                                                                <input type="text" class="datos form-control" id="destinatario" name="destinatario" placeholder="Ingrese el nombre del destinatario" required>
                                                                 </div>                                                            
                                                             <div class="col-md-2">
                                                                 <span class="help-block">Ciudad </span>                                                                
@@ -150,29 +150,41 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                 </div>
                                                             <div class="col-md-2">
                                                                 <span class="help-block">Teléfono Destinatario </span>
-                                                                <input type="text" class="datos form-control" id="telefono-destinatario" name="telefono-destinatario" placeholder="Whatsapp" required>
+                                                                <input type="text" class="datos form-control" id="whatsapp" name="whatsapp" placeholder="Whatsapp" required>
                                                                 </div>
                                                                 </div>
                                                         <br>
                                                         <div class="row">
                                                             <div class="col-md-2">
                                                                 <span class="help-block">Tipo de servicio </span>
-                                                                <select class="form-control" id="tonelaje" name="tonelaje">
-                                                                    <option value="">Seleccione tipo de servicio</option>
-                                                                     <option value="1">ENVÍO EXPRESS</option>
-                                                                      <option value="">ENVÍO ILIMITADO</option>
-                                                                       <option value="">ENVÍO BÁSICO</option>
-                                                                        <option value="">DELIVERY</option>
-                                                                         <option value="">ESPECIAL</option>
-                                                                          <option value="">INTERPROVINCIAL</option>
-                                                                           <option value="">INTERPROVINCIAL EXPRESS</option>
+                                                                <select class="form-control" id="tipo_servicio" name="tipo_servicio">
+                                                                    <option value="">Seleccione servicio</option>
+                                                                    <?php
+                                                                    $sql2 = "select * from servicios ";
+                                                                    //echo $sql2;
+                                                                    $query2 = mysqli_query($conexion, $sql2);
+
+                                                                    while ($row2 = mysqli_fetch_array($query2)) {
+                                                                        $id = $row2['id_servicio'];
+                                                                        $nombre = $row2['nombre_servicio'];
                                                                     
+
+                                                                        // Obtener el valor almacenado en la tabla orgien_laar
+                                                                        //$valor_seleccionado = $provinciadestino;
+
+                                                                        // Verificar si el valor actual coincide con el almacenado en la tabla
+                                                                        //$selected = ($valor_seleccionado == $cod_provincia) ? 'selected' : '';
+                                                                        // Imprimir la opción con la marca de "selected" si es el valor almacenado
+                                                                        //echo '<option value="' . $id . '" ' . $selected . '>' . $nombre . '</option>';
+                                                                        echo "<option value='$id' > $nombre</option>";
+                                                                    }
+                                                                    ?>
                                                                 </select>
 
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <span class="help-block">Peso </span>
-                                                              <input type="number" class="datos form-control" id="valor" name="valor" placeholder="Kg" required>  
+                                                              <input type="number" class="datos form-control" id="kg" name="kg" placeholder="Kg" required>  
 
                                                             </div>
                                                             <div class="col-md-1">
@@ -215,13 +227,15 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                             </div>
                                                             <div class="col-md-2">
                                                                 <span class="help-block">Cobro contra entrega </span>
-                                                                <input style="width: 20px; height: 20px"  type="checkbox" id="cobroce" onchange="toggleInput(this)">
-                                                                <input type="number" class="form-control" id="alto" placeholder="Valor a Cobrar"> 
+                                                                        <input style="width: 20px; height: 20px" type="checkbox" id="cod" name="cod">
+
+
+                                                                <input type="number" class="form-control" id="valor_cobrar" name="valor_cobrar" placeholder="Valor a Cobrar"> 
                                                             </div>
                                                            <div class="col-md-2">
                                                                 <span class="help-block">Envío asegurado     </span>
-                                                                <input style="width: 20px; height: 20px"  type="checkbox" id="cobroce" onchange="toggleInput(this)">
-                                                                <input type="number" class="form-control" id="alto" placeholder="Valor"> 
+                                                                <input style="width: 20px; height: 20px"  type="checkbox" id="seguro" name="seguro">
+                                                                <input type="number" class="form-control" id="valor_seguro" name="valor_seguro" placeholder="Valor"> 
                                                             </div>                                                                              
                                                         </div>
                                                         <br>                                                        
@@ -231,7 +245,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
  
                                                             <div class="col-md-2">
                                                                 
-                                                                <button style="height: 100%; width: 100%" onclick="agregar_pedido(); calcular_distancia(); " class="btn btn-primary">Calcular</button>
+                                                                <button style="height: 100%; width: 100%" onclick="calcular(); calcular_distancia(); " class="btn btn-primary">Calcular</button>
 
                                                             </div>
                                                         </div>
@@ -260,7 +274,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                         </div>
 <div class="col-md-5">
     <div id="disponibles" class='col-md-12' style="margin-top:0px"></div>
-                                                                <button  onclick="guardar_venta()" type="submit" style="width:100%; height: 100%; font-size: 20px" class="btn btn-primary"><span class="texto_boton"> Generar Orden</span></button>
+                                                                <button  onclick="guardar_pedido()" type="submit" style="width:100%; height: 100%; font-size: 20px" class="btn btn-primary"><span class="texto_boton"> Generar Orden</span></button>
                                                             </div>
                                         
 
@@ -327,54 +341,15 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 <!-- Codigos Para el Auto complete de Clientes -->
 <script>
      function calcular_distancia() {
-    var origen = (-0.1763603, -78.47949419999999) 
-var destino = (-78.503773, -0.1329112) 
-resultado = gmaps.distance_matrix(origen, destino, mode='driving')
-
-
-distancia = resultado['rows'][0]['elements'][0]['distance']['text']
-alert(distancia)
+//    var origen = (-0.1763603, -78.47949419999999) 
+//var destino = (-78.503773, -0.1329112) 
+//resultado = gmaps.distance_matrix(origen, destino, mode='driving')
+//
+//
+//distancia = resultado['rows'][0]['elements'][0]['distance']['text']
+//alert(distancia)
   }
-     function agregar_pedido() {
-    var valor = document.getElementById('valor').value;
-    var estibadores = document.getElementById('estibadores').value;
-    var origen = document.getElementById('origen').value;
-    var destino = document.getElementById('destino').value;
-    var cliente = document.getElementById('cliente').value;
-    var tonelaje = document.getElementById('tonelaje').value;
-    //Inicia validacion
-    if (isNaN(valor)) {
-        $.Notification.notify('error', 'bottom center', 'NOTIFICACIÓN', 'LA CANTIDAD NO ES UN NUMERO, INTENTAR DE NUEVO')
-        document.getElementById('valor').focus();
-        return false;
-    }
-    if (isNaN(estibadores)) {
-        $.Notification.notify('error', 'bottom center', 'NOTIFICACIÓN', 'EL PRECIO NO ES UN NUMERO, INTENTAR DE NUEVO')
-        document.getElementById('estibadores').focus();
-        return false;
-    }
-    //Fin validacion
-    $.ajax({
-        type: "POST",
-        url: "../ajax/agregar_tmp_modalcot.php",
-        data: "id=" + cliente + "&valor=" + valor + "&estibadores=" + estibadores+ "&origen=" + origen+ "&destino=" + destino+ "&tonelaje=" + tonelaje + "&operacion=" + 2,
-        beforeSend: function(objeto) {
-            $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
-        },
-        success: function(datos) {
-            $("#resultados").html(datos);
-            $.ajax({
-        type: "POST",
-        url: "../ajax/buscar_camion_disponible.php",
-        data: "tonelaje=" + tonelaje,
-        
-        success: function(datos_disponibles) {
-            $("#disponibles").html(datos_disponibles);
-        }
-    });
-        }
-    });
-}
+     
 
 function guardar_venta() {
     var valor = document.getElementById('valor').value;
@@ -385,6 +360,7 @@ function guardar_venta() {
     var tonelaje = document.getElementById('tonelaje').value;
     var id_camion = document.getElementById('id_camion').value;
     var observacion = document.getElementById('observacion').value;
+    var cod = document.getElementById('cod').value;
     //Inicia validacion
     
     
@@ -392,7 +368,7 @@ function guardar_venta() {
     $.ajax({
         type: "POST",
         url: "../ajax/guardar_pedido.php",
-        data: "id=" + cliente + "&valor=" + valor + "&estibadores=" + estibadores+ "&origen=" + origen+ "&destino=" + destino+ "&tonelaje=" + tonelaje + "&observacion=" + observacion+ "&id_camion=" + id_camion,
+        data: "id=" + cliente + "&valor=" + valor + "&estibadores=" + estibadores+ "&origen=" + origen+ "&destino=" + destino+ "&tonelaje=" + tonelaje + "&observacion=" + observacion+ "&id_camion=" + id_camion+ "&cod=" + cod,
         beforeSend: function(objeto) {
             $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
         },
@@ -419,120 +395,152 @@ function guardar_venta() {
     var inputText = document.getElementById("estibadores");
     inputText.disabled = !checkbox.checked; // Deshabilita si no está marcado, habilita si está marcado
     //inputText.value(0)
-}                                                                                                     
-function seleccionarUnico(checkboxSeleccionado, id_camion) {
-    // Obtener todos los checkboxes con el nombre 'filaSeleccionada'
-    //alert(id_camion)
-     $('#id_camion').val(id_camion);
-    var checkboxes = document.getElementsByName('filaSeleccionada');
-    
-    // Recorrer todos los checkboxes y deseleccionar todos excepto el que fue seleccionado
-    for(var i=0; i < checkboxes.length; i++) {
-        if(checkboxes[i] !== checkboxSeleccionado) {
-            checkboxes[i].checked = false;
+}   
+
+  function prepareForm() {
+            var codCheckbox = document.getElementById('cod');
+            var codHiddenInput = document.getElementById('codValue');
+            codHiddenInput.value = codCheckbox.checked ? '1' : '0';
         }
+        
+function calcular() {
+  //  alert()
+var tipo_servicio = document.getElementById('tipo_servicio').value;
+var kg = document.getElementById('kg').value;
+var largo = document.getElementById('largo').value;
+var alto = document.getElementById('alto').value;
+var direccion_destino = document.getElementById('direccion_destino').value;
+var indicaciones = document.getElementById('indicaciones').value;
+var hora_salida = document.getElementById('hora_salida').value;
+var hora_entrega = document.getElementById('hora_entrega').value;
+var observacion = document.getElementById('observacion').value;
+var valor_cobrar = document.getElementById('valor_cobrar').value;
+var valor_seguro = document.getElementById('valor_seguro').value;
+var cliente = document.getElementById('cliente').value;
+var destino = document.getElementById('destino').value;
+var origen = document.getElementById('origen').value;
+var ancho = document.getElementById('ancho').value;
+var destinatario = document.getElementById('destinatario').value;
+
+ var codCheckbox = document.getElementById('cod');
+            var cod = codCheckbox.checked ? '1' : '0';
+            
+             var codCheckbox = document.getElementById('seguro');
+            var seguro = codCheckbox.checked ? '1' : '0';
+//var cod = document.getElementById('cod').value;
+
+
+  $.ajax({
+        type: "POST",
+        url: "../ajax/calcular.php",
+        data: "cliente=" + cliente + "&tipo_servicio=" + tipo_servicio + "&kg=" + kg+ "&largo=" + largo+ "&alto=" + alto+ "&direccion_destino=" + direccion_destino + "&indicaciones=" + indicaciones+ "&hora_salida=" + hora_salida+ "&hora_entrega=" + hora_entrega+ "&observacion=" + observacion+ "&valor_cobrar=" + valor_cobrar+ "&valor_seguro=" + valor_seguro+ "&cod=" + cod+ "&seguro=" + seguro+ "&destino=" + destino+ "&origen=" + origen+ "&ancho=" + ancho+ "&destinatario=" + destinatario,
+        beforeSend: function(objeto) {
+            $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+        },
+        success: function(datos) {
+          //  alert(datos)
+             $("#resultados").html(datos);
+             if (datos == "ok") {
+                
+              // alert();
+                  Swal.fire({
+                    title: "¡Pedido ingresado con éxito!",
+                    icon: "success",
+                    confirmButtonText: "¡Aceptar!",
+                  }).then(() => {
+                   // window.location.reload();
+                  });
+                }else{
+      //         window.location.reload();     
+     }
+  
+        }
+    });
+    //Inicia validacion
+    
+    
+    //Fin validacion
+   
     }
-}
+    
+    function guardar_pedido() {
+  //  alert()
+var tipo_servicio = document.getElementById('tipo_servicio').value;
+var kg = document.getElementById('kg').value;
+var largo = document.getElementById('largo').value;
+var alto = document.getElementById('alto').value;
+var direccion_destino = document.getElementById('direccion_destino').value;
+var indicaciones = document.getElementById('indicaciones').value;
+var hora_salida = document.getElementById('hora_salida').value;
+var hora_entrega = document.getElementById('hora_entrega').value;
+var observacion = document.getElementById('observacion').value;
+var valor_cobrar = document.getElementById('valor_cobrar').value;
+var valor_seguro = document.getElementById('valor_seguro').value;
+var cliente = document.getElementById('cliente').value;
+var destino = document.getElementById('destino').value;
+var origen = document.getElementById('origen').value;
+var ancho = document.getElementById('ancho').value;
 
-$(function () {
-                                                                                                                                                $("#nombre_cliente").autocomplete({
-                                                                                                                                                    source: "../ajax/autocomplete/clientes.php",
-                                                                                                                                                    minLength: 2,
-                                                                                                                                                    select: function (event, ui) {
-                                                                                                                                                        event.preventDefault();
-                                                                                                                                                        $('#id_cliente').val(ui.item.id_cliente);
-                                                                                                                                                        $('#nombre_cliente').val(ui.item.nombre_cliente);
-                                                                                                                                                        $('#tel1').val(ui.item.fiscal_cliente);
-                                                                                                                                                        $('#em').val(ui.item.email_cliente);
-                                                                                                                                                        $.Notification.notify('success', 'bottom right', 'EXITO!', 'CLIENTE AGREGADO CORRECTAMENTE')
-                                                                                                                                                    }
-                                                                                                                                                });
-                                                                                                                                            });
+var indicaciones = document.getElementById('indicaciones').value;
+var hora_salida = document.getElementById('hora_salida').value;
+var hora_llegada = document.getElementById('hora_entrega').value;
 
-                                                                                                                                            $("#nombre_cliente").on("keydown", function (event) {
-                                                                                                                                                if (event.keyCode == $.ui.keyCode.LEFT || event.keyCode == $.ui.keyCode.RIGHT || event.keyCode == $.ui.keyCode.UP || event.keyCode == $.ui.keyCode.DOWN || event.keyCode == $.ui.keyCode.DELETE || event.keyCode == $.ui.keyCode.BACKSPACE) {
-                                                                                                                                                    $("#id_cliente").val("");
-                                                                                                                                                    $("#tel1").val("");
-                                                                                                                                                    $("#em").val("");
-                                                                                                                                                }
-                                                                                                                                                if (event.keyCode == $.ui.keyCode.DELETE) {
-                                                                                                                                                    $("#nombre_cliente").val("");
-                                                                                                                                                    $("#id_cliente").val("");
-                                                                                                                                                    $("#tel1").val("");
-                                                                                                                                                    $("#em").val("");
-                                                                                                                                                }
-                                                                                                                                            });
+var telefono = document.getElementById('whatsapp').value;
+alert(telefono)
+
+
+
+ var codCheckbox = document.getElementById('cod');
+            var cod = codCheckbox.checked ? '1' : '0';
+            
+             var codCheckbox = document.getElementById('seguro');
+            var seguro = codCheckbox.checked ? '1' : '0';
+//var cod = document.getElementById('cod').value;
+
+
+  $.ajax({
+        type: "POST",
+        url: "../ajax/guardar_pedido.php",
+        data: "cliente=" + cliente + "&tipo_servicio=" + tipo_servicio + "&kg=" + kg+ "&largo=" + largo+ "&alto=" + alto+ "&direccion_destino=" + direccion_destino + "&indicaciones=" + indicaciones+ "&hora_salida=" + hora_salida+ "&hora_entrega=" + hora_entrega+ "&observacion=" + observacion+ "&valor_cobrar=" + valor_cobrar+ "&valor_seguro=" + valor_seguro+ "&cod=" + cod+ "&seguro=" + seguro+ "&destino=" + destino+ "&origen=" + origen+ "&ancho=" + ancho+ "&indicaciones=" + indicaciones+ "&hora_salida=" + hora_salida+ "&hora_llegada=" + hora_llegada+ "&telefono=" + telefono,
+        beforeSend: function(objeto) {
+            $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+        },
+        success: function(datos) {
+          //  alert(datos)
+             $("#resultados").html(datos);
+             if (datos == "ok") {
+                
+              // alert();
+                  Swal.fire({
+                    title: "¡Pedido ingresado con éxito!",
+                    icon: "success",
+                    confirmButtonText: "¡Aceptar!",
+                  }).then(() => {
+                   // window.location.reload();
+                  });
+                }else{
+      //         window.location.reload();     
+     }
+  
+        }
+    });
+    //Inicia validacion
+    
+    
+    //Fin validacion
+   
+    }
+
+
+
       </script>
 <!-- FIN -->
 <script>
     // print order function
-    function printFactura(id_factura) {
-        $('#modal_vuelto').modal('hide');
-        if (id_factura) {
-            $.ajax({
-                url: '../pdf/documentos/imprimir_cotizacion.php',
-                type: 'post',
-                data: {
-                    id_factura: id_factura
-                },
-                dataType: 'text',
-                success: function (response) {
-                    var mywindow = window.open('', 'Stock Management System', 'height=400,width=600');
-                    mywindow.document.write('<html><head><title>Facturación</title>');
-                    mywindow.document.write('</head><body>');
-                    mywindow.document.write(response);
-                    mywindow.document.write('</body></html>');
-                    mywindow.document.close(); // necessary for IE >= 10
-                    mywindow.focus(); // necessary for IE >= 10
-                    mywindow.print();
-                    mywindow.close();
-                } // /success function
-
-            }); // /ajax function to fetch the printable order
-        } // /if orderId
-    } // /print order function
+    
 </script>
-<script>
-    function obtener_caja(user_id) {
-        $(".outer_div3").load("../modal/carga_caja.php?user_id=" + user_id); //carga desde el ajax
-    }
-</script>
-<script>
-    function showDiv(select) {
-        if (select.value == 4) {
-            $("#resultados3").load("../ajax/carga_prima.php");
-        } else {
-            $("#resultados3").load("../ajax/carga_resibido.php");
-        }
-    }
-
-    function cargar_provincia_pedido() {
-
-        var id_provincia = $('#provinica').val();
-        //alert($('#provinica').val())
-        //var data = new FormData(formulario);
-
-        $.ajax({
-            url: "../../../ajax/cargar_ciudad_pedido.php", // Url to which the request is send
-            type: "POST", // Type of request to be send, called as method
-            data: {
-                provinica: id_provincia,
-
-            }, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
-            dataType: 'text', // To send DOMDocument or non processed data file it is set to false
-            success: function (data) // A function to be called if request succeeds
-            {
 
 
-
-                $('#div_ciudad').html(data);
-
-
-            }
-        });
-
-    }
-</script>
 
 <?php require 'includes/footer_end.php'
 ?>
