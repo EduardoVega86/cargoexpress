@@ -234,8 +234,8 @@
                                          }else{
                                            if($_SESSION['cargo_users']==6){?>
                                              <li>
-						<a href="../html/bodegas_empresa.php" class="waves-effect waves-primary"><i
-							class="ti-map"></i><span> Bodegas </span></a>
+						<a href="../html/ordenes_mensajero.php" class="waves-effect waves-primary"><i
+							class="ti-map"></i><span> Mis ordenes </span></a>
 						</li> 
                                                 <?php
                                            }  
