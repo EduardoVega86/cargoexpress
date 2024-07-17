@@ -72,7 +72,7 @@ $destinatario = $_POST['destinatario'];
                 . "`valor_cobrar`, `valor_seguro`, `id_tipo_servicio`, "
                 . "`id_driver`, `estado`,  "
                 . "`indicaciones`, `hora`, `hora_llegada`,  `telefono_destinatario`,"
-                . "`referencias_adicionales`, `destinatario`) VALUES "
+                . "`referencias_adicionales`, `nombre_destinatario`) VALUES "
                 . "('$id_tipo_servicio','$origen',"
                 . "'$destino','$localidad_origen','$latitud_origen',"
                 . "'$longitud_origen','$latitud_destino','$longitud_destino',"
@@ -83,13 +83,13 @@ $destinatario = $_POST['destinatario'];
                 . "'0','1',"
                 . "'$indicaciones','$hora_salida','$hora_llegada','$telefono',"
                 . "'$referencia','$destinatario')";
-       //echo $sql_pedido;
+      // echo $sql_pedido;
         $insert_tmp = mysqli_query($conexion, $sql_pedido);
         $id_pedido = mysqli_insert_id($conexion);
         
 
 
-echo 'ok';
+echo 1;
   
        
 
