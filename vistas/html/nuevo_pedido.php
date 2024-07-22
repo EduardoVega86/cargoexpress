@@ -213,14 +213,8 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                 <span class="help-block">Indicaciones </span>
                                                                 <input type="text" class="datos form-control" id="indicaciones" name="indicaciones" placeholder="" required>
                                                                 </div>                                                               
-                                                           <div class="col-md-1">
-                                                                <span class="help-block">Hora de salida </span>
-                                                                <input type="time" class="datos form-control" id="hora_salida" name="hora_salida" placeholder="Hora de salida (Opcional)">
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                 <span class="help-block">Hora de entrega </span>
-                                                                <input type="time" class="datos form-control" id="hora_entrega" name="hora_entrega" placeholder="Hora de entrega (Opcional)">
-                                                            </div>
+                                                          
+                                                          
                                                            <div class="col-md-2">
                                                                 <span class="help-block">Referencias adicionales (Opcional)</span>
                                                                 <input type="text" class="datos form-control" id="observacion" name="observacion" placeholder="">
@@ -411,8 +405,6 @@ var largo = document.getElementById('largo').value;
 var alto = document.getElementById('alto').value;
 var direccion_destino = document.getElementById('direccion_destino').value;
 var indicaciones = document.getElementById('indicaciones').value;
-var hora_salida = document.getElementById('hora_salida').value;
-var hora_entrega = document.getElementById('hora_entrega').value;
 var observacion = document.getElementById('observacion').value;
 var valor_cobrar = document.getElementById('valor_cobrar').value;
 var valor_seguro = document.getElementById('valor_seguro').value;
@@ -433,7 +425,7 @@ var destinatario = document.getElementById('destinatario').value;
   $.ajax({
         type: "POST",
         url: "../ajax/calcular.php",
-        data: "cliente=" + cliente + "&tipo_servicio=" + tipo_servicio + "&kg=" + kg+ "&largo=" + largo+ "&alto=" + alto+ "&direccion_destino=" + direccion_destino + "&indicaciones=" + indicaciones+ "&hora_salida=" + hora_salida+ "&hora_entrega=" + hora_entrega+ "&observacion=" + observacion+ "&valor_cobrar=" + valor_cobrar+ "&valor_seguro=" + valor_seguro+ "&cod=" + cod+ "&seguro=" + seguro+ "&destino=" + destino+ "&origen=" + origen+ "&ancho=" + ancho+ "&destinatario=" + destinatario,
+        data: "cliente=" + cliente + "&tipo_servicio=" + tipo_servicio + "&kg=" + kg+ "&largo=" + largo+ "&alto=" + alto+ "&direccion_destino=" + direccion_destino + "&indicaciones=" + indicaciones+ "&observacion=" + observacion+ "&valor_cobrar=" + valor_cobrar+ "&valor_seguro=" + valor_seguro+ "&cod=" + cod+ "&seguro=" + seguro+ "&destino=" + destino+ "&origen=" + origen+ "&ancho=" + ancho+ "&destinatario=" + destinatario,
         beforeSend: function(objeto) {
             $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
         },
@@ -471,8 +463,6 @@ var largo = document.getElementById('largo').value;
 var alto = document.getElementById('alto').value;
 var direccion_destino = document.getElementById('direccion_destino').value;
 var indicaciones = document.getElementById('indicaciones').value;
-var hora_salida = document.getElementById('hora_salida').value;
-var hora_entrega = document.getElementById('hora_entrega').value;
 var observacion = document.getElementById('observacion').value;
 var valor_cobrar = document.getElementById('valor_cobrar').value;
 var valor_seguro = document.getElementById('valor_seguro').value;
@@ -482,8 +472,6 @@ var origen = document.getElementById('origen').value;
 var ancho = document.getElementById('ancho').value;
 
 var indicaciones = document.getElementById('indicaciones').value;
-var hora_salida = document.getElementById('hora_salida').value;
-var hora_llegada = document.getElementById('hora_entrega').value;
 
 var telefono = document.getElementById('whatsapp').value;
 
@@ -503,7 +491,7 @@ var destinatario = document.getElementById('destinatario').value;
   $.ajax({
         type: "POST",
         url: "../ajax/guardar_pedido.php",
-        data: "cliente=" + cliente + "&tipo_servicio=" + tipo_servicio + "&kg=" + kg+ "&largo=" + largo+ "&alto=" + alto+ "&direccion_destino=" + direccion_destino + "&indicaciones=" + indicaciones+ "&observacion=" + observacion+ "&valor_cobrar=" + valor_cobrar+ "&valor_seguro=" + valor_seguro+ "&cod=" + cod+ "&seguro=" + seguro+ "&destino=" + destino+ "&origen=" + origen+ "&ancho=" + ancho+ "&indicaciones=" + indicaciones+ "&hora_salida=" + hora_salida+ "&hora_llegada=" + hora_llegada+ "&telefono=" + telefono+ "&destinatario=" + destinatario,
+        data: "cliente=" + cliente + "&tipo_servicio=" + tipo_servicio + "&kg=" + kg+ "&largo=" + largo+ "&alto=" + alto+ "&direccion_destino=" + direccion_destino + "&indicaciones=" + indicaciones+ "&observacion=" + observacion+ "&valor_cobrar=" + valor_cobrar+ "&valor_seguro=" + valor_seguro+ "&cod=" + cod+ "&seguro=" + seguro+ "&destino=" + destino+ "&origen=" + origen+ "&ancho=" + ancho+ "&indicaciones=" + indicaciones+  "&telefono=" + telefono+ "&destinatario=" + destinatario,
         beforeSend: function(objeto) {
             $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
         },

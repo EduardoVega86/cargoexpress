@@ -43,7 +43,7 @@
 
 	<ul class="list-inline menu-left mb-0">
 		<li class="float-left">
-			<button style="background-color: #a00024" class="button-menu-mobile open-left waves-light waves-effect  d-md-none">
+			<button style="background-color: #a00024" class="button-menu-mobile open-left waves-light waves-effect">
 				<i class="mdi mdi-menu"></i>
 			</button>
 		</li>
@@ -52,22 +52,6 @@
 </nav>
 
 </div>
-
- <style>
-        .d-none {
-            display: none !important;
-        }
-        @media (max-width: 767.98px) {
-            .d-md-none {
-                display: block !important;
-            }
-        }
-        @media (min-width: 768px) {
-            .d-md-none {
-                display: none !important;
-            }
-        }
-    </style>
 <!-- Top Bar End -->
 <!-- ========== Left Sidebar Start ========== -->
 

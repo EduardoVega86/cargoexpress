@@ -42,8 +42,7 @@ $ancho = $_POST['ancho'];
 
 $telefono = $_POST['telefono'];
 
-$hora_salida = $_POST['hora_salida'];
-$hora_llegada = $_POST['hora_llegada'];
+
 
 $indicaciones = $_POST['indicaciones'];
 
@@ -71,7 +70,7 @@ $destinatario = $_POST['destinatario'];
                 . "`largo`, `ancho`, `contraentrega`, "
                 . "`valor_cobrar`, `valor_seguro`, `id_tipo_servicio`, "
                 . "`id_driver`, `estado`,  "
-                . "`indicaciones`, `hora`, `hora_llegada`,  `telefono_destinatario`,"
+                . "`indicaciones`,   `telefono_destinatario`,"
                 . "`referencias_adicionales`, `nombre_destinatario`, `id_cliente`) VALUES "
                 . "('$id_tipo_servicio','$origen',"
                 . "'$destino','$localidad_origen','$latitud_origen',"
@@ -81,7 +80,7 @@ $destinatario = $_POST['destinatario'];
                 . "'$largo','$ancho','$cod',"
                 . "'$valor_cobrar','$valor_seguro','$id_tipo_servicio',"
                 . "'0','1',"
-                . "'$indicaciones','$hora_salida','$hora_llegada','$telefono',"
+                . "'$indicaciones','$telefono',"
                 . "'$referencia','$destinatario','$cliente')";
       // echo $sql_pedido;
         $insert_tmp = mysqli_query($conexion, $sql_pedido);
