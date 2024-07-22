@@ -9,54 +9,63 @@ require_once "../db.php";
 require_once "../php_conexion.php";
 //Archivo de funciones PHP
 require_once "../funciones.php";
-if (isset($_POST['id'])) {$id = $_POST['id'];}
+if (isset($_POST['tipo_servicio'])) {$id_tipo_servicio = $_POST['tipo_servicio'];}
 if (isset($_POST['cantidad'])) {$cantidad = $_POST['cantidad'];}
 if (isset($_POST['precio_venta'])) {$precio_venta = $_POST['precio_venta'];}
 if (isset($_POST['descripcion_libre'])) {$descripcion_libre = $_POST['descripcion_libre'];}
+if (isset($_POST['cod'])) {$cod = $_POST['cod'];}
+if (isset($_POST['seguro'])) {$seguro = $_POST['seguro'];}
+if (isset($_POST['cliente'])) {$cliente = $_POST['cliente'];}
+if (isset($_POST['destino'])) {$destino = $_POST['destino'];}
 //echo $descripcion_libre;
-if (!empty($id) and !empty($cantidad) and !empty($precio_venta)) {
+if (!empty($id_tipo_servicio)) {
+    
+    
+    if($cod==1){
+    $valor_cobrar = $_POST['valor_cobrar'];    
+    }else{
+     $valor_cobrar=0;   
+    }
+    
+    if($seguro==1){
+    $valor_seguro = $_POST['valor_seguro'];    
+    }else{
+     $valor_seguro=0;   
+    }
+    
+    $origen = $_POST['origen'];   
+    
     // consulta para comparar el stock con la cantidad resibida
-    $id_stock=$_POST['id_stock'];  
+  //  $id_stock=$_POST['id_stock'];  
    // echo "select stock_producto,inv_producto from productos,stock_lote where productos.id_producto=stock_lote.id_producto and id_stock ='$id_stock'"; 
-    $query = mysqli_query($conexion, "select stock,inv_producto from productos,stock_lote where productos.id_producto=stock_lote.id_producto and id_stock ='$id_stock'");
-    $rw    = mysqli_fetch_array($query);
-    $stock = $rw['stock'];
-    $inv   = $rw['inv_producto'];
 
     //Comprobamos si agregamos un producto a la tabla tmp_compra
-    echo $cantidad;
-    $comprobar = mysqli_query($conexion, "select * from tmp_ventas, productos, stock_lote where stock_lote.id_stock=tmp_ventas.id_stock and productos.id_producto = tmp_ventas.id_producto and tmp_ventas.id_producto='" . $id . "' and tmp_ventas.session_id='" . $session_id . "' and tmp_ventas.id_stock=".$id_stock);
-    if ($row = mysqli_fetch_array($comprobar)) {
-        $cant = $row['cantidad_tmp'] + $cantidad;
-       // echo 'cantidad'.$cant;
-// condicion si el stock e menor que la cantidad requerida
-      //  echo $stock;
-        if ($cant > $row['stock'] and $inv == 0) {
-            echo "<script>swal('LA CATIDAD SUPERA AL STOCK', 'INTENTAR NUEVAMENTE', 'error')
-            $('#resultados').load('../ajax/agregar_tmp.php');
-            </script>";
-            exit;
-        } else {
-            $sql          = "UPDATE tmp_ventas SET cantidad_tmp='" . $cant . "', precio_tmp='" . $precio_venta . "' WHERE id_producto='" . $id . "' and session_id='" . $session_id . "' and id_stock=".$id_stock;
-            $query_update = mysqli_query($conexion, $sql);
-            echo "<script> $.Notification.notify('success','bottom center','NOTIFICACIÓN', 'PRODUCTO AGREGADO A LA FACTURA CORRECTAMENTE')</script>";
-        }
-        // fin codicion cantaidad
+    
+@$latitud_origen= get_row('bodega', 'latitud', 'id', $origen);
+@$longitud_origen= get_row('bodega', 'longitud', 'id', $origen);
+@$localidad_origen= get_row('bodega', 'localidad', 'id', $origen);
 
-    } else {
-// condicion si el stock e menor que la cantidad requerida
-        if ($cantidad > $stock and $inv == 0) {
-            echo "<script>swal('LA CATIDAD SUPERA AL STOCK', 'INTENTAR NUEVAMENTE', 'error')
-             $('#resultados').load('../ajax/agregar_tmp.php');
-            </script>";
-            exit;
-        } else {
-           
-            $insert_tmp = mysqli_query($conexion, "INSERT INTO tmp_ventas (id_producto,cantidad_tmp,precio_tmp,desc_tmp,session_id, id_stock) VALUES ('$id','$cantidad','$precio_venta','0','$session_id','$id_stock')");
+@$latitud_destino= get_row('bodega', 'latitud', 'id', $destino);
+@$longitud_destino= get_row('bodega', 'longitud', 'id', $destino);
+@$localidad_destino= get_row('bodega', 'localidad', 'id', $destino);
+@$valor_calculado=100;
+$desc_tmp=0;
+$largo = $_POST['largo'];
+$alto = $_POST['alto'];
+$kg = $_POST['kg'];
+$ancho = $_POST['ancho'];
+
+           $sql= "INSERT INTO `tmp_cotizacion` ( `tipo`, `id_bodega_origen`, `id_bodega_destino`, `origen_localidad`, `origen_lat`, "
+                   . "`origen_lon`, `destino_lat`, `destino_lon`, `destino_localidad`,"
+. " `valor`, `desc_tmp`, `session_id`, `peso`, `alto`, `largo`, `ancho`, `contraentrega`, `valor_cobrar`, `valor_seguro`) "
+    . "VALUES ($id_tipo_servicio, '$origen', '$destino', '$localidad_origen', '$latitud_origen', '$longitud_origen', '$latitud_destino', '$longitud_destino',"
+                   . " '$localidad_destino', '$valor_calculado', '$desc_tmp', '$session_id', '$kg', '$alto', '$largo', '$ancho', '$cod', '$valor_cobrar', '$valor_seguro')";
+          // echo $sql; 
+           $insert_tmp = mysqli_query($conexion, $sql);
             echo "<script> $.Notification.notify('success','bottom center','NOTIFICACIÓN', 'PRODUCTO AGREGADO A LA FACTURA CORRECTAMENTE')</script>";
-        }
+       
         // fin codicion cantaidad
-    }
+    
 
 }
 if (isset($_GET['id'])) //codigo elimina un elemento del array
@@ -70,14 +79,16 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
     <table  class="table table-sm">
         <thead class="thead-default">
             <tr>
-                <th width class='text-center'>COD</th>
-                <th class='text-center'>CANT.</th>
-                <th class='text-center'>DESCRIP.</th>
-                <th class='text-center'>PRECIO <?php echo $simbolo_moneda; ?></th>
-                
-                <th class='text-center'>DESC %</th>
-                <th class='text-right'>SUBTOTAL</th>
-                <th style="font-size: 9px" class='text-right'>TOTAL</th>
+               
+                <th class='text-center'>ALTO.</th>
+                <th class='text-center'>LARGO.</th>
+                <th class='text-center'>PESO</th>
+                  <th class='text-center'>ANCHO</th>
+                <th class='text-center'>VALOR</th>
+                <th class='text-center'>COD</th>
+                <th class='text-center'>SEGURO</th>
+                 <th class='text-center'>TOTAL A COBRAR</th>
+                <th style="font-size: 9px" class='text-center'>ELIMINAR</th>
                 
                 <th></th>
             </tr>
@@ -93,91 +104,30 @@ $total_iva      = 0;
 $total_impuesto = 0;
 $subtotal       = 0;
 //echo "select * from productos, tmp_ventas, stock_lote where productos.id_producto=stock_lote.id_producto and productos.id_producto=tmp_ventas.id_producto and tmp_ventas.session_id='" . $session_id . "'";
-$sql            = mysqli_query($conexion, "select * from productos, tmp_ventas, stock_lote where tmp_ventas.id_stock=stock_lote.id_stock and productos.id_producto=stock_lote.id_producto and productos.id_producto=tmp_ventas.id_producto and tmp_ventas.session_id='" . $session_id . "'");
+$sql            = mysqli_query($conexion, "select * from  tmp_cotizacion where session_id='" . $session_id . "'");
 while ($row = mysqli_fetch_array($sql)) {
     $id_tmp          = $row["id_tmp"];
-    $codigo_producto = $row['codigo_producto'];
-    $id_producto     = $row['id_producto'];
-    $cantidad        = $row['cantidad_tmp'];
-    $desc_tmp        = $row['desc_tmp'];
-    $nombre_producto = $row['nombre_producto'];
-    
-    $iva_producto = $row['iva_producto'];
-
-    $precio_venta   = $row['precio_tmp'];
-    $precio_venta_unitario = $precio_venta;
-    $precio_venta_f = number_format($precio_venta, 2); //Formateo variables
-    $precio_venta_r = str_replace(",", "", $precio_venta_f); //Reemplazo las comas
-    $precio_total   = $precio_venta_r * $cantidad;
-    $final_items    = rebajas($precio_total, $desc_tmp); //Aplicando el descuento
-    /*--------------------------------------------------------------------------------*/
-    //impueso o no impuesto
-    if ($iva_producto==1){
-        $subtotal    = $precio_venta;
-        $precio_venta_desglosado=$final_items;
-        $impuesto_unitario=0;
-        $sumador_total += $precio_venta_desglosado; //Sumador
-         $subtotal    = number_format($sumador_total, 2, '.', '');
-         $total_impuesto=$total_impuesto+0;
-       // $final_items = rebajas($precio_venta_desglosado, $desc_tmp); //Aplicando el descuento
-   // $total_impuesto=$total_impuesto+$impuesto_unitario;
-    }else{
-     $impuesto=get_row('perfil','impuesto', 'id_perfil', 1);
-        $valor= ($impuesto/100)+1;
-	$precio_venta=$final_items;
-	$precio_venta_f=$precio_venta;//Formateo variable
-	$precio_venta_r1=str_replace(",","",$precio_venta_f);//Reemplazo las comas  
-        //PRECIO DESGLOSADO
-        $precio_venta_desglosado=$precio_venta_r1/$valor;
-        $impuesto_unitario=$precio_venta_f-$precio_venta_desglosado;
-    /*--------*/
-    $precio_total_f = number_format($final_items, 2); //Precio total formateado
-    $precio_total_r = str_replace(",", "", $precio_total_f); //Reemplazo las comas
-    $sumador_total += $precio_venta_desglosado; //Sumador
-    $final_items = rebajas($precio_total, $desc_tmp); //Aplicando el descuento
-    $subtotal    = number_format($sumador_total, 2, '.', '');
-  /*  if ($row['iva_producto'] == 1) {
-        $total_iva = $impuesto_unitario;
-    } else {
-        $total_iva = iva($precio_venta_desglosado);
-    }*/
-    //$total_impuesto += rebajas($subtotal, $desc_tmp) * $cantidad;
-     $total_impuesto=$total_impuesto+$impuesto_unitario;
-    }
+    $peso          = $row["peso"];
+    $alto = $row['alto'];
+    $largo    = $row['largo'];
+    $ancho        = $row['ancho'];
+    $valor        = $row['valor'];
+    $valor_cobrar     = $row['valor_cobrar'];
    
    
   // echo 'imp'.$impuesto_unitario.'<br>';
     ?>
     <tr>
-        <td class='text-center'><?php echo $codigo_producto; ?></td>
-        <td class='text-center'><?php echo $cantidad; ?></td>
-        <td><?php echo $nombre_producto; ?></td>
-        <td class='text-center'>
-            <div class="input-group">
-                <select id="<?php echo $id_tmp; ?>" class="form-control employee_id">
-                    <?php
-$sql1 = mysqli_query($conexion, "select * from productos where id_producto='" . $id_producto . "'");
-    while ($rw1 = mysqli_fetch_array($sql1)) {
-        ?>
-                        <option selected disabled value="<?php echo $precio_venta_unitario ?>"><?php echo number_format($precio_venta_unitario, 2); ?></option>
-                        <option value="<?php echo $rw1['valor1_producto'] ?>">PV <?php echo number_format($rw1['valor1_producto'], 2); ?></option>
-                        <option value="<?php echo $rw1['valor2_producto'] ?>">PM <?php echo number_format($rw1['valor2_producto'], 2); ?></option>
-                        <option value="<?php echo $rw1['valor3_producto'] ?>">PE <?php echo number_format($rw1['valor3_producto'], 2); ?></option>
-                        <?php
-}
-    ?>
-                </select>
-            </div>
-        </td>
-        <td align="right" >
-                <input type="text" class="form-control txt_desc" style="text-align:center" value="<?php echo $desc_tmp; ?>" id="<?php echo $id_tmp; ?>">
-        </td>
-        <td class='text-right'><?php 
-     
-      echo $simbolo_moneda . ' ' . number_format($precio_venta_desglosado, 2); ?></td>
+        <td class='text-center'><?php echo $peso; ?></td>
+        <td class='text-center'><?php echo $alto; ?></td>
+        <td class='text-center'><?php echo $largo; ?></td>
+        <td class='text-center'><?php echo $ancho; ?></td>
+        <td class='text-center'><?php echo $valor; ?></td>
+                  <td class='text-center'><?php echo $valor_cobrar; ?></td>
+         <td class='text-center'><?php echo $valor_seguro; ?></td>
+
         
-        <td style="font-size: 9px" class='text-right'>
-            <?php echo $simbolo_moneda . ' ' . number_format($final_items, 2); ?></td>
+        
       
         <td class='text-center'>
             <a href="#" class='btn btn-danger btn-sm waves-effect waves-light' onclick="eliminar('<?php echo $id_tmp ?>')"><i class="fa fa-remove"></i>
@@ -186,22 +136,22 @@ $sql1 = mysqli_query($conexion, "select * from productos where id_producto='" . 
     </tr>
     <?php
 }
-$total_factura = $subtotal + $total_impuesto;
+$total_factura = $valor + $valor_cobrar+$valor_seguro;
 
 ?>
 <tr>
-    <td class='text-right' colspan=5>SUBTOTAL</td>
-    <td class='text-right'><b><?php echo $simbolo_moneda . ' ' . number_format($subtotal, 2); ?></b></td>
+    <td class='text-center' colspan=6>SUBTOTAL</td>
+    <td class='text-center'><b><?php echo $simbolo_moneda . ' ' . number_format($total_factura, 2); ?></b></td>
     <td></td>
 </tr>
 <tr>
-    <td class='text-right' colspan=5><?php echo $nom_impuesto; ?> (<?php echo $impuesto; ?>)% </td>
-    <td class='text-right'><?php echo $simbolo_moneda . ' ' . number_format($total_impuesto, 2); ?></td>
+    <td class='text-center' colspan=5><?php echo $nom_impuesto; ?> (<?php echo $impuesto; ?>)% </td>
+    <td class='text-center'><?php echo $simbolo_moneda . ' ' . number_format($total_impuesto, 2); ?></td>
     <td></td>
 </tr>
 <tr>
-    <td style="font-size: 14pt;" class='text-right' colspan=5><b>TOTAL <?php echo $simbolo_moneda; ?></b></td>
-    <td style="font-size: 16pt;" class='text-right'><span class="label label-danger"><b><?php echo number_format($total_factura, 2); ?></b></span></td>
+    <td style="font-size: 14pt;" class='text-center' colspan=5><b>TOTAL <?php echo $simbolo_moneda; ?></b></td>
+    <td style="font-size: 16pt;" class='text-center'><span class="label label-danger"><b><?php echo number_format($total_factura, 2); ?></b></span></td>
     <td></td>
 </tr>
 </tbody>

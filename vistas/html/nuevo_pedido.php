@@ -486,7 +486,9 @@ var hora_salida = document.getElementById('hora_salida').value;
 var hora_llegada = document.getElementById('hora_entrega').value;
 
 var telefono = document.getElementById('whatsapp').value;
-alert(telefono)
+
+var destinatario = document.getElementById('destinatario').value;
+//alert(telefono)
 
 
 
@@ -501,16 +503,17 @@ alert(telefono)
   $.ajax({
         type: "POST",
         url: "../ajax/guardar_pedido.php",
-        data: "cliente=" + cliente + "&tipo_servicio=" + tipo_servicio + "&kg=" + kg+ "&largo=" + largo+ "&alto=" + alto+ "&direccion_destino=" + direccion_destino + "&indicaciones=" + indicaciones+ "&hora_salida=" + hora_salida+ "&hora_entrega=" + hora_entrega+ "&observacion=" + observacion+ "&valor_cobrar=" + valor_cobrar+ "&valor_seguro=" + valor_seguro+ "&cod=" + cod+ "&seguro=" + seguro+ "&destino=" + destino+ "&origen=" + origen+ "&ancho=" + ancho+ "&indicaciones=" + indicaciones+ "&hora_salida=" + hora_salida+ "&hora_llegada=" + hora_llegada+ "&telefono=" + telefono,
+        data: "cliente=" + cliente + "&tipo_servicio=" + tipo_servicio + "&kg=" + kg+ "&largo=" + largo+ "&alto=" + alto+ "&direccion_destino=" + direccion_destino + "&indicaciones=" + indicaciones+ "&observacion=" + observacion+ "&valor_cobrar=" + valor_cobrar+ "&valor_seguro=" + valor_seguro+ "&cod=" + cod+ "&seguro=" + seguro+ "&destino=" + destino+ "&origen=" + origen+ "&ancho=" + ancho+ "&indicaciones=" + indicaciones+ "&hora_salida=" + hora_salida+ "&hora_llegada=" + hora_llegada+ "&telefono=" + telefono+ "&destinatario=" + destinatario,
         beforeSend: function(objeto) {
             $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
         },
         success: function(datos) {
           //  alert(datos)
              $("#resultados").html(datos);
-             if (datos == "ok") {
+            // alert(datos)
+             if (datos ==1) {
                 
-              // alert();
+           //  alert();
                   Swal.fire({
                     title: "¡Pedido ingresado con éxito!",
                     icon: "success",

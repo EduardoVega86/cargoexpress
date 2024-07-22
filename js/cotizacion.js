@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $("#resultados").load("../ajax/agregar_tmp_modalcot.php");
+    //$("#resultados").load("../ajax/agregar_tmp_modalcot.php");
     $("#f_resultado").load("../ajax/incrementa_fact_cot.php");
     $("#datos_factura").load();
     $("#barcode").focus();

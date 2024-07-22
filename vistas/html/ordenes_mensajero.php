@@ -11,7 +11,7 @@ require_once "../php_conexion.php"; //Contiene funcion que conecta a la base de 
 include "../permisos.php";
 $user_id = $_SESSION['id_users'];
 get_cadena($user_id);
-$modulo = "Ordenes";
+$modulo = "Ordenes Mensajero";
 permisos($modulo, $cadena_permisos);
 //Finaliza Control de Permisos
 ?>
@@ -73,18 +73,18 @@ if (1 == 1) {
 												</div>
 												<div class="col-md-1">
                                                  </select>
-                                                 <select class="form-control" id="estado-pedido" name="estado-pedido">
-                                                 <option value="">--Estado--</option>                                                                    
-                                                 <option value="">Todos</option>
-                                                 <option value="1">Creado</option>
-                                                 <option value="2">En Tránsito</option>
-                                                 <option value="3">Recolectado</option>
-                                                 <option value="4">No Efectivo</option>
-                                                 <option value="5">Cancelado</option>
-                                                 <option value="6">Rezagado</option>
-                                                 <option value="7">Entregado</option>
-                                                 <option value="8">Completado</option>
-                                                                </select>												    
+                                                 <select class='form-control' name='servicio' id='servicio' required>
+												<option value="">-- Selecciona --</option>
+												<?php
+
+    $query_categoria = mysqli_query($conexion, "select * from estado");
+    while ($rw = mysqli_fetch_array($query_categoria)) {
+        ?>
+													<option value="<?php echo $rw['id_estado']; ?>"><?php echo $rw['estado']; ?></option>
+													<?php
+}
+    ?>
+											</select>												    
 												</div>	
 												<div class="col-md-1">
                                                  </select>

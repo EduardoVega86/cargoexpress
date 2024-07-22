@@ -214,7 +214,7 @@ while ($row = mysqli_fetch_array($query)) {
                                                                 <input type="number" class="form-control" id="alto" placeholder="Valor a Cobrar"> 
 
                                                             </div> -->
-                                                               <div class="col-md-6">
+                                                               <div class="col-md-4">
                                                      <H6><strong>INFORMACIÓN DE LOS SERVICIOS A LOS QUE ACCEDE</strong></H6>   
                                                                                                      
                                                                <?php
@@ -246,7 +246,10 @@ if (mysqli_num_rows($result) > 0) {
                                                                 
                                                           
                                                                 </div>
-                                                            <div class="col-md-6">
+                                                            <div id="tarifas" class="col-md-8">
+                                                                
+                                                            </div>
+                                                            <div class="col-md-4">
                                                      <H6><strong>PREFERENCIAS EN LAS NOTIFICACIONES</strong></H6>   
                                                                                                      
                                                                <?php
@@ -342,7 +345,7 @@ if (mysqli_num_rows($result) > 0) {
 <!-- Todo el codigo js aqui-->
 <!-- ============================================================== -->
 <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
-<script type="text/javascript" src="../../js/cotizacion.js"></script>
+<script type="text/javascript" src="../../js/usuarios_editar.js"></script>
 <!-- ============================================================== -->
 <!-- Codigos Para el Auto complete de Clientes -->
 
@@ -507,6 +510,7 @@ if (mysqli_num_rows($result) > 0) {
 
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
+                load_tarifas(1);
                 console.log('Respuesta del servidor:', xhr.responseText);
             }
         };
