@@ -26,12 +26,12 @@ if ($action == 'ajax') {
     $aColumns     = array('destinatario'); //Columnas de busqueda
     $sTable       = "pedidos";
     if ($user_id !=1) {
-    $sWhere       = "where id_driver=$user_id";
+    $sWhere       = "where estado != 4 and estado != 6 and id_driver=$user_id";
     $busqueda1 = "";
     }
     else {
     $sWhere       = "";
-    $busqueda1 = "where id_driver=$user_id";
+    $busqueda1 = "where  id_driver=$user_id";
     }
     if ($_GET['q'] != "") {
         $sWhere = "$busqueda1 (";

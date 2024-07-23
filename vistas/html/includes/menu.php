@@ -125,8 +125,7 @@
 					<ul class="list-unstyled">
 						<!--li><a href="../html/new_cotizacion.php">Agregar Pedido</a></li-->
 						<li><a href="../html/new_cotizacion.php">Nuevo Envío</a></li>
-                                                <li><a href="#">Nuevo Retiro</a></li>
-                                                <li><a href="#">Ingreso Manual</a></li>
+                                                
                                                 <li><a href="../html/ordenes.php">Órdenes</a></li>
                                                 <li><a href="#">Notificaciones</a></li>
                                                 <li><a href="#">Validación de Órdenes</a></li>
@@ -252,14 +251,8 @@
 						<a href="../html/documentacion_socio.php" class="waves-effect waves-primary"><i
 							class="ti-files"></i><span> Documentacion </span></a>
 						</li>
-                                                <li>
-						<a href="../html/camiones_socio.php" class="waves-effect waves-primary"><i
-							class="ti-car"></i><span> Camiones </span></a>
-						</li>
-                                                 <li>
-						<a href="../html/choferes_socio.php" class="waves-effect waves-primary"><i
-							class="ti-user"></i><span> Choferes </span></a>
-						</li>
+                                              
+                                                
                                                 
                                                 
 							

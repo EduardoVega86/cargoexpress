@@ -18,7 +18,7 @@ if (isset($conexion)) {
 												<option value="">-- Selecciona --</option>
 												<?php
 
-    $query_categoria = mysqli_query($conexion, "select * from estados ");
+    $query_categoria = mysqli_query($conexion, "select * from estados where id_estado !=6 and id_estado!=1 and id_estado!=2 ");
     while ($rw = mysqli_fetch_array($query_categoria)) {
         ?>
 													<option value="<?php echo $rw['id_estado']; ?>"><?php echo $rw['estado']; ?></option>
@@ -52,7 +52,7 @@ if (isset($conexion)) {
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Cerrar</button>
-                                                  <button type="button" class="btn btn-primary waves-effect waves-light" onclick="cambiar_estado()">Asignar</button>
+                                                  <button type="button" class="btn btn-primary waves-effect waves-light" onclick="cambiar_estado()">Guardar</button>
 					</div>
 				
 			</div>
