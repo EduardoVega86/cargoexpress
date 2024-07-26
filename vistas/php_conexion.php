@@ -9,7 +9,6 @@ if (@mysqli_connect_errno()) {
 }
 date_default_timezone_set("America/Guayaquil");
 mysqli_query($conexion, "SET NAMES utf8");
-mysqli_query($conexion, "SET CHARACTER_SET utf");
 
 function limpiar($tags)
 {
