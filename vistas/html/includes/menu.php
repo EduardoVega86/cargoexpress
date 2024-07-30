@@ -115,7 +115,11 @@
 
                                 <li>
 					<a href="#" class="waves-effect waves-primary"><i
-						class="ti-receipt"></i><span> Recolecciones </span></a>
+						class="ti-layout"></i><span> Recolecciones </span></a>
+					</li>
+                                <li>
+					<a href="../html/new_cotizacion.php" class="waves-effect waves-primary"><i
+						class="ti-package"></i><span> Nuevo Envío </span></a>
 					</li>
   
                                                 <li class="has_sub">
@@ -124,9 +128,7 @@
 
 					<ul class="list-unstyled">
 						<!--li><a href="../html/new_cotizacion.php">Agregar Pedido</a></li-->
-						<li><a href="../html/new_cotizacion.php">Nuevo Envío</a></li>
-                                                
-                                                <li><a href="../html/ordenes.php">Órdenes</a></li>
+						                        <li><a href="../html/ordenes.php">Órdenes</a></li>
                                                 <li><a href="#">Notificaciones</a></li>
                                                 <li><a href="#">Validación de Órdenes</a></li>
                                                 <li><a href="#">Directorio</a></li>
@@ -141,19 +143,19 @@
 				</li>
                                <li>
 					<a href="#" class="waves-effect waves-primary"><i
-						class="ti-map"></i><span> Tracking </span></a>
+						class="ti-map-alt"></i><span> Tracking </span></a>
 					</li>
                                <li>
 					<a href="#" class="waves-effect waves-primary"><i
-						class="ti-receipt"></i><span> Guías Automáticas </span></a>
+						class="ti-ticket"></i><span> Guías Automáticas </span></a>
 					</li>
                                <li>
 					<a href="#" class="waves-effect waves-primary"><i
-						class="ti-receipt"></i><span> Movimientos </span></a>
+						class="ti-list"></i><span> Movimientos </span></a>
 					</li>
                                <li>
 					<a href="#" class="waves-effect waves-primary"><i
-						class="ti-receipt"></i><span> Masivos </span></a>
+						class="ti-layout-media-overlay-alt-2"></i><span> Masivos </span></a>
 					</li>
                                         <li class="has_sub">
 												<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-settings"></i><span> Configuración </span> <span class="menu-arrow"></span></a>
