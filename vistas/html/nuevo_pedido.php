@@ -50,7 +50,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                         <div class="portlet">
                             <div class="portlet-heading bg-primary">
                                 <h3 class="portlet-title">
-                                    Nueva Guía
+                                    Nuevo Envío
                                 </h3>
                                 <div class="portlet-widgets">
                                     <a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
@@ -72,7 +72,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                         <div class="col-lg-12">
                                             <div class="card-box">
                                                 <div class="widget-chart">
-                                                    <H5><strong>DATOS PARA LA GUÍA</strong></H5>
+                                                    <H6><strong>DESTINATARIO</strong></H6>
                                                     
                                                         <div class="row">
                                                             <div class="col-md-2">
@@ -107,7 +107,29 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                 <input type="hidden" class="form-control" id="cliente" name="cliente" value="<?php echo $empresa; ?>">
                                                                 <input type="hidden" class="form-control" id="id_camion" name="id_camion" value="">
                                                             </div>                                                            
+                                                                <div class="col-md-2">
+                                                                <span class="help-block">Nombre del Destinatario </span>
+                                                                <input type="text" class="datos form-control" id="destinatario" name="destinatario" placeholder="Ingrese el nombre del destinatario" required>
+                                                                </div>                                                            
                                                             <div class="col-md-2">
+                                                                <span class="help-block">Ciudad </span>                                                                
+                                                                <select class="form-control" id="nuevo-pedido-ciudad" name="nuevo-pedido-ciudad">
+                                                                  <option value="">Seleccione Ciudad</option>                                                                    
+                                                                    <option value="">Quito</option>
+                                                                     <option value="">Guayaquil</option>
+                                                                      <option value="">Cuenca</option>
+                                                                       <option value="">Ambato</option>
+                                                                </select>
+                                                                </div>
+                                                            <div class="col-md-2">
+                                                                <span class="help-block">Teléfono Destinatario </span>
+                                                                <input type="text" class="datos form-control" id="whatsapp" name="whatsapp" placeholder="Whatsapp" required>
+                                                                </div>
+                                                                </div>
+                                                        <br>
+                                                         <H6><strong>REMITENTE</strong></H6>
+                                                         <div class="row">
+                                                         <div class="col-md-2">
                                                                 <span class="help-block">Destino </span>
                                                                 <select class="form-control" id="destino" name="destino">
                                                                     <option value="">Seleccione destino</option>
@@ -135,7 +157,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                 </select>
                                                             </div>
                                                             <div class="col-md-2">
-                                                                <span class="help-block">Nombre del Destinatario </span>
+                                                                <span class="help-block">Nombre del Remitente </span>
                                                                 <input type="text" class="datos form-control" id="destinatario" name="destinatario" placeholder="Ingrese el nombre del destinatario" required>
                                                                 </div>                                                            
                                                             <div class="col-md-2">
@@ -149,11 +171,12 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                 </select>
                                                                 </div>
                                                             <div class="col-md-2">
-                                                                <span class="help-block">Teléfono Destinatario </span>
+                                                                <span class="help-block">Teléfono Remitente </span>
                                                                 <input type="text" class="datos form-control" id="whatsapp" name="whatsapp" placeholder="Whatsapp" required>
                                                                 </div>
                                                                 </div>
-                                                        <br>
+                                                            </div>
+                                                            <br>
                                                         <div class="row">
                                                             <div class="col-md-2">
                                                                 <span class="help-block">Tipo de servicio </span>
