@@ -9,6 +9,17 @@ function get_row($table, $row, $id, $equal)
     return $value;
 }
 
+function get_row2($table, $row, $id, $equal, $id2, $equal2)
+{
+    global $conexion;
+   // echo "select $row from $table where $id='$equal' and $id2='$equal2'";
+    $query = mysqli_query($conexion, "select $row from $table where $id='$equal' and $id2='$equal2'");
+    $rw    = mysqli_fetch_array($query);
+    $value = $rw[$row];
+    return $value;
+}
+
+
 function condicion($tipo)
 {
     if ($tipo == 1) {

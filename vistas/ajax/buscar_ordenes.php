@@ -1,5 +1,4 @@
 <?php
-
 /*-------------------------
 Autor: Eduardo Vega
 ---------------------------*/
@@ -69,8 +68,9 @@ if ($action == 'ajax') {
                     <tr class="info">
                         <th></th>
                         <th>ID</th>
-                        <th>Destinatario</th>
                         <th>Origen</th>
+                        <th>Destinatario</th>
+                        
                         <th>Destino</th>
                         <th>Estado</th>
                         <th>Mensajero</th>
@@ -80,17 +80,18 @@ if ($action == 'ajax') {
                     <?php
                     while ($row = mysqli_fetch_array($query)) {
                         $id = $row['id_pedido'];
-                        $nombre = $row['nombre_destinatario'];
+                        $origen_nombre = $row['origen_nombre'];
+                        $nombre = $row['destino_nombre'];
                         $origen = $row['id_bodega_origen'];
                         $destino = $row['id_bodega_destino'];
-                        $telefono = $row['telefono_destinatario'];
+                        $telefono = $row['destino_telefono'];
                         $fecha = $row['fecha'];
                         $id_estado = $row['estado'];
                         $id_driver = $row['id_driver'];
                         $fecha = $row['fecha'];
                         $estado = get_row('estados', 'estado', 'id_estado', $id_estado);
-                        $direccion_origen = get_row('bodega', 'direccion', 'id', $origen);
-                        $direccio_destino = get_row('bodega', 'direccion', 'id', $destino);
+                        $direccion_origen = $row['origen_direccion'];
+                        $direccio_destino = $row['destino_direccion'];
                         if ($id_driver == 0) {
                             $driver = 'NO ASIGNADO';
                         } else {
@@ -117,12 +118,14 @@ if ($action == 'ajax') {
                                 <div class="btn-group dropdown pull-right">
                                     <button type="button" class="btn btn-warning btn-rounded waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>
                                     <div class="dropdown-menu dropdown-menu-right">
-                                        <?php if ($permisos_ver == 1) { ?>
-                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#nuevaLinea" onclick="obtener_datos('<?php echo $id; ?>');"><i class='fa fa-edit'></i> Asignar Mensajero</a>
-                                        <?php }
-                                        if ($permisos_editar == 1) { ?>
-                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#stock_ad" onclick="servicio_id(<?php echo $id_edificio; ?>)" data-id="<?php echo $id_edificio; ?>"><i class='fa fa-edit'></i> Servicios</a>
-                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $id_edificio; ?>"><i class='fa fa-trash'></i> Anular</a>
+                                        <?php if ($id_estado == 1) { ?>
+                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#nuevaLinea"  onclick="obtener_datos('<?php echo $id; ?>')"><i class='fa fa-edit'></i> Asignar Mensajero</a>
+                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $id_edificio; ?>"><i class='fa fa-trash'></i> Anular</a>
+                                                <?php }
+                                        if ($id_estado != 1) { ?>
+                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#nuevaLinea"  onclick="obtener_datos('<?php echo $id; ?>')"><i class='fa fa-edit'></i> Reasignar Mensajero</a>
+                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#stock_ad" onclick="obtener_historial('<?php echo $id; ?>')"><i class='fa fa-edit'></i> Ver Historial</a>
+                                            
                                         <?php }
                                         ?>
                                     </div>

@@ -29,10 +29,6 @@ class PDF extends FPDF {
         $this->Cell(190, 6, '0999979075 - 0999017127', 0, 1, 'C'); // Ajusta el ancho de la celda
         $this->Cell(190, 6, 'supervisor@web-cargoxpress.com', 0, 1, 'C'); // Ajusta el ancho de la celda
 
-        // QR Code (Optional)
-        // $this->Image('qr_code.png', 160, 10, 30);
-
-        // Label Content
         $this->SetFont('Arial', 'B', 8); // Reduce el tamaño de la fuente
         $this->Cell(190, 6, 'ID Y USUARIO 002-489 COLCAN GESTION', 1, 1, 'C'); // Ajusta el ancho de la celda
         $this->Cell(95, 6, 'Fecha y Hora', 1, 0); // Ajusta el ancho de la celda
@@ -70,13 +66,12 @@ class PDF extends FPDF {
         $this->Cell(95, 6, utf8_decode($data['telefono_destinatario']), 1, 1, 'L'); // Ajusta el ancho de la celda
 
         $this->SetFont('Arial', 'B', 8);
-        $this->Cell(95, 6, 'Indicaciones', 1, 0, 'L'); // Ajusta el ancho de la celda
-        $this->Cell(95, 6, 'Firma de Recepcion', 1, 1, 'L'); // Ajusta el ancho de la celda
+        $this->Cell(190, 12, 'Indicaciones', 1, 1, 'L'); // Aumenta el tamaño de la celda
 
         $this->SetFont('Arial', '', 8);
-        $this->Cell(95, 6, '', 1, 0, 'L'); // Indicaciones
-        $this->Cell(95, 6, '', 1, 1, 'L'); // Firma de Recepcion
+        $this->Cell(190, 12, '', 1, 1, 'L'); // Celda más grande para "Indicaciones"
 
+        $this->SetFont('Arial', 'B', 8);
         $this->Cell(190, 6, 'COBRO CONTRA-ENTREGA', 1, 1, 'C'); // Ajusta el ancho de la celda
     }
 }
@@ -98,12 +93,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $row = mysqli_fetch_array($query);
 
             if ($row) {
-                $origen = get_row('bodega', 'direccion', 'id', $row['id_bodega_origen']);
-                $destino = get_row('bodega', 'direccion', 'id', $row['id_bodega_destino']);
-                $telefono = get_row('bodega', 'contacto', 'id', $row['id_bodega_origen']);
+                $origen = $row['origen_direccion'];
+                $destino = $row['destino_direccion'];
+                $telefono =  $row['origen_telefono'];
+                $telefono_destino =  $row['destino_telefono'];
                 
-                $remitente = get_row('bodega', 'responsable', 'id', $row['id_bodega_origen']);
-                $destinatario = get_row('bodega', 'responsable', 'id', $row['id_bodega_destino']);
+                $remitente = $row['origen_nombre'];
+                $destinatario = $row['destino_nombre'];
 
                 $data = array(
                     'fecha_hora' => $row['fecha'],
@@ -112,20 +108,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'direccion_remitente' => $origen,
                     'direccion_destinatario' => $destino,
                     'telefono_remitente' => $telefono,
-                    'telefono_destinatario' => $row['telefono_destinatario'],
+                    'telefono_destinatario' => $telefono_destino,
                 );
 
-                // Agregar la etiqueta con el offset
-                $pdf->addLabel($data, $y_offset);
+                // Agregar la etiqueta dos veces (duplicado)
+                $pdf->addLabel($data, $y_offset); // Primera etiqueta
+                $pdf->addLabel($data, $y_offset + 140); // Segunda etiqueta en la misma página
 
-                // Ajustar el offset para la siguiente etiqueta
-                $y_offset += 130; // Ajustar el valor según el tamaño de la etiqueta y el espacio entre ellas
-
-                // Si la segunda etiqueta de la página está agregada, reiniciar el offset y agregar una nueva página
-                if (($index + 1) % 2 == 0) {
-                    $y_offset = 10;
-                    $pdf->AddPage('P', array(210, 297));
-                }
+                // Ajustar el offset para la siguiente página
+                $y_offset = 10;
+                $pdf->AddPage('P', array(210, 297)); // Nueva página para las siguientes etiquetas
             }
         }
 

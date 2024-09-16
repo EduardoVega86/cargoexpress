@@ -666,14 +666,11 @@ function handleLocationError(browserHasGeolocation, pos) {
                                                         <div class="row">
                                                             <div class="col-md-2">
                                                                 <span class="help-block">Tipo de servicio </span>
-                                                                <?php
-                                                                 
-                                                                    ?>
-                                                                <select onchange="calcular_distancia(); " class="form-control" id="tipo_servicio" name="tipo_servicio">
+                                                                <select class="form-control" id="tipo_servicio" name="tipo_servicio">
                                                                     <option value="">Seleccione servicio</option>
                                                                     <?php
-                                                                    $sql2 = "select * from servicios_empresa se, servicios s where se.id_servicio=s.id_servicio and id_empresa=$empresa";
-                                                                    echo $sql2;
+                                                                    $sql2 = "select * from servicios ";
+                                                                    //echo $sql2;
                                                                     $query2 = mysqli_query($conexion, $sql2);
 
                                                                     while ($row2 = mysqli_fetch_array($query2)) {
@@ -878,8 +875,6 @@ function handleLocationError(browserHasGeolocation, pos) {
             destino_lat=$("#latitud_destinatario").val();
             destino_lon=$("#longitud_destinatario").val();
             
-            cliente=$("#cliente").val();
-            
             
                  var tipo_servicio = document.getElementById('tipo_servicio').value;
         var kg = document.getElementById('kg').value;
@@ -934,7 +929,7 @@ var destination = {lat: parseFloat(destino_lat), lng: parseFloat(destino_lon)};
     $.ajax({
         type: "POST",
         url: "../ajax/calcular_pedido.php",
-        data: "tipo_servicio=" + tipo_servicio + "&kg=" + kg + "&cod=" + cod+ "&seguro=" + seguro+ "&valor_seguro=" + valor_seguro+ "&valor_cobrar=" + valor_cobrar+ "&origen_lat=" + origen_lat+ "&origen_lon=" + origen_lon+ "&destino_lat=" + destino_lat+ "&destino_lon=" + destino_lon+ "&distance=" + distance+ "&cliente=" + cliente,
+        data: "tipo_servicio=" + tipo_servicio + "&kg=" + kg + "&cod=" + cod+ "&seguro=" + seguro+ "&valor_seguro=" + valor_seguro+ "&valor_cobrar=" + valor_cobrar+ "&origen_lat=" + origen_lat+ "&origen_lon=" + origen_lon+ "&destino_lat=" + destino_lat+ "&destino_lon=" + destino_lon+ "&distance=" + distance,
         beforeSend: function(objeto) {
             $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
         },

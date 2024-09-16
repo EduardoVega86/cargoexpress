@@ -53,14 +53,14 @@ permisos($modulo, $cadena_permisos);
                                                                                     
     ?>
     <br>
-                                                                                        <input id="nombre-sucursal" name="nombre-sucursal" class="form-control " type="text" placeholder="Nombre de la sucursal" required> <br>
+                                                                                        <input id="nombre_sucursal" name="nombre_sucursal" class="form-control " type="text" placeholder="Nombre de la sucursal" required> <br>
 </select>
-                                                                <select class="form-control" id="direccion-ciudad" name="direccion-ciudad">
+                                                                <select class="form-control" id="ciudad" name="ciudad">
                                                                   <option value="">--Ciudad--</option>                                                                    
-                                                                    <option value="">Quito</option>
-                                                                     <option value="1">Guayaquil</option>
-                                                                      <option value="">Cuenca</option>
-                                                                       <option value="">Ambato</option>
+                                                                    <option value="Quito">Quito</option>
+                                                                     <option value="Guayaquil">Guayaquil</option>
+                                                                      <option value="Cuenca">Cuenca</option>
+                                                                       <option value="Ambato">Ambato</option>
                                                                 </select>
                                                                                             <br>                                                                                            
                                                                                     <select  class='form-control' name='empresa' id='empresa' required>

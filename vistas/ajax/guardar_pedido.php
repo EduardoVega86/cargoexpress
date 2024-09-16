@@ -15,40 +15,38 @@ $user_id  = $_SESSION['id_users'];
 if (!empty($_POST['tipo_servicio'])  and !empty($_POST['cliente'])) {
     // consulta para comparar el stock con la cantidad resibida
    
-if (isset($_POST['tipo_servicio'])) {$id_tipo_servicio = $_POST['tipo_servicio'];}
-if (isset($_POST['cantidad'])) {$cantidad = $_POST['cantidad'];}
-if (isset($_POST['precio_venta'])) {$precio_venta = $_POST['precio_venta'];}
-if (isset($_POST['descripcion_libre'])) {$descripcion_libre = $_POST['descripcion_libre'];}
-if (isset($_POST['cod'])) {$cod = $_POST['cod'];}
-if (isset($_POST['seguro'])) {$seguro = $_POST['seguro'];}
-if (isset($_POST['cliente'])) {$cliente = $_POST['cliente'];}
-if (isset($_POST['destino'])) {$destino = $_POST['destino'];}
- $origen = $_POST['origen'];  
- 
- @$latitud_origen= get_row('bodega', 'latitud', 'id', $origen);
-@$longitud_origen= get_row('bodega', 'longitud', 'id', $origen);
-@$localidad_origen= get_row('bodega', 'localidad', 'id', $origen);
+$tipo_servicio = $_POST['tipo_servicio'];
 
-@$latitud_destino= get_row('bodega', 'latitud', 'id', $destino);
-@$longitud_destino= get_row('bodega', 'longitud', 'id', $destino);
-@$localidad_destino= get_row('bodega', 'localidad', 'id', $destino);
-
-$valor=100;
-
-$largo = $_POST['largo'];
-$alto = $_POST['alto'];
-$kg = $_POST['kg'];
-$ancho = $_POST['ancho'];
-
-$telefono = $_POST['telefono'];
+$peso = $_POST['peso'];
+$cliente = $_POST['cliente'];
 
 
+$id_bodega_origen = $_POST['id_bodega_origen'];
+$id_bodega_destino = $_POST['id_bodega_destino'];
 
-$indicaciones = $_POST['indicaciones'];
+$ciudad_origen = $_POST['ciudad_origen'];
+$origen_lat = $_POST['origen_lat'];
+$origen_lon = $_POST['origen_lon'];
+$nombre_origen = $_POST['nombre_origen'];
+$telefono_origen = $_POST['telefono_origen'];
+$direccion_origen = $_POST['direccion_origen'];
 
-$referencia = $_POST['observacion'];
+$destino_lat = $_POST['destino_lat'];
+$destino_lon = $_POST['destino_lon'];
+$ciudad_destinatario = $_POST['ciudad_destinatario'];
+$nombre_destinatario = $_POST['nombre_destinatario'];
+$contacto_destinatario = $_POST['contacto_destinatario'];
+$direccion_destino = $_POST['direccion_destino'];
+$valor = $_POST['valor'];
+$peso = $_POST['peso'];
+$cod = $_POST['cod'];
+$seguro = $_POST['seguro'];
+$valor_seguro = $_POST['valor_seguro'];
+$valor_cobrar = $_POST['valor_cobrar'];
+$observacion = $_POST['observacion'];
+$distancia = $_POST['distancia'];
 
-$destinatario = $_POST['destinatario'];
+
 
   if($cod==1){
     $valor_cobrar = $_POST['valor_cobrar'];    
@@ -62,27 +60,26 @@ $destinatario = $_POST['destinatario'];
      $valor_seguro=0;   
     }
     
-        $sql_pedido="INSERT INTO `pedidos` ( `tipo`, `id_bodega_origen`, "
-                . "`id_bodega_destino`, `origen_localidad`, `origen_lat`, "
-                . "`origen_lon`, `destino_lat`, `destino_lon`, "
-                . "`destino_localidad`, `valor`, "
-                . "`peso`, `alto`, "
-                . "`largo`, `ancho`, `contraentrega`, "
-                . "`valor_cobrar`, `valor_seguro`, `id_tipo_servicio`, "
-                . "`id_driver`, `estado`,  "
-                . "`indicaciones`,   `telefono_destinatario`,"
-                . "`referencias_adicionales`, `nombre_destinatario`, `id_cliente`) VALUES "
-                . "('$id_tipo_servicio','$origen',"
-                . "'$destino','$localidad_origen','$latitud_origen',"
-                . "'$longitud_origen','$latitud_destino','$longitud_destino',"
-                . "'$localidad_destino','$valor',"
-                . "'$kg','$alto',"
-                . "'$largo','$ancho','$cod',"
-                . "'$valor_cobrar','$valor_seguro','$id_tipo_servicio',"
-                . "'0','1',"
-                . "'$indicaciones','$telefono',"
-                . "'$referencia','$destinatario','$cliente')";
-      // echo $sql_pedido;
+        $sql_pedido="INSERT INTO `pedidos` (`id_cliente`, `id_bodega_origen`, "
+                . "`id_bodega_destino`, `origen_ciudad`, `origen_lat`, "
+                . "`origen_lon`, `origen_nombre`, `origen_telefono`, "
+                . "`origen_direccion`, `destino_lat`, `destino_lon`, "
+                . "`destino_ciudad`, `destino_nombre`, `destino_telefono`, "
+                . "`destino_direccion`, `valor_pedido`, `peso`, "
+                . "`contraentrega`, `seguro`, `valor_cobrar`, "
+                . "`valor_seguro`, `id_tipo_servicio`, `id_driver`, `distancia`, "
+                . "`estado`,  `indicaciones`, "
+                . " `hora_pedido`) VALUES "
+                . "($cliente, $id_bodega_origen, "
+                . "$id_bodega_destino, '$ciudad_origen', '$origen_lat', "
+                . "'$origen_lon', '$nombre_origen', '$telefono_origen', "
+                . "'$direccion_origen', '$destino_lat', '$destino_lon', "
+                . "'$ciudad_destinatario', '$nombre_destinatario', '$contacto_destinatario',"
+                . " '$direccion_destino', '$valor', '$peso', "
+                . "'$cod', '$seguro', '$valor_cobrar',"
+                . " '$valor_seguro', '$tipo_servicio', '0','$distancia', "
+                . "'1',  '$observacion',  current_timestamp());";
+       //echo $sql_pedido;
         $insert_tmp = mysqli_query($conexion, $sql_pedido);
         $id_pedido = mysqli_insert_id($conexion);
         

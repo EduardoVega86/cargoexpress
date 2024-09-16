@@ -121,42 +121,34 @@
 					<a href="../html/new_cotizacion.php" class="waves-effect waves-primary"><i
 						class="ti-package"></i><span> Nuevo Envío </span></a>
 					</li>
+                                        
+                                           <li>
+					<a href="../html/ordenes.php" class="waves-effect waves-primary"><i
+						class="ti-receipt"></i><span> Órdenes </span></a>
+					</li>
+                                        
+                                         <li>
+					<a href="#" class="waves-effect waves-primary"><i
+						class="ti-bell"></i><span> Notificaciones </span></a>
+					</li>
   
                                                 <li class="has_sub">
 					<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-receipt"></i><span> Ordenes
 						</span> <span class="menu-arrow"></span></a>
 
-					<ul class="list-unstyled">
-						<!--li><a href="../html/new_cotizacion.php">Agregar Pedido</a></li-->
-						                        <li><a href="../html/ordenes.php">Órdenes</a></li>
-                                                <li><a href="#">Notificaciones</a></li>
-                                                <li><a href="#">Validación de Órdenes</a></li>
-                                                <li><a href="#">Directorio</a></li>
-	
-
-						
-
-
-
-					</ul>
+					
                                                     
 				</li>
-                               <li>
-					<a href="#" class="waves-effect waves-primary"><i
-						class="ti-map-alt"></i><span> Tracking </span></a>
-					</li>
-                               <li>
-					<a href="#" class="waves-effect waves-primary"><i
-						class="ti-ticket"></i><span> Guías Automáticas </span></a>
-					</li>
+                               
+                         
                                <li>
 					<a href="#" class="waves-effect waves-primary"><i
 						class="ti-list"></i><span> Movimientos </span></a>
 					</li>
-                               <li>
+                               <!--li>
 					<a href="#" class="waves-effect waves-primary"><i
 						class="ti-layout-media-overlay-alt-2"></i><span> Masivos </span></a>
-					</li>
+					</li-->
                                         <li class="has_sub">
 												<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-settings"></i><span> Configuración </span> <span class="menu-arrow"></span></a>
 												<ul class="list-unstyled">

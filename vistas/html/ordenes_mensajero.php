@@ -77,7 +77,7 @@ if (1 == 1) {
 												<option value="">-- Selecciona --</option>
 												<?php
 
-    $query_categoria = mysqli_query($conexion, "select * from estado");
+    $query_categoria = mysqli_query($conexion, "select * from estados");
     while ($rw = mysqli_fetch_array($query_categoria)) {
         ?>
 													<option value="<?php echo $rw['id_estado']; ?>"><?php echo $rw['estado']; ?></option>

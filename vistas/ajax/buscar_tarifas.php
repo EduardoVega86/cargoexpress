@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo '<div class="table-responsive">';
         echo '<table class="table table-sm table-striped">';
         echo '<thead class="info">';
-        echo '<tr><th>Servicio</th><th>Valor</th><th>Km Adicional</th><th>Volumen</th><th>Contra Entrega</th><th>Costo</th></tr>';
+        echo '<tr><th>Servicio</th><th>Valor</th><th>Km Adicional</th><th>Peso Kg</th><th>Contra Entrega</th><th>Costo</th></tr>';
         echo '</thead>';
         echo '<tbody>';
         while ($row = mysqli_fetch_assoc($query)) {

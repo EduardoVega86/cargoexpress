@@ -111,6 +111,22 @@
                      $("#id_pedido").val(id_pedido);
 		}
                 
+                function obtener_historial(id_pedido){
+                    //alert(id_pedido)
+                    page=1;
+                     $.ajax({
+		        url: '../ajax/buscar_historial.php?action=ajax&page=' + page + '&id_pedido=' + id_pedido,
+		        beforeSend: function(objeto) {
+		            $('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
+		        },
+		        success: function(data) {
+		            $('#historial_lista').html(data).fadeIn('slow');
+		       
+		        }
+		    })
+                    
+                }
+                
                 function asignar_mensajero() {
                     //alert(id)
                    

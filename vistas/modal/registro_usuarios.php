@@ -36,7 +36,7 @@ if (isset($conexion)) {
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="user_group_id" class="control-label">Grupo de permisos</label>
+									<label for="user_group_id" class="control-label">Rol</label>
 									<select class="form-control" name="user_group_id" id="user_group_id">
 										<?php
 $sql_grupos   = "select * from user_group";
@@ -53,29 +53,14 @@ $sql_grupos   = "select * from user_group";
 						</div>
 
 						<div class="row">
-							<div class="col-md-6">
+							<div class="col-md-12">
 								<div class="form-group">
 									<label for="user_email" class="control-label">Email:</label>
 									<input type="email" class="form-control" id="user_email" name="user_email">
+                                                                        <input type="hidden" value="1" class="form-control" id="sucursal" name="sucursal">
 								</div>
 							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="sucursal" class="control-label">Sucursal:</label>
-									<select class="form-control" name="sucursal" id="sucursal">
-									<option value="">-- Selecciona --</option>
-										<?php
-$sql_sucursal   = "select * from sucursales";
-    $query_sucursal = mysqli_query($conexion, $sql_sucursal);
-    while ($rw_sucursal = mysqli_fetch_array($query_sucursal)) {
-        ?>
-											<option value="<?php echo $rw_sucursal['id_sucursal']; ?>"><?php echo $rw_sucursal['nombre_sucursal']; ?></option>
-											<?php
-}
-    ?>
-									</select>
-								</div>
-							</div>
+							
 						</div>
 
 						<div class="row">

@@ -140,6 +140,105 @@ include "../modal/buscar_productos_ventas.php";
 	<!-- ============================================================== -->
 	<!-- End Right content here -->
 	<!-- ============================================================== -->
+<div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="locationModalLabel">Agregar Dirección</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <form id="addressForm">
+              <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" required>
+              </div>
+              <div class="mb-3">
+                <label for="ciudad" class="form-label">Ciudad</label>
+                <input type="text" class="form-control" id="ciudad" name="ciudad" required>
+              </div>
+              <div class="mb-3">
+                <label for="direccion" class="form-label">Dirección</label>
+                <input type="text" class="form-control" id="direccion" name="direccion" required>
+              </div>
+            </form>
+          </div>
+          <div class="col-md-6">
+            <div id="map"></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" onclick="guardarDatos()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let map;
+  let marker;
+  let geocoder;
+  let autocomplete;
+
+  function initMap() {
+    geocoder = new google.maps.Geocoder();
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: -0.1807, lng: -78.4678}, // Coordenadas de Quito, Ecuador
+      zoom: 14
+    });
+
+    marker = new google.maps.Marker({
+      map: map,
+      draggable: true
+    });
+
+    autocomplete = new google.maps.places.Autocomplete(document.getElementById('direccion'));
+    autocomplete.bindTo('bounds', map);
+
+    autocomplete.addListener('place_changed', function() {
+      let place = autocomplete.getPlace();
+      if (!place.geometry) {
+        alert("No se encontraron detalles de la dirección: '" + place.name + "'");
+        return;
+      }
+
+      map.setCenter(place.geometry.location);
+      map.setZoom(15);
+
+      marker.setPosition(place.geometry.location);
+    });
+
+    marker.addListener('dragend', function() {
+      geocoder.geocode({'location': marker.getPosition()}, function(results, status) {
+        if (status === 'OK') {
+          if (results[0]) {
+            document.getElementById('direccion').value = results[0].formatted_address;
+          } else {
+            alert('No se encontraron resultados');
+          }
+        } else {
+          alert('Geocoder falló debido a: ' + status);
+        }
+      });
+    });
+  }
+
+  function guardarDatos() {
+    // Aquí puedes agregar la lógica para guardar los datos
+    alert('Datos guardados');
+  }
+
+  // Inicializar el mapa cuando se abre el modal
+  $('#locationModal').on('shown.bs.modal', function () {
+    initMap();
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 
 </div>

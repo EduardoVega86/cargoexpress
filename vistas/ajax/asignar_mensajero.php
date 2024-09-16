@@ -13,15 +13,20 @@ if (empty($_POST['id_pedido'])) {
     $id_pedido  = intval($_POST['id_pedido']);
     $mensajero  = intval($_POST['mensajero']);
  
-   
+   $user_id  = $_SESSION['id_users'];
 
     //GURDAMOS LAS ENTRADAS EN EL KARDEX
     //$costo_producto = get_row('productos', 'moneda', 'id_perfil', 1);
    
-    $sql          = "UPDATE pedidos SET  id_driver='" . $mensajero . "' WHERE id_pedido='" . $id_pedido . "'";
+    $sql          = "UPDATE pedidos SET  id_driver= $mensajero, estado=2  WHERE id_pedido='" . $id_pedido . "'";
     //echo $sql;
     $update = mysqli_query($conexion, $sql);
     
+    $nombre_mensajero=get_row('users', 'nombre_users', 'id_users', $mensajero).' '.get_row('users', 'apellido_users', 'id_users', $mensajero);
+     $sql_insert = "INSERT INTO historial_pedido (observacion, imagen, id_pedido, id_usuario, id_estado, fecha) "
+             . "VALUES ('Se asigno el chofer $nombre_mensajero', '', '$id_pedido', '$user_id', '2', current_timestamp())";
+     $update = mysqli_query($conexion, $sql_insert);
+     
     if ($update) {
         echo "ok";
     } else {

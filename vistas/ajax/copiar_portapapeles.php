@@ -24,24 +24,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($row) {
                 // Obtener los valores necesarios de la base de datos
-                $destinatario = get_row('bodega', 'nombre', 'id',  $row['id_bodega_destino']);
                 
-                $origen = get_row('bodega', 'direccion', 'id', $row['id_bodega_origen']);
-                $destino = get_row('bodega', 'direccion', 'id', $row['id_bodega_destino']);
-                $telefono = $row['telefono_destinatario'];
+                $destinatario =  $row['destino_nombre'];
+                
+                $remitente =  $row['origen_nombre'];
+                
+                $origen = $row['origen_direccion'];
+                $destino = $row['destino_direccion'];
+                $telefono_origen = $row['origen_telefono'];
+                $telefono = $row['destino_telefono'];
+                
                 $fecha = $row['fecha'];
                 $estado = get_row('estados', 'estado', 'id_estado', $row['estado']);
                 $mensajero = ($row['id_driver'] == 0) ? 'NO ASIGNADO' : get_row('users', 'nombre_users', 'id_users', $row['id_driver']) . ' ' . get_row('users', 'apellido_users', 'id_users', $row['id_driver']);
 
+                $origen_lat=$row['origen_lat'];
+                $origen_lon=$row['origen_lon'];
+                $destino_lat=$row['destino_lat'];
+                $destino_lon=$row['destino_lon'];
+                 $indicaciones=$row['indicaciones'];
+                
+                        
+                
                 // Formatear la respuesta según el formato especificado
                 $response .= "ID: $id\n";
+                $response .= "Remitente: $remitente\n";
+                $response .= "Direccion: $origen\n";
+                $response .= "Ubicación: https://www.google.com/maps?q=".$origen_lat.",".$origen_lon."\n";
+                $response .= "Telefono: $telefono_origen\n";
+                 $response .= "______________\n";
                 $response .= "Destinatario: $destinatario\n";
-                $response .= "Origen: $origen\n";
                 $response .= "Destino: $destino\n";
+                $response .= "Ubicación: https://www.google.com/maps?q=".$destino_lat.",".$destino_lon."\n";
                 $response .= "Teléfono: $telefono\n";
                 $response .= "Fecha: $fecha\n";
-                $response .= "Estado: $estado\n";
-                $response .= "Mensajero: $mensajero\n";
+                $response .= "Indicaciones: $indicaciones\n";
                 $response .= "-------------------------\n";
             }
         }

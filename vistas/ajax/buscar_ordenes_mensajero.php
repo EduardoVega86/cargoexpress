@@ -74,7 +74,7 @@ if ($action == 'ajax') {
                 <th>Destino</th>
                  <th>Estado</th>
                  <th>Mensajero</th>
-                  <th>Fecha</th>
+                 <th>Fecha</th>
                  
                
                              
@@ -84,11 +84,11 @@ if ($action == 'ajax') {
             <?php
 while ($row = mysqli_fetch_array($query)) {
             $id          = $row['id_pedido'];
-            $nombre      = $row['nombre_destinatario'];
+            $nombre      = $row['destino_nombre'];
             $origen     = $row['id_bodega_origen'];
             $destino = $row['id_bodega_destino'];
          
-            $telefono      = $row['telefono_destinatario'];
+            $telefono      = $row['destino_telefono'];
             $fecha      = $row['fecha'];
             $id_estado      = $row['estado'];
             
@@ -104,8 +104,8 @@ while ($row = mysqli_fetch_array($query)) {
             } else {
                 $estado = "<span class='badge badge-danger'>Inactivo</span>";
             }*/
-            $direccion_origen= get_row('bodega', 'direccion', 'id', $origen);
-            $direccio_destino= get_row('bodega', 'direccion', 'id', $destino);
+            $direccion_origen= $row['origen_direccion'];
+            $direccio_destino= $row['destino_direccion'];
                     
                     if($id_driver==0){
                      $driver='NO ASIGNADO'  ; 

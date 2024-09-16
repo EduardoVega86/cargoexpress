@@ -55,7 +55,7 @@ permisos($modulo, $cadena_permisos);
 <?php
 if ($permisos_editar == 1) {
         include '../modal/registro_mensajero.php';
-        include "../modal/editar_cliente.php";
+        include "../modal/historial_pedido.php";
         include "../modal/eliminar_cliente.php";
     }
     ?>
@@ -203,6 +203,7 @@ if ($permisos_editar == 1) {
 
       </script>
       <script type="text/javascript">
+         
       	function reporte(){
 		var q=$("#q").val();
 		VentanaCentrada('../pdf/documentos/rep_clientes.php?q='+q,'Reporte','','800','600','true');

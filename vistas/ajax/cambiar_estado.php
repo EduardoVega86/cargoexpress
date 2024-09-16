@@ -13,8 +13,8 @@ include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a 
     $id_pedido = $_POST['id_pedido'];
     $id_estado = $_POST['estado'];
     $observacion = $_POST['observacion'];
-    $id_usuario = 1; // Suponiendo que el ID del usuario es 1. Ajusta esto según tu lógica.
-
+   // $id_usuario = 1; // Suponiendo que el ID del usuario es 1. Ajusta esto según tu lógica.
+$user_id  = $_SESSION['id_users'];
     // Procesar la subida del archivo
     $imagen = '';
     if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == UPLOAD_ERR_OK) {
@@ -33,7 +33,7 @@ include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a 
     //echo $sql_update;
     if (mysqli_query($conexion, $sql_update)) {
         // Insertar en la tabla historial_pedido
-        $sql_insert = "INSERT INTO historial_pedido (observacion, imagen, id_pedido, id_usuario, id_estado, fecha) VALUES ('$observacion', '$imagen', '$id_pedido', '$id_usuario', '$id_estado', current_timestamp())";
+        $sql_insert = "INSERT INTO historial_pedido (observacion, imagen, id_pedido, id_usuario, id_estado, fecha) VALUES ('$observacion', '$imagen', '$id_pedido', '$user_id', '$id_estado', current_timestamp())";
         if (mysqli_query($conexion, $sql_insert)) {
             echo json_encode(['status' => 'ok']);
         } else {

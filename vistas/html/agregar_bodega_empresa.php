@@ -16,6 +16,9 @@ get_cadena($user_id);
 $modulo = "Bodegas Empresa";
 permisos($modulo, $cadena_permisos);
 $id=$_GET['id'];
+$suc=$_GET['suc'];
+
+$suc = isset($_GET['suc']) ? 1 : 0;
 
 //Finaliza Control de Permisos
 ?>
@@ -71,6 +74,8 @@ $id=$_GET['id'];
                                                                                     }else{
     ?>
                                                                                     <input id="empresa" name="empresa" class="form-control " type="hidden" value="<?php echo $user_id; ?>">
+                                                                                    
+                                                                                    <input id="sucursal" name="sucursal" class="form-control " type="hidden" value="<?php echo $suc; ?>">
                                  <?php
                                                                                         
                                                                                     }
