@@ -118,7 +118,7 @@
 						class="ti-layout"></i><span> Recolecciones </span></a>
 					</li>
                                 <li>
-					<a href="../html/new_cotizacion.php" class="waves-effect waves-primary"><i
+					<a href="../html/clientes.php" class="waves-effect waves-primary"><i
 						class="ti-package"></i><span> Nuevo Envío </span></a>
 					</li>
                                         
