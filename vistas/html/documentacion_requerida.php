@@ -74,24 +74,7 @@ if ($permisos_editar == 1) {
 												</div>
 											</div>
                                                                             <div class="col-md-3">
-												<div class="input-group">
-													<select name='categoria' id='categoria' class="form-control" onchange="load(1);">
-														<option value="">-- Selecciona Proceso --</option>
-														<option value="">Todos</option>
-														<?php
-
-    $query_categoria = mysqli_query($conexion, "select * from doctype order by name");
-    while ($rw = mysqli_fetch_array($query_categoria)) {
-        ?>
-															<option value="<?php echo $rw['id']; ?>"><?php echo $rw['name']; ?></option>
-															<?php
-}
-    ?>
-													</select>
-													<span class="input-group-btn">
-														<button class="btn btn-outline-info btn-rounded waves-effect waves-light" type="button" onclick='load(1);'><i class='fa fa-search'></i></button>
-													</span>
-												</div>
+												
 												</div>
 											<div class="col-md-3">
 												<span id="loader"></span>

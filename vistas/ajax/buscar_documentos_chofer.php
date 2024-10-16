@@ -26,7 +26,7 @@ if ($action == 'ajax') {
     //$q        = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
     $aColumns = array(''); //Columnas de busqueda
     $sTable   = "docrequire";
-    $sWhere   = "where doctype_id =4";
+    $sWhere   = "where doctype_id =1";
     
     $sWhere .= " order by id";
     include 'pagination.php'; //include pagination file

@@ -83,7 +83,10 @@ while ($row = mysqli_fetch_array($query)) {
             ?>
 
     <input type="hidden" value="<?php echo $nombre; ?>" id="nombre<?php echo $id_linea; ?>">
-    <input type="hidden" value="<?php echo $dotype; ?>" id="descripcion<?php echo $id_linea; ?>">
+    
+    <input type="hidden" value="<?php echo $nombre; ?>" id="nombre<?php echo $id_linea; ?>">
+    <input type="hidden" value="<?php echo $nombre; ?>" id="nombre<?php echo $id_linea; ?>">
+    
     <input type="hidden" value="<?php echo $estado_linea; ?>" id="estado<?php echo $id_linea; ?>">
 
     <tr>

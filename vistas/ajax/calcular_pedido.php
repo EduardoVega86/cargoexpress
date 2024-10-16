@@ -1,7 +1,5 @@
 <?php
-/*-------------------------
 
----------------------------*/
 include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 $session_id = session_id();
 /* Connect To Database*/
@@ -59,8 +57,10 @@ if (!empty($id_tipo_servicio)) {
    $valor_base_km = get_row2('servicios_empresa', 'valor', 'id_servicio', $tipo_servicio, 'id_empresa', $id_empresa);
    $valor_adicional = get_row2('servicios_empresa', 'km_adicional', 'id_servicio', $tipo_servicio, 'id_empresa', $id_empresa);
    $valor_adicional_peso = get_row2('servicios_empresa', 'volumen', 'id_servicio', $tipo_servicio, 'id_empresa', $id_empresa);
+   $peso=$_POST['kg'];
    
-    if ($distancia_total > 5) {
+   if($tipo_servicio==1){
+       if ($distancia_total > 5) {
     // Calculamos los km adicionales
     $km_adicionales = $distancia_total - 5;
     
@@ -70,12 +70,23 @@ if (!empty($id_tipo_servicio)) {
     // Si no hay km adicionales, el valor total es solo el valor base
     $valor_total = $valor_base_km;
 }
-
-$peso=$_POST['kg'];
-        
+     
    if ($peso > 5) {
     // Calculamos los km adicionales
     $kg_adicional = $peso - 5;
+// Sumar el valor adicional por cada km extra
+    $valor_total = $valor_total + ($kg_adicional * $valor_adicional_peso);
+} else {
+    // Si no hay km adicionales, el valor total es solo el valor base
+    $valor_total = $valor_total;
+}
+}
+
+if($tipo_servicio==2){
+   $valor_total = $valor_base_km; 
+    if ($peso > 2) {
+    // Calculamos los km adicionales
+    $kg_adicional = $peso - 2;
     
     // Sumar el valor adicional por cada km extra
     $valor_total = $valor_total + ($kg_adicional * $valor_adicional_peso);
@@ -83,7 +94,72 @@ $peso=$_POST['kg'];
     // Si no hay km adicionales, el valor total es solo el valor base
     $valor_total = $valor_total;
 }
+}
 
+if($tipo_servicio==3){
+   $valor_total = $valor_base_km; 
+    if ($peso > 2) {
+    // Calculamos los km adicionales
+    $kg_adicional = $peso - 2;
+    
+    // Sumar el valor adicional por cada km extra
+    $valor_total = $valor_total + ($kg_adicional * $valor_adicional_peso);
+} else {
+    // Si no hay km adicionales, el valor total es solo el valor base
+    $valor_total = $valor_total;
+}
+}
+
+if($tipo_servicio==4){
+       if ($distancia_total > 5) {
+    // Calculamos los km adicionales
+    $km_adicionales = $distancia_total - 5;
+    
+    // Sumar el valor adicional por cada km extra
+    $valor_total = $valor_base_km + ($km_adicionales * $valor_adicional);
+} else {
+    // Si no hay km adicionales, el valor total es solo el valor base
+    $valor_total = $valor_base_km;
+}
+     
+   if ($peso > 5) {
+    // Calculamos los km adicionales
+    $kg_adicional = $peso - 5;
+// Sumar el valor adicional por cada km extra
+    $valor_total = $valor_total + ($kg_adicional * $valor_adicional_peso);
+} else {
+    // Si no hay km adicionales, el valor total es solo el valor base
+    $valor_total = $valor_total;
+}
+}
+
+if($tipo_servicio==5){
+   $valor_total = $valor_base_km; 
+    if ($peso > 2) {
+    // Calculamos los km adicionales
+    $kg_adicional = $peso - 2;
+    
+    // Sumar el valor adicional por cada km extra
+    $valor_total = $valor_total + ($kg_adicional * $valor_adicional_peso);
+} else {
+    // Si no hay km adicionales, el valor total es solo el valor base
+    $valor_total = $valor_total;
+}
+}
+
+if($tipo_servicio==6){
+   $valor_total = $valor_base_km; 
+    if ($peso > 2) {
+    // Calculamos los km adicionales
+    $kg_adicional = $peso - 2;
+    
+    // Sumar el valor adicional por cada km extra
+    $valor_total = $valor_total + ($kg_adicional * $valor_adicional_peso);
+} else {
+    // Si no hay km adicionales, el valor total es solo el valor base
+    $valor_total = $valor_total;
+}
+}
 
 @$valor_calculado=$valor_total;
     

@@ -13,29 +13,13 @@ if (isset($conexion)) {
 						<div id="resultados_ajax"></div>
 
 						<div class="row">
-							<div class="col-md-6">
+							<div class="col-md-12">
 								<div class="form-group">
 									<label for="nombre" class="control-label">Nombre:</label>
 									<input type="text" class="form-control UpperCase" id="nombre" name="nombre"  autocomplete="off" required>
 								</div>
 							</div>
-                                                    <div class="col-md-6">
-								<div class="form-group">
-									<label for="nombre" class="control-label">Proceso:</label>
-									<select class='form-control' name='proceso' id='proceso' required>
-												<option value="">-- Selecciona --</option>
-												<?php
-
-    $query_categoria = mysqli_query($conexion, "select * from doctype;");
-    while ($rw = mysqli_fetch_array($query_categoria)) {
-        ?>
-													<option value="<?php echo $rw['id']; ?>"><?php echo $rw['name']; ?></option>
-													<?php
-}
-    ?>
-											</select>
-								</div>
-							</div>
+                                                    
 						</div>
 
 						<div class="row">

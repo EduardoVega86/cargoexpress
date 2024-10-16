@@ -26,7 +26,7 @@ if ($action == 'ajax') {
     $q        = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
     $aColumns = array(''); //Columnas de busqueda
  $sTable   = "docrequire";
-    $sWhere   = "where doctype_id =2";
+    $sWhere   = "where doctype_id =1";
     if ($_GET['q'] != "") {
         $sWhere = "WHERE (";
         for ($i = 0; $i < count($aColumns); $i++) {
